@@ -20,10 +20,10 @@ public class Main extends Application {
         //Stage je prozor koji ce biti kreiran
         //Scene je sadrzaj prozora
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ll.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/newFXML.fxml"));
         // start metoda kreira scenu prema prilozenom fxml fajlu
         //primaryStage.setTitle("Welcome");
-        primaryStage.setResizable(false);
+       // primaryStage.setResizable(false);
 
         primaryStage.setScene(new Scene(root));
 

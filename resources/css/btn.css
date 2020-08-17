@@ -1,0 +1,41 @@
+#btnDashboard {
+    -fx-background-image: url("../img/dashboard_icon.png");
+    -fx-background-size: 23 23;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
+
+#btnItems {
+    -fx-background-image: url("../img/dashboard_icon.png");
+    -fx-background-size: 23 23;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
+
+#btnFirms {
+    -fx-background-image: url("../img/dashboard_icon.png");
+    -fx-background-size: 23 23;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
+
+#btnShipping {
+    -fx-background-image: url("../img/dashboard_icon.png");
+    -fx-background-size: 23 23;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
+
+#btnAccounts {
+    -fx-background-image: url("../img/dashboard_icon.png");
+    -fx-background-size: 23 23;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
+
+#btnAdmin {
+    -fx-background-image: url("../img/dashboard_icon.png");
+    -fx-background-size: 23 23;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
