@@ -8,28 +8,30 @@
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <items>
-      <GridPane>
+<!--<SplitPane fx:id="splitPane" dividerPositions="0.30209205020920504" prefHeight="700.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">-->
+
+<SplitPane fx:id="splitPane" dividerPositions="0.299581589958159" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">
+   <items>
+      <GridPane fx:id="leftPane" stylesheets="@../css/base.css" SplitPane.resizableWithParent="false">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="395.0" minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="395.0" minHeight="0.0" prefHeight="56.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="591.0" minHeight="10.0" prefHeight="346.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="591.0" minHeight="10.0" prefHeight="202.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="591.0" minHeight="10.0" prefHeight="409.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="591.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="591.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane>
+            <GridPane pickOnBounds="false" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,10 +42,10 @@
                <children>
                   <ImageView fitHeight="125.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
-                        <Image url="@../img/wms_logo2.png" />
+                        <Image url="@../img/home_img/wms_logo2.png" />
                      </image>
                   </ImageView>
-                  <GridPane GridPane.columnIndex="1">
+                  <GridPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -72,9 +74,9 @@
                   </GridPane>
                </children>
             </GridPane>
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+            <VBox prefHeight="406.0" prefWidth="357.0" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Dashboard">
+                  <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/btn.css" text="Dashboard" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -91,8 +93,11 @@
                            </font>
                         </Tooltip>
                      </tooltip>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </Button>
-                  <Button fx:id="btnItems" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Items">
+                  <Button fx:id="btnItems" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Items" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -110,7 +115,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnFirms" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Firms">
+                  <Button fx:id="btnFirms" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Firms" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -126,8 +131,9 @@
                               <Font name="FreeSerif" size="15.0" />
                            </font>
                         </Tooltip>
-                     </tooltip></Button>
-                  <Button fx:id="btnShipping" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Shipping">
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="btnShipping" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Shipping" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -143,8 +149,9 @@
                               <Font name="FreeSerif" size="15.0" />
                            </font>
                         </Tooltip>
-                     </tooltip></Button>
-                  <Button fx:id="btnAccounts" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Employee Accounts">
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="btnAccounts" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Employee Accounts" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -160,8 +167,9 @@
                               <Font name="FreeSerif" size="15.0" />
                            </font>
                         </Tooltip>
-                     </tooltip></Button>
-                  <Button fx:id="btnAdmin" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Admin">
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="btnAdmin" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Admin" VBox.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="15.0" left="130.0" right="166.0" top="15.0" />
                      </padding>
@@ -177,53 +185,36 @@
                               <Font name="FreeSerif" size="15.0" />
                            </font>
                         </Tooltip>
-                     </tooltip></Button>
-               </children>
-            </VBox>
-            <Line endX="251.2928924560547" endY="0.7928932309150696" startX="-100.0" GridPane.rowIndex="1" />
-            <GridPane prefHeight="153.0" prefWidth="352.0" GridPane.rowIndex="3">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="145.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="207.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="114.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="94.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="btnLogOut" mnemonicParsing="false" style="-fx-background-radius: 50; -fx-border-radius: 50;" GridPane.halignment="CENTER" GridPane.rowSpan="2">
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="btnLogOut" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Log Out">
+                     <padding>
+                        <Insets bottom="15.0" left="130.0" right="155.0" top="15.0" />
+                     </padding>
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/btn_logOut.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <tooltip>
-                        <Tooltip text="Log Out">
-                           <font>
-                              <Font name="FreeSerif" size="15.0" />
-                           </font>
-                        </Tooltip>
-                     </tooltip>
                   </Button>
-                  <Label text="Logged in as : " wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="FreeSerif Bold" size="17.0" />
-                     </font>
-                  </Label>
-                  <Label text="Access level : " wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="FreeSerif Bold" size="17.0" />
-                     </font>
-                  </Label>
                </children>
-            </GridPane>
+            </VBox>
+            <Label fx:id="loggedLabel" text="Logged in as :" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="FreeSerif Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="accessLabel" text="Access level :" GridPane.rowIndex="4">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="FreeSerif Bold" size="17.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+      <Pane fx:id="rightPane" prefHeight="200.0" prefWidth="200.0" />
   </items>
 </SplitPane>

@@ -1,13 +1,19 @@
 package ba.unsa.etf.rpr.Controllers;
 
 
+import ba.unsa.etf.rpr.Model.Employee;
+import ba.unsa.etf.rpr.Model.Users;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class LogInController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LogInController implements Initializable {
 
     public PasswordField loggerPassword;
     public TextField loggerUsername;
@@ -18,8 +24,17 @@ public class LogInController {
     public Button buttonLogIn;
     public Label requiredLabel;
 
-    @FXML
-    public void initialize() {
+    private Employee employee = null;
+    private Users users;
+    private String password;
+
+    public LogInController(Users m) {
+        users = m;
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         loggerPassword.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String o, String n) {
@@ -28,6 +43,8 @@ public class LogInController {
                 if (is_Valid_Password(n) ) {
                     loggerPassword.getStyleClass().removeAll("poljeNijeIspravno");
                     loggerPassword.getStyleClass().add("poljeIspravno");
+//                    password = loggerPassword.getText();
+
                 } else if(loggerPassword.getText().length() == 0)  {
                     loggerPassword.getStyleClass().removeAll("poljeNijeIspravno");
                     loggerPassword.getStyleClass().removeAll("poljeIspravno");
@@ -39,6 +56,7 @@ public class LogInController {
             }
         });
     }
+
 
     @FXML
     public void checkPasswordMask()
@@ -85,10 +103,12 @@ public class LogInController {
     public void onLogInButtonClicked(ActionEvent actionEvent) {
         if(loggerUsername.getText().length() == 0 || loggerPassword.getText().length() == 0) {
             requiredLabel.setVisible(true);
-        } else {
+        }
+//        else if(is_Valid_Password(password)) {
+//             users.setCurrentEmployee(employee);
+//        }
+        else {
             requiredLabel.setVisible(false);
         }
-
     }
-
 }

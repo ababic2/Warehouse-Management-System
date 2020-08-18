@@ -19,15 +19,24 @@ public class Main extends Application {
         //pokrece kreiranje objekata
         //Stage je prozor koji ce biti kreiran
         //Scene je sadrzaj prozora
+//        Users users = new Users();
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logInFinal.fxml"));
+//        loader.setController(new LogInController(users));
+//        Parent root = loader.load();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/newFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+
+       // Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
         // start metoda kreira scenu prema prilozenom fxml fajlu
         //primaryStage.setTitle("Welcome");
        // primaryStage.setResizable(false);
 
-        primaryStage.setScene(new Scene(root));
-
-        primaryStage.show();
+//        primaryStage.setScene(new Scene(root));
+//
+//        primaryStage.show();
     }
 
 

@@ -4,18 +4,19 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Employee {
 
-    private SimpleStringProperty username;
-    private SimpleStringProperty pass;
-    private SimpleStringProperty email;
+    private SimpleStringProperty username = new SimpleStringProperty("");
+    private SimpleStringProperty pass = new SimpleStringProperty("");
+
+    //private SimpleStringProperty email;
     private enum access {ADMIN, EMPLOYEE};
 
     public Employee() {
     }
 
-    public Employee(SimpleStringProperty username, SimpleStringProperty pass, SimpleStringProperty email) {
+    public Employee(SimpleStringProperty username, SimpleStringProperty pass) {
         this.username = username;
         this.pass = pass;
-        this.email = email;
+        //this.email = email;
     }
 
     public String getUsername() {
@@ -42,15 +43,15 @@ public class Employee {
         this.pass.set(pass);
     }
 
-    public String getEmail() {
-        return email.get();
-    }
-
-    public SimpleStringProperty emailProperty() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email.set(email);
-    }
+//    public String getEmail() {
+//        return email.get();
+//    }
+//
+//    public SimpleStringProperty emailProperty() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email.set(email);
+//    }
 }

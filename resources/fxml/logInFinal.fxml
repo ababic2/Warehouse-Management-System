@@ -37,14 +37,14 @@
       </Label>
       <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../img/user_icon.png" />
+            <Image url="@../img/home_img/user_icon.png" />
          </image>
          <cursor>
             <Cursor fx:constant="NONE" />
          </cursor></ImageView>
       <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <image>
-            <Image url="@../img/pass_icon.png" />
+            <Image url="@../img/home_img/pass_icon.png" />
          </image>
          <cursor>
             <Cursor fx:constant="NONE" />

@@ -1,0 +1,53 @@
+#dashBoardLabel {
+    -fx-background-image: url("../img/dashboard_img/homeDash.png");
+    -fx-background-size: 50 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-font-family: FreeSerif;
+    -fx-font-size: 40;
+    -fx-text-alignment: center;
+    -fx-underline: true;
+}
+
+#labelEmployees {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: darkgray;
+}
+
+#insideGrid {
+    -fx-background-color: #aeaeb3;
+}
+
+#labelFirms {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: darkgray;
+}
+
+#labelLowStock {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: darkgray;
+}
+
+#labelItems {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: darkgray;
+}
+
+.button {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-border-radius: 30%;
+    -fx-background-radius: 30%;
+}
