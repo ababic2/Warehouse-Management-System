@@ -3,12 +3,15 @@ package ba.unsa.etf.rpr.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -66,21 +69,21 @@ public class HomeController {
 
     //when log out is clicked then log in will appear
     private void logOut() {
-//        Stage current =  (Stage)loggedLabel.getScene().getWindow();
-//        current.close();
-//
-//        try {
-//            // Setting login window
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/log_in.fxml"));
-//
-//            Scene scene = new Scene(root);
-//            Stage logInPrompt = new Stage();
-//            logInPrompt.setScene(scene);
-//            logInPrompt.show();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        Stage current =  (Stage)loggedLabel.getScene().getWindow();
+        current.close();
+
+        try {
+            // Setting login window
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/log_in.fxml"));
+
+            Scene scene = new Scene(root);
+            Stage logInPrompt = new Stage();
+            logInPrompt.setScene(scene);
+            logInPrompt.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
