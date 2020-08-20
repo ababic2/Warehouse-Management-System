@@ -1,0 +1,27 @@
+#itemDetailLabel {
+    -fx-background-image: url("../img/itemDetail_img.png");
+    -fx-background-size: 50 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-font-family: FreeSerif;
+    -fx-font-size: 40;
+    -fx-text-alignment: center;
+    -fx-underline: true;
+}
+
+#searchField {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-size: 50%;
+}
+
+.button {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-border-radius: 30%;
+    -fx-background-radius: 30%;
+}
+
+#insideGrid {
+    -fx-background-color: #aeaeb3;
+}

@@ -97,7 +97,7 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnItems" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Items" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnItems" onAction="#btnNavigator" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Items" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -115,7 +115,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnFirms" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Firms" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnFirms" onAction="#btnNavigator"  alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Firms" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>

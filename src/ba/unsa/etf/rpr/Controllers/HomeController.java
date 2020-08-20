@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -23,6 +24,7 @@ public class HomeController {
     private static String username = "";
     private static String accessLevel = "";
     private HashMap<String, String> views = new HashMap<>();
+    private TextField haha;
 
 
     @FXML
@@ -37,14 +39,9 @@ public class HomeController {
     }
 
     private void loadViews() {
-        //views.put("Dashboard", "/main/resources/fxml/logInFinal.fxml");
-//        views.put("Items", "/main/resources/view/inventory.fxml");
-//        views.put("Customers", "/main/resources/view/customer.fxml");
-//        views.put("Sells", "/main/resources/view/sells.fxml");
-//        views.put("Rentals", "/main/resources/view/rentals.fxml");
-//        views.put("Accounts", "/main/resources/view/accounts.fxml");
-//        views.put("Administrative", "/main/resources/view/administrator.fxml");
-//        views.put("Update Due", "/main/resources/view/dueupdate.fxml");
+        views.put("Dashboard", "/fxml/dashboard.fxml");
+        views.put("Items", "/fxml/itemDetails.fxml");
+        views.put("Firms", "/fxml/firmDetails.fxml");
     }
 
     @FXML
@@ -53,11 +50,9 @@ public class HomeController {
 
         Button btn = (Button)event.getSource();
 
-        // Getting navigation button label
+
         String btnText = btn.getText();
 
-        // Checking which button is clicked from the map
-        // and navigating to respective menu
         try {
             ctrlRightPane(views.get(btnText));
         } catch (IOException e) {
