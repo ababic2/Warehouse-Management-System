@@ -39,9 +39,10 @@ public class HomeController {
     }
 
     private void loadViews() {
-        views.put("Dashboard", "/fxml/nekiNoviDash.fxml");
+        views.put("Dashboard", "/fxml/dashboard.fxml");
         views.put("Items", "/fxml/itemDetails.fxml");
         views.put("Firms", "/fxml/firmDetails.fxml");
+        views.put("Employees", "/fxml/employeeAccount.fxml");
     }
 
     @FXML

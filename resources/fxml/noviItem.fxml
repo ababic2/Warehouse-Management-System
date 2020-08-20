@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <BorderPane prefHeight="800.0" prefWidth="800.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <left>
+            <VBox spacing="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label text="Employee id :">
+                           <font>
+                              <Font name="FreeSerif" size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="5" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0">
+                     <children>
+                        <Label text="Name :" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="FreeSerif" size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <TextField disable="true" promptText="Item Name">
+                           <padding>
+                              <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox spacing="21.0">
+                     <children>
+                        <Label text="E - mail :">
+                           <font>
+                              <Font name="FreeSerif" size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="5">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox spacing="21.0">
+                     <children>
+                        <Label text="Salary :">
+                           <font>
+                              <Font name="FreeSerif" size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="5">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox spacing="30.0">
+                     <children>
+                        <Label text="Derpartment :">
+                           <font>
+                              <Font name="FreeSerif" size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <TextField disable="true" promptText="Item Type">
+                           <padding>
+                              <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox spacing="28.0">
+                     <children>
+                        <Label text="Hire Date :">
+                           <font>
+                              <Font name="FreeSerif" size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <TextField disable="true" promptText="Price">
+                           <padding>
+                              <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="50.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <VBox spacing="60.0">
+                     <children>
+                        <TextField fx:id="searchField" promptText="search Items" stylesheets="@../css/firmDetails.css" VBox.vgrow="ALWAYS">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                        <GridPane prefHeight="271.0" prefWidth="180.0" VBox.vgrow="NEVER">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="149.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="149.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ToggleButton mnemonicParsing="false" prefHeight="50.0" prefWidth="20.0" stylesheets="@../css/firmDetails.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="40.0" top="10.0" />
+                                 </padding>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Can edit if you are logged in as admin" />
+                                 </tooltip>
+                              </ToggleButton>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@../css/firmDetails.css" text="Delete" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <padding>
+                                    <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
+                                 </padding>
+                                 <tooltip>
+                                    <Tooltip text="Delete this firm" />
+                                 </tooltip>
+                              </Button>
+                           </children>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="75.0" right="10.0" top="50.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </GridPane>
+         </center>
+         <top>
+            <GridPane fx:id="insideGrid" stylesheets="@../css/firmDetails.css" BorderPane.alignment="BOTTOM_CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="firmDetailsLabel" stylesheets="@../css/firmDetails.css" text="Employee" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
+                     </padding>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </GridPane>
+         </top>
+      </BorderPane>
+   </children>
+</GridPane>
