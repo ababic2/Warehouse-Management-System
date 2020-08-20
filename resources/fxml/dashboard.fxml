@@ -23,7 +23,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="firmDetailsLabel" stylesheets="@../css/firmDetails.css" text="Dashboard" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <Label fx:id="dashboardLabel" stylesheets="@../css/dashBoard.css" text="Dashboard" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
                      </padding>

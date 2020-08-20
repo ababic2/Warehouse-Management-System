@@ -1,5 +1,5 @@
-#itemDetailLabel {
-    -fx-background-image: url("../img/rightPaneName/itemDetail_img.png");
+#employeeLabel {
+    -fx-background-image: url("../img/rightPaneName/employee_Right.png");
     -fx-background-size: 50 50;
     -fx-background-repeat: no-repeat;
     -fx-background-position:left;
@@ -7,14 +7,6 @@
     -fx-font-size: 40;
     -fx-text-alignment: center;
     -fx-underline: true;
-}
-
-#labelEmployees {
-    -fx-font-size: 20;
-    -fx-font-family: FreeSerif;
-    -fx-background-radius: 50%;
-    -fx-border-radius: 50%;
-    -fx-background-color: darkgray;
 }
 
 #insideGrid {

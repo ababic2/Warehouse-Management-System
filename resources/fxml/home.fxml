@@ -151,7 +151,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnAccounts" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Employee Accounts" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnAccounts" onAction="#btnNavigator" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Employee Accounts" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -187,7 +187,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnLogOut" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Log Out">
+                  <Button fx:id="btnLogOut" onAction="#btnNavigator" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Log Out">
                      <padding>
                         <Insets bottom="15.0" left="130.0" right="155.0" top="15.0" />
                      </padding>

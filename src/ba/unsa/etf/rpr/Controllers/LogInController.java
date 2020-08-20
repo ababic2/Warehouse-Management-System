@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.Controllers;
 
 
 import ba.unsa.etf.rpr.Model.Employee;
-import ba.unsa.etf.rpr.Model.Users;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -25,12 +24,7 @@ public class LogInController implements Initializable {
     public Label requiredLabel;
 
     private Employee employee = null;
-    private Users users;
     private String password;
-
-    public LogInController(Users m) {
-        users = m;
-    }
 
 
     @Override

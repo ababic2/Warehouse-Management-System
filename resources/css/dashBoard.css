@@ -1,5 +1,5 @@
-#dashBoardLabel {
-    -fx-background-image: url("../img/dashboard_img/homeDash.png");
+#dashboardLabel {
+    -fx-background-image: url("../img/rightPaneName/homeDash.png");
     -fx-background-size: 50 50;
     -fx-background-repeat: no-repeat;
     -fx-background-position:left;

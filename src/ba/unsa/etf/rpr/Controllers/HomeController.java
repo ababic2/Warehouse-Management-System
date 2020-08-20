@@ -42,7 +42,7 @@ public class HomeController {
         views.put("Dashboard", "/fxml/dashboard.fxml");
         views.put("Items", "/fxml/itemDetails.fxml");
         views.put("Firms", "/fxml/firmDetails.fxml");
-        views.put("Employees", "/fxml/employeeAccount.fxml");
+        views.put("Employee Accounts", "/fxml/employeeAccount.fxml");
     }
 
     @FXML
@@ -53,12 +53,34 @@ public class HomeController {
 
 
         String btnText = btn.getText();
+        if(btnText.equals("Log Out")) logOut();
+        else {
 
-        try {
-            ctrlRightPane(views.get(btnText));
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                ctrlRightPane(views.get(btnText));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    //when log out is clicked then log in will appear
+    private void logOut() {
+//        Stage current =  (Stage)loggedLabel.getScene().getWindow();
+//        current.close();
+//
+//        try {
+//            // Setting login window
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/log_in.fxml"));
+//
+//            Scene scene = new Scene(root);
+//            Stage logInPrompt = new Stage();
+//            logInPrompt.setScene(scene);
+//            logInPrompt.show();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @FXML
