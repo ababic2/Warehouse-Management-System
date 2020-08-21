@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 
-import ba.unsa.etf.rpr.Model.Employee;
+import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
