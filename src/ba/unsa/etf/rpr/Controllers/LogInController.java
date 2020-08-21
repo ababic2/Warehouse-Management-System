@@ -33,22 +33,24 @@ public class LogInController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String o, String n) {
                 requiredLabel.setVisible(false);
-
-                if (is_Valid_Password(n) ) {
-                    loggerPassword.getStyleClass().removeAll("poljeNijeIspravno");
-                    loggerPassword.getStyleClass().add("poljeIspravno");
-//                    password = loggerPassword.getText();
-
-                } else if(loggerPassword.getText().length() == 0)  {
-                    loggerPassword.getStyleClass().removeAll("poljeNijeIspravno");
-                    loggerPassword.getStyleClass().removeAll("poljeIspravno");
-                }
-                else {
-                    loggerPassword.getStyleClass().removeAll("poljeIspravno");
-                    loggerPassword.getStyleClass().add("poljeNijeIspravno");
-                }
+                changeLabelBackground(n);
             }
         });
+    }
+
+    private void changeLabelBackground(String n) {
+        if (is_Valid_Password(n) ) {
+            loggerPassword.getStyleClass().removeAll("poljeNijeIspravno");
+            loggerPassword.getStyleClass().add("poljeIspravno");
+
+        } else if(loggerPassword.getText().length() == 0)  {
+            loggerPassword.getStyleClass().removeAll("poljeNijeIspravno");
+            loggerPassword.getStyleClass().removeAll("poljeIspravno");
+        }
+        else {
+            loggerPassword.getStyleClass().removeAll("poljeIspravno");
+            loggerPassword.getStyleClass().add("poljeNijeIspravno");
+        }
     }
 
 
@@ -94,6 +96,7 @@ public class LogInController implements Initializable {
         return (ch >= '0' && ch <= '9');
     }
 
+    //provjeri da li ima taj username i pass u bazi, i vidi koji je accesslevel ako da otvori dash inace alert
     public void onLogInButtonClicked(ActionEvent actionEvent) {
         if(loggerUsername.getText().length() == 0 || loggerPassword.getText().length() == 0) {
             requiredLabel.setVisible(true);

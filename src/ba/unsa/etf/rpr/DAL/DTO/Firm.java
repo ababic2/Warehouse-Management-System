@@ -10,6 +10,7 @@ public class Firm {
 
     private String username;
     private String password;
+    private String accessLevel = "Firm";
 
     public Firm() {
     }
@@ -25,6 +26,7 @@ public class Firm {
         this.firmAdress = firmAdress;
         this.username = username;
         this.password = password;
+        this.accessLevel = "Firm";
     }
 
     public int getFirmId() {
@@ -89,5 +91,13 @@ public class Firm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAccessLevel() {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(String accessLevel) {
+        this.accessLevel = accessLevel;
     }
 }
