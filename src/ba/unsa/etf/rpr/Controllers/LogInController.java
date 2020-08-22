@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 
-import ba.unsa.etf.rpr.DAL.DTO.Employee;
+import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -22,9 +22,9 @@ public class LogInController implements Initializable {
     public TextField passShowField;
     public Button buttonLogIn;
     public Label requiredLabel;
+    private boolean isMaskChoosen = false;
 
-    private Employee employee = null;
-    private String password;
+    private String passFromBase = null;
 
 
     @Override
@@ -36,6 +36,27 @@ public class LogInController implements Initializable {
                 changeLabelBackground(n);
             }
         });
+    }
+
+    private void lookForUsernameAndPassInBase(String username, String password) {
+        UserDAO userDAO = UserDAO.getInstance();
+        passFromBase = userDAO.passwordForUsername(username);
+        if(passFromBase == null) {
+            sendMessageForWrongUsername();
+        } else if(!passFromBase.equals(password)) {
+            sendMessageForWrongPassword();
+        } else {
+            System.out.println("OKE username i pass");
+            //openDashboard();
+        }
+    }
+
+    private void sendMessageForWrongPassword() {
+        System.out.println("Wrongpass");
+    }
+
+    private void sendMessageForWrongUsername() {
+        System.out.println("wronguser");
     }
 
     private void changeLabelBackground(String n) {
@@ -55,18 +76,20 @@ public class LogInController implements Initializable {
 
 
     @FXML
-    public void checkPasswordMask()
+    private void checkPasswordMask()
     {
         if (passwordMask.isSelected())
         {
             passShowField.setText(loggerPassword.getText());
             passShowField.setVisible(true);
             loggerPassword.setVisible(false);
+            isMaskChoosen = true;
 
             } else {
                 loggerPassword.setText(passShowField.getText());
                 loggerPassword.setVisible(true);
                 passShowField.setVisible(false);
+                isMaskChoosen = false;
             }
         }
 
@@ -100,12 +123,15 @@ public class LogInController implements Initializable {
     public void onLogInButtonClicked(ActionEvent actionEvent) {
         if(loggerUsername.getText().length() == 0 || loggerPassword.getText().length() == 0) {
             requiredLabel.setVisible(true);
-        }
-//        else if(is_Valid_Password(password)) {
-//             users.setCurrentEmployee(employee);
-//        }
-        else {
+        } else {
             requiredLabel.setVisible(false);
+
+            if(isMaskChoosen) {
+                lookForUsernameAndPassInBase(loggerUsername.getText(),passShowField.getText());
+            } else {
+                lookForUsernameAndPassInBase(loggerUsername.getText(), loggerPassword.getText());
+            }
         }
+
     }
 }
