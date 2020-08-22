@@ -6,9 +6,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -56,7 +61,21 @@ public class LogInController implements Initializable {
     }
 
     private void openDashboard() {
+        Stage current = (Stage) loggerUsername.getScene().getWindow();
+        current.close();
 
+        try {
+            // Setting dashboard window
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashboard.fxml"));
+
+            Scene scene = new Scene(root);
+            Stage logInPrompt = new Stage();
+            logInPrompt.setScene(scene);
+            logInPrompt.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendMessageForWrongPassword() {
