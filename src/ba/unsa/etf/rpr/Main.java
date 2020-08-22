@@ -28,7 +28,7 @@ public class Main {// extends Application {
     public static void check() {
         UserDAO userDAO = UserDAO.getInstance();
         System.out.println("OOOO");
-        System.out.println(userDAO.passwordForUsername("sarah"));
+        System.out.println(userDAO.passwordForUsername("viva"));
 
     }
 
