@@ -22,6 +22,8 @@ public class LogInController implements Initializable {
     public TextField passShowField;
     public Button buttonLogIn;
     public Label requiredLabel;
+    public Label wrongUsernameField;
+    public Label wrongPassField;
     private boolean isMaskChoosen = false;
 
     private String passFromBase = null;
@@ -32,6 +34,8 @@ public class LogInController implements Initializable {
         loggerPassword.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String o, String n) {
+                wrongUsernameField.setVisible(false);
+                wrongPassField.setVisible(false);
                 requiredLabel.setVisible(false);
                 changeLabelBackground(n);
             }
@@ -47,16 +51,22 @@ public class LogInController implements Initializable {
             sendMessageForWrongPassword();
         } else {
             System.out.println("OKE username i pass");
-            //openDashboard();
+            openDashboard();
         }
     }
 
+    private void openDashboard() {
+
+    }
+
     private void sendMessageForWrongPassword() {
-        System.out.println("Wrongpass");
+        System.out.println("Wrong pass");
+        wrongPassField.setVisible(true);
     }
 
     private void sendMessageForWrongUsername() {
         System.out.println("wronguser");
+        wrongUsernameField.setVisible(true);
     }
 
     private void changeLabelBackground(String n) {
@@ -123,8 +133,12 @@ public class LogInController implements Initializable {
     public void onLogInButtonClicked(ActionEvent actionEvent) {
         if(loggerUsername.getText().length() == 0 || loggerPassword.getText().length() == 0) {
             requiredLabel.setVisible(true);
+            wrongUsernameField.setVisible(false);
+            wrongPassField.setVisible(false);
         } else {
             requiredLabel.setVisible(false);
+            wrongUsernameField.setVisible(false);
+            wrongPassField.setVisible(false);
 
             if(isMaskChoosen) {
                 lookForUsernameAndPassInBase(loggerUsername.getText(),passShowField.getText());

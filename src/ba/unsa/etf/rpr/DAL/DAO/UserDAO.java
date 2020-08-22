@@ -44,30 +44,23 @@ public class UserDAO {
     }
 
     public String passwordForUsername(String username) {
-        ResultSet rs = null;
         try {
             usernameStatement.setString(1,username);
-            rs = usernameStatement.executeQuery();
+            ResultSet rs = usernameStatement.executeQuery();
             //if(!rs.next()) return null;
-            if (rs.getString("password") != null) {
+            if(rs.next()) {
                 return rs.getString("password");
-            }
-        } catch (SQLException throwables) {
-            System.out.println("IZUZETAK u passwordForUsername");
-            try {
+            } else {
                 firmStatement.setString(1,username);
-                rs = firmStatement.executeQuery();
-                if(rs.getString("password") != null) {
-                    return rs.getString("password");
-                } else
-                    return null;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println("IZUZETAK u passwordForUsername");
-                return null;
+                ResultSet rs1 = firmStatement.executeQuery();
+                if(rs1.next()) return rs1.getString("password");
+                else return null;
             }
+
+        } catch (SQLException throwables) {
+            System.out.println("IZUZETAK u passwordForUsername1");
+            return null;
         }
-        return null;
     }
 
     private void regenerisiBazu() {
