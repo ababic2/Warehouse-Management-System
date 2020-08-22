@@ -26,6 +26,7 @@ public class LogInController implements Initializable {
     public CheckBox passwordMask;
     public TextField passShowField;
     public Button buttonLogIn;
+    public Button buttonSignUp;
     public Label requiredLabel;
     public Label wrongUsernameField;
     public Label wrongPassField;
@@ -66,7 +67,7 @@ public class LogInController implements Initializable {
 
         try {
             // Setting dashboard window
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
 
             Scene scene = new Scene(root);
             Stage logInPrompt = new Stage();
@@ -165,6 +166,10 @@ public class LogInController implements Initializable {
                 lookForUsernameAndPassInBase(loggerUsername.getText(), loggerPassword.getText());
             }
         }
+
+    }
+
+    public void onSignUpButtonClicked(ActionEvent actionEvent) {
 
     }
 }
