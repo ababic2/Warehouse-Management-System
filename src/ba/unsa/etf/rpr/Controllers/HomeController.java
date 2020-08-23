@@ -102,10 +102,6 @@ public class HomeController {
             rightPane.layoutBoundsProperty().addListener((obs, oldValue, newValue) -> {
                 autoResizePane();
             });
-//            rightPane.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> {
-//                // Some components of the scene will be resized automatically
-//                autoResizePane();
-//            });
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -21,7 +21,7 @@ public class Main  extends Application {
         //Scene je sadrzaj prozora
         // start metoda kreira scenu prema prilozenom fxml fajlu
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/log_in.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/haha.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

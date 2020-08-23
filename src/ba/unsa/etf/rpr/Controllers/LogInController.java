@@ -30,7 +30,10 @@ public class LogInController implements Initializable {
     public Label requiredLabel;
     public Label wrongUsernameField;
     public Label wrongPassField;
+
     private boolean isMaskChoosen = false;
+
+    private String accessLevel;
 
     private String passFromBase = null;
 
@@ -58,18 +61,19 @@ public class LogInController implements Initializable {
                 sendMessageForWrongPassword();
             } else {
                 System.out.println("OKE username i pass");
-                openDashboard();
+                accessLevel = userDAO.passwordForUsername(username).getAccessLevel();
+                openNewStage("/fxml/home.fxml");
             }
         }
     }
 
-    private void openDashboard() {
+    private void openNewStage(String url) {
         Stage current = (Stage) loggerUsername.getScene().getWindow();
         current.close();
 
         try {
             // Setting dashboard window
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(url));
 
             Scene scene = new Scene(root);
             Stage logInPrompt = new Stage();
@@ -172,6 +176,10 @@ public class LogInController implements Initializable {
     }
 
     public void onSignUpButtonClicked(ActionEvent actionEvent) {
-
+        if(accessLevel.equals("Firm")) {
+            openNewStage("/fxml/signUpFormForFirm");
+        } else if(accessLevel.equals("Employee") || accessLevel.equals("Admin")) {
+            openNewStage("");
+        }
     }
 }
