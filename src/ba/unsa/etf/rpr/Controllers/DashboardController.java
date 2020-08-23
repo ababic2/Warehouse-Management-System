@@ -38,7 +38,7 @@ public class DashboardController implements Initializable, ControllerInterface {
         openNewStage("/fxml/listOfEmployees.fxml");
     }
 
-    public void btnFirmsClicked(ActionEvent actionEvent) { openNewStage("/fxml/firmList.fxml"); }
+    public void btnFirmsClicked(ActionEvent actionEvent) { openNewStage("/fxml/listOfFirms.fxml"); }
 
     public String getEmployeesLabel() {
         return employeesLabel.get();

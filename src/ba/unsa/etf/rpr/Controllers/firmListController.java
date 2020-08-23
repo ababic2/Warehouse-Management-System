@@ -33,7 +33,7 @@ public class firmListController implements Initializable {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         firmNameColumn.setCellValueFactory(new PropertyValueFactory<>("firmName"));
 
-        mailColumn.setCellValueFactory(new PropertyValueFactory<>("firmMail"));
+        mailColumn.setCellValueFactory(new PropertyValueFactory<>("firmEMail"));
         ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("firmPhone"));
         adessColumn.setCellValueFactory(new PropertyValueFactory<>("firmAdress"));
