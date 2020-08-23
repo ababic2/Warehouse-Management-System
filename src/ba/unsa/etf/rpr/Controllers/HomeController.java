@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -16,23 +15,30 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 
+import static ba.unsa.etf.rpr.Controllers.LogInController.accessLevelForHome;
+import static ba.unsa.etf.rpr.Controllers.LogInController.currentUserforHome;
+
 public class HomeController {
     public SplitPane splitPane;
-    public Label loggedLabel;
-//    public Label accessLabel;
     public Pane rightPane;
     public GridPane leftPane;
+
+    public Label currentAccess;
+    public Label currLoggedIn;
+
+    private Label loggedLabel;
+
     private Button temp = null;
     private GridPane newRightPane = null;
     private static String username = "";
     private static String accessLevel = "";
     private HashMap<String, String> views = new HashMap<>();
-    private TextField haha;
-
 
     @FXML
     public void initialize() throws IOException {
         loadViews();
+        currLoggedIn.setText(currentUserforHome);
+        currentAccess.setText(accessLevelForHome);
         //username = LogInController.username;
 //        accessLevel = LogInController.;
 //        loggedLabel.setText(username.toUpperCase());
@@ -109,8 +115,6 @@ public class HomeController {
     }
 
     private void autoResizePane() {
-//        newRightPane.setLayoutX(rightPane.getWidth());
-//        newRightPane.setLayoutY(rightPane.getHeight());
         newRightPane.setPrefWidth(rightPane.getWidth());
         newRightPane.setPrefHeight(rightPane.getHeight());
         newRightPane.setMaxWidth(rightPane.getMaxWidth());

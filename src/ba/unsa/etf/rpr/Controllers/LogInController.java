@@ -31,11 +31,15 @@ public class LogInController implements Initializable {
     public Label wrongUsernameField;
     public Label wrongPassField;
 
+    public static String currentUserforHome;
+    public static String accessLevelForHome;
+
     private boolean isMaskChoosen = false;
 
     private String accessLevel;
 
     private String passFromBase = null;
+
 
 
     @Override
@@ -62,6 +66,8 @@ public class LogInController implements Initializable {
             } else {
                 System.out.println("OKE username i pass");
                 accessLevel = userDAO.passwordForUsername(username).getAccessLevel();
+                currentUserforHome = loggerUsername.getText();
+                accessLevelForHome = accessLevel;
                 openNewStage("/fxml/home.fxml");
             }
         }

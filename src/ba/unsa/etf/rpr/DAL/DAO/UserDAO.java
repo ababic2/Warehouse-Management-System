@@ -1,7 +1,10 @@
 package ba.unsa.etf.rpr.DAL.DAO;
 
 import ba.unsa.etf.rpr.DAL.DBConnection;
+import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.HelpModel.Account;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +18,10 @@ public class UserDAO {
     private PreparedStatement usernameStatement;
     private PreparedStatement firmStatement;
     private PreparedStatement countEmployees;
+    private PreparedStatement employeesStatement;
+    private PreparedStatement departmentNameStatement;
+
+    private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
     public static UserDAO getInstance() {
         if(instance == null) instance = new UserDAO();
@@ -31,6 +38,8 @@ public class UserDAO {
             usernameStatement = conn.prepareStatement("select password, access_level from employees where username = ?");
             firmStatement = conn.prepareStatement("select password, access_level from firms where username = ?");
             countEmployees = conn.prepareStatement("select count(employee_id) from employees");
+            employeesStatement = conn.prepareStatement("select * from employees");
+            departmentNameStatement = conn.prepareStatement("select department_name from departments where department_id = ?");
         } catch (SQLException throwables) {
             regenerisiBazu();
             try {
@@ -38,6 +47,8 @@ public class UserDAO {
                 usernameStatement = conn.prepareStatement("select password, access_level from employees where username = ?");
                 firmStatement = conn.prepareStatement("select password, access_level from firms where username = ?");
                 countEmployees = conn.prepareStatement("select count(employee_id) as number from employees");
+                employeesStatement = conn.prepareStatement("select * from employees");
+                departmentNameStatement = conn.prepareStatement("select department_name from departments where department_id = ?");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -80,7 +91,6 @@ public class UserDAO {
         }
     }
 
-
     private void regenerisiBazu() {
         Scanner scanner = null;
         try {
@@ -101,6 +111,44 @@ public class UserDAO {
             scanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public ObservableList<Employee> getEmployees() {
+        addToList();
+        return employees;
+    }
+
+    private void addToList() {
+        try {
+            if(employees.size() > 0) {
+                employees.clear();
+            }
+            ResultSet rs = employeesStatement.executeQuery();
+            while(rs.next()) {
+                Employee modelEmployee =
+                        new Employee(rs.getInt(1), rs.getString(2), rs.getString(3),
+                                rs.getString(4),rs.getString(5), rs.getString(6),
+                                rs.getString(7), rs.getInt(8), rs.getString(9),null);
+                modelEmployee.setDepartmentName(getDepartmentName(rs.getInt(10)));
+                System.out.println(modelEmployee);
+                employees.add(modelEmployee);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private String getDepartmentName(int id) {
+        try {
+            departmentNameStatement.setInt(1,id);
+            ResultSet rs = departmentNameStatement.executeQuery();
+            if(rs.next()) {
+                return rs.getString("department_name");
+            } else return null;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
         }
     }
 }

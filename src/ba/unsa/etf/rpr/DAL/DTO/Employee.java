@@ -1,34 +1,47 @@
 package ba.unsa.etf.rpr.DAL.DTO;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Employee {
-    private int employeeId;
-    private String firstName;
-    private String lastName;
-    private String eMail;
-    private int salary;
-    private String hireDate;
+    private int employeeId; //ne mijenja se
+    private SimpleStringProperty firstName;
+    private SimpleStringProperty lastName;
+    private SimpleStringProperty eMail;
+    private SimpleIntegerProperty salary;
+    private SimpleStringProperty hireDate;
 
-    private String username;
-    private String password;
+    private SimpleStringProperty username;
+    private SimpleStringProperty password;
+    private SimpleStringProperty accessLevelString;
 
-    private enum accessLevel{ADMIN, EMPLOYEE};
-    private Department department;
+    private String departmentName;
+
+    private enum AccessLevel{ADMIN, EMPLOYEE;};
+    private AccessLevel accessLevel;
 
     public Employee() {
     }
 
     public Employee(int employeeId, String firstName, String lastName,
-                    String eMail, int salary, String hireDate, String username,
-                    String password, Department department) {
+                    String username, String password, String accessLevel,
+                    String eMail, int salary, String hireDate, String departmentName
+                    ) {
         this.employeeId = employeeId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.eMail = eMail;
-        this.salary = salary;
-        this.hireDate = hireDate;
-        this.username = username;
-        this.password = password;
-        this.department = department;
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.eMail = new SimpleStringProperty(eMail);
+        this.salary = new SimpleIntegerProperty(salary);
+        this.hireDate = new SimpleStringProperty(hireDate);
+        this.username = new SimpleStringProperty(username);
+        this.password = new SimpleStringProperty(password);
+        this.departmentName = departmentName;
+        if(accessLevel.toLowerCase().equals("admin")) {
+            this.accessLevel = AccessLevel.ADMIN;
+        } else {
+            this.accessLevel = AccessLevel.EMPLOYEE;
+        }
+        this.accessLevelString = new SimpleStringProperty(accessLevel);
     }
 
     public int getEmployeeId() {
@@ -40,66 +53,122 @@ public class Employee {
     }
 
     public String getFirstName() {
+        return firstName.get();
+    }
+
+    public SimpleStringProperty firstNameProperty() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName.set(firstName);
     }
 
     public String getLastName() {
+        return lastName.get();
+    }
+
+    public SimpleStringProperty lastNameProperty() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName.set(lastName);
     }
 
     public String geteMail() {
+        return eMail.get();
+    }
+
+    public SimpleStringProperty eMailProperty() {
         return eMail;
     }
 
     public void seteMail(String eMail) {
-        this.eMail = eMail;
+        this.eMail.set(eMail);
     }
 
     public int getSalary() {
+        return salary.get();
+    }
+
+    public SimpleIntegerProperty salaryProperty() {
         return salary;
     }
 
     public void setSalary(int salary) {
-        this.salary = salary;
+        this.salary.set(salary);
     }
 
     public String getHireDate() {
+        return hireDate.get();
+    }
+
+    public SimpleStringProperty hireDateProperty() {
         return hireDate;
     }
 
     public void setHireDate(String hireDate) {
-        this.hireDate = hireDate;
+        this.hireDate.set(hireDate);
     }
 
     public String getUsername() {
+        return username.get();
+    }
+
+    public SimpleStringProperty usernameProperty() {
         return username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username.set(username);
     }
 
     public String getPassword() {
+        return password.get();
+    }
+
+    public SimpleStringProperty passwordProperty() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password.set(password);
     }
 
-    public Department getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentName(String department) {
+        this.departmentName = department;
+    }
+
+    public String getAccessLevelString() {
+        return accessLevelString.get();
+    }
+
+    public SimpleStringProperty accessLevelStringProperty() {
+        return accessLevelString;
+    }
+
+    public void setAccessLevelString(String accessLevelString) {
+        this.accessLevelString.set(accessLevelString);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
+                ", eMail=" + eMail +
+                ", salary=" + salary +
+                ", hireDate=" + hireDate +
+                ", username=" + username +
+                ", password=" + password +
+                ", departmentName='" + departmentName + '\'' +
+                ", accessLevel=" + accessLevel +
+                '}';
     }
 }

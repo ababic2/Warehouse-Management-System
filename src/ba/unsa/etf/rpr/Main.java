@@ -28,16 +28,8 @@ public class Main  extends Application {
 
     }
 
-//    public static void check() {
-//        UserDAO userDAO = UserDAO.getInstance();
-//        System.out.println("OOOO");
-//        System.out.println(userDAO.passwordForUsername("viva"));
-//
-//    }
 
-    public static void main(String[] args) {
-        launch(args);
-//        System.out.println("here i am");
-//        check();
+    public static void main(String[] args) throws Exception {
+         launch(args);
     }
 }
