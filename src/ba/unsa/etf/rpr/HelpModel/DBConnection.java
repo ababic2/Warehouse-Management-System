@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.DAL;
+package ba.unsa.etf.rpr.HelpModel;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

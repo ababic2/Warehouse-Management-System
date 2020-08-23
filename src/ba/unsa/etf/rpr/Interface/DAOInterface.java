@@ -1,16 +1,15 @@
 package ba.unsa.etf.rpr.Interface;
 
-import ba.unsa.etf.rpr.DAL.DBConnection;
+import Exceptions.FailedBaseRegeneration;
+import ba.unsa.etf.rpr.HelpModel.DBConnection;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public interface DAOInterface {
-    default void baseRegeneration() {
+    default void baseRegeneration() throws FailedBaseRegeneration {
             Scanner scanner = null;
             Connection conn = DBConnection.getConnection();
 
@@ -25,15 +24,24 @@ public interface DAOInterface {
                             stmt.execute(statement);
                             statement = "";
                         } catch (SQLException throwables) {
-                            throwables.printStackTrace();
                         }
                     }
                 }
                 scanner.close();
             } catch (FileNotFoundException e) {
-                System.out.println("Exception when regenerating base !");
+                throw new FailedBaseRegeneration("Failed base regeneration!");
             }
         }
-    Integer count();
+    default Integer count(PreparedStatement statement) {
+            try {
+                ResultSet rs = statement.executeQuery();
+                return rs.getInt(1);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                return null;
+            }
+    }
+
     void addToList();
+    void prepareStatements() throws SQLException;
 }

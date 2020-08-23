@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.DAL.DAO;
 
-import ba.unsa.etf.rpr.DAL.DBConnection;
+import Exceptions.FailedBaseRegeneration;
+import ba.unsa.etf.rpr.HelpModel.DBConnection;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.HelpModel.Account;
 import ba.unsa.etf.rpr.Interface.DAOInterface;
@@ -29,16 +30,20 @@ public class UserDAO implements DAOInterface {
             conn = DBConnection.getConnection();
             prepareStatements();
         } catch (SQLException throwables) {
-            baseRegeneration();
             try {
-               prepareStatements();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                baseRegeneration();
+                try {
+                    prepareStatements();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (FailedBaseRegeneration failedBaseRegeneration) {
+                failedBaseRegeneration.getMessage();
             }
         }
     }
 
-    private void prepareStatements() throws SQLException {
+    public void prepareStatements() throws SQLException {
         usernameStatement = conn.prepareStatement("select password, access_level from employees where username = ?");
         firmStatement = conn.prepareStatement("select password, access_level from firms where username = ?");
         countEmployees = conn.prepareStatement("select count(employee_id) from employees");
@@ -51,17 +56,8 @@ public class UserDAO implements DAOInterface {
         return instance;
     }
 
-
-
-    public Integer count() {
-        try {
-            ResultSet rs = countEmployees.executeQuery();
-//            rs.next();
-            return rs.getInt(1);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
+    public Integer getCount() {
+        return count(countEmployees);
     }
 
     public void addToList() {
@@ -76,11 +72,10 @@ public class UserDAO implements DAOInterface {
                                 rs.getString(4),rs.getString(5), rs.getString(6),
                                 rs.getString(7), rs.getInt(8), rs.getString(9),null);
                 modelEmployee.setDepartmentName(getDepartmentName(rs.getInt(10)));
-                System.out.println(modelEmployee);
                 employees.add(modelEmployee);
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.getMessage();
         }
     }
 

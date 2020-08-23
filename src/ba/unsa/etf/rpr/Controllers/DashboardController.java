@@ -1,19 +1,16 @@
 package ba.unsa.etf.rpr.Controllers;
 
+import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
 import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
+import ba.unsa.etf.rpr.Interface.ControllerInterface;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DashboardController implements Initializable {
+public class DashboardController implements Initializable, ControllerInterface {
     //iskoristeno jednosmjerno povezivanje jer ima puno labela i bilo bi
     //puno ponavljanja koda, greske bla bla
     private SimpleStringProperty employeesLabel;
@@ -22,6 +19,7 @@ public class DashboardController implements Initializable {
     private SimpleStringProperty lowStockLabel;
 
     private UserDAO userDAO = UserDAO.getInstance();
+    private FirmDAO firmDAO = FirmDAO.getInstance();
 
     public DashboardController() {
         employeesLabel = new SimpleStringProperty("");
@@ -32,10 +30,15 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String label = userDAO.count().toString();
-        System.out.println(label);
-        employeesLabel.set(label);
+        employeesLabel.set(userDAO.getCount().toString());
+        firmLabel.set(firmDAO.getCount().toString());
     }
+
+    public void btnEmployeesClicked(ActionEvent actionEvent) {
+        openNewStage("/fxml/listOfEmployees.fxml");
+    }
+
+    public void btnFirmsClicked(ActionEvent actionEvent) { openNewStage("/fxml/firmList.fxml"); }
 
     public String getEmployeesLabel() {
         return employeesLabel.get();
@@ -69,22 +72,4 @@ public class DashboardController implements Initializable {
         return lowStockLabel;
     }
 
-    private void openNewStage(String url) {
-        try {
-            // Setting dashboard window
-            Parent root = FXMLLoader.load(getClass().getResource(url));
-
-            Scene scene = new Scene(root);
-            Stage logInPrompt = new Stage();
-            logInPrompt.setScene(scene);
-            logInPrompt.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void btnEmployeesClicked(ActionEvent actionEvent) {
-        openNewStage("/fxml/employeeList.fxml");
-    }
 }
