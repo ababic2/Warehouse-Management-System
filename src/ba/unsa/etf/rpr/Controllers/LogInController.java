@@ -57,15 +57,15 @@ public class LogInController implements Initializable {
 
     private void lookForUsernameAndPassInBase(String username, String password) {
         UserDAO userDAO = UserDAO.getInstance();
-        if(userDAO.passwordForUsername(username) == null ) {
+        if(userDAO.getPasswordForUsername(username) == null ) {
             sendMessageForWrongUsername();
         } else {
-            passFromBase = userDAO.passwordForUsername(username).getPassword();
+            passFromBase = userDAO.getPasswordForUsername(username).getPassword();
             if (!passFromBase.equals(password)) {
                 sendMessageForWrongPassword();
             } else {
                 System.out.println("OKE username i pass");
-                accessLevel = userDAO.passwordForUsername(username).getAccessLevel();
+                accessLevel = userDAO.getPasswordForUsername(username).getAccessLevel();
                 currentUserforHome = loggerUsername.getText();
                 accessLevelForHome = accessLevel;
                 openNewStage("/fxml/home.fxml");

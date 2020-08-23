@@ -27,7 +27,7 @@ public class employeeListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCells();
-        employeeTableView.setItems(userDAO.getEmployees());
+        employeeTableView.setItems(userDAO.getInfoList());
     }
 
     private void setCells() {

@@ -32,7 +32,7 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String label = userDAO.getNumberOfEmployees().toString();
+        String label = userDAO.count().toString();
         System.out.println(label);
         employeesLabel.set(label);
     }

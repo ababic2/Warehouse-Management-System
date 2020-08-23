@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -194,7 +195,7 @@
                         <Font name="FreeSerif" size="20.0" />
                      </font>
                   </Button>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="14.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                      <children>
                         <Label fx:id="loggedLabel" text="Logged in as :" HBox.hgrow="ALWAYS">
                            <padding>
@@ -204,20 +205,23 @@
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label fx:id="currLoggedIn" alignment="CENTER" HBox.hgrow="ALWAYS">
+                        <Label fx:id="currLoggedIn" alignment="CENTER" text="k" HBox.hgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
+                           <effect>
+                              <Glow />
+                           </effect>
                         </Label>
                      </children>
                      <padding>
                         <Insets top="15.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="57.0">
                      <children>
                         <Label fx:id="accessLabel" text="Access level :" HBox.hgrow="ALWAYS">
                            <padding>
@@ -227,13 +231,16 @@
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label fx:id="currentAccess" HBox.hgrow="ALWAYS">
+                        <Label fx:id="currentAccess" text="k" HBox.hgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                            <font>
-                              <Font name="FreeSerif" size="17.0" />
+                              <Font name="FreeSerif Bold" size="17.0" />
                            </font>
+                           <effect>
+                              <Glow />
+                           </effect>
                         </Label>
                      </children>
                      <padding>

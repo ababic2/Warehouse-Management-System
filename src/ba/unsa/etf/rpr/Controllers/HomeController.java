@@ -39,10 +39,6 @@ public class HomeController {
         loadViews();
         currLoggedIn.setText(currentUserforHome);
         currentAccess.setText(accessLevelForHome);
-        //username = LogInController.username;
-//        accessLevel = LogInController.;
-//        loggedLabel.setText(username.toUpperCase());
-//        accessLabel.setText(accessLevel);
         ctrlRightPane("/fxml/dashboard.fxml");
 
     }

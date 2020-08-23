@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.DAL.DTO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Employee {
+public class Employee extends Object{
     private int employeeId; //ne mijenja se
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
