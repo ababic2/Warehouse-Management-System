@@ -80,6 +80,7 @@ public class UserDAO {
         }
     }
 
+
     private void regenerisiBazu() {
         Scanner scanner = null;
         try {

@@ -66,16 +66,19 @@
                               <DropShadow />
                            </effect>
                         </ImageView>
+
                         <Button fx:id="btnEmployees" layoutX="117.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnEmployeesClicked" stylesheets="@../css/dashBoard.css" text="Employees">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Button>
-                        <Label fx:id="labelEmployees" alignment="CENTER" layoutX="102.0" layoutY="52.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashBoard.css" text="0">
+
+                        <Label fx:id="labelEmployees" text="${controller.employeesLabel}" alignment="CENTER" layoutX="102.0" layoutY="52.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashBoard.css" >
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
+
                      </children>
                   </AnchorPane>
                   <AnchorPane stylesheets="@../css/dashBoard.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
