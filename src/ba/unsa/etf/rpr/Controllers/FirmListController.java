@@ -10,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class firmListController implements Initializable {
+public class FirmListController implements Initializable {
 
     public TableView<Firm> firmTableView;
     public TableColumn<Firm, Integer> idColumn;

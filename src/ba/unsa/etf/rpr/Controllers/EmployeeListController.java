@@ -10,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class employeeListController implements Initializable {
+public class EmployeeListController implements Initializable {
 
     public TableView<Employee> employeeTableView; ///????
     public TableColumn<Employee, Integer> idColumn;

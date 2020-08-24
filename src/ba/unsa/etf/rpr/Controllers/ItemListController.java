@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 import static ba.unsa.etf.rpr.Controllers.DashboardController.btnLowStock;
 
-public class itemListController implements Initializable {
+public class ItemListController implements Initializable {
     public TableView<Product> productsTableView;
 
     public TableColumn<Product,Integer> idColumn;

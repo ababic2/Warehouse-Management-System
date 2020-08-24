@@ -26,6 +26,7 @@ public class HomeController {
     public Label currentAccess;
     public Label currLoggedIn;
 
+    @FXML
     private Label loggedLabel;
 
     private Button temp = null;
