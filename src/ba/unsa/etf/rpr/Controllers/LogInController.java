@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.Controllers;
 
 
 import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
+import ba.unsa.etf.rpr.HelpModel.CurrentUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -31,16 +32,12 @@ public class LogInController implements Initializable {
     public Label wrongUsernameField;
     public Label wrongPassField;
 
-    public static String currentUserforHome;
-    public static String accessLevelForHome;
-
     private boolean isMaskChoosen = false;
 
     private String accessLevel;
 
     private String passFromBase = null;
-
-
+    public static CurrentUser currentUser = new CurrentUser();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,11 +63,15 @@ public class LogInController implements Initializable {
             } else {
                 System.out.println("OKE username i pass");
                 accessLevel = userDAO.getPasswordForUsername(username).getAccessLevel();
-                currentUserforHome = loggerUsername.getText();
-                accessLevelForHome = accessLevel;
+                currentUser.setUsername(loggerUsername.getText());
+                currentUser.setAccessLevel(accessLevel);
                 openNewStage("/fxml/home.fxml");
             }
         }
+    }
+
+    public CurrentUser getCurrentUser() {
+        return currentUser;
     }
 
     private void openNewStage(String url) {
@@ -115,7 +116,6 @@ public class LogInController implements Initializable {
             loggerPassword.getStyleClass().add("poljeNijeIspravno");
         }
     }
-
 
     @FXML
     private void checkPasswordMask()

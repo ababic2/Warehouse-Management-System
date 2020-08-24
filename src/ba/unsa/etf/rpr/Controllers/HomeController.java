@@ -15,8 +15,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 
-import static ba.unsa.etf.rpr.Controllers.LogInController.accessLevelForHome;
-import static ba.unsa.etf.rpr.Controllers.LogInController.currentUserforHome;
+import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
+
 
 public class HomeController {
     public SplitPane splitPane;
@@ -37,8 +37,8 @@ public class HomeController {
     @FXML
     public void initialize() throws IOException {
         loadViews();
-        currLoggedIn.setText(currentUserforHome);
-        currentAccess.setText(accessLevelForHome);
+        currLoggedIn.setText(currentUser.getUsername());
+        currentAccess.setText(currentUser.getAccessLevel());
         ctrlRightPane("/fxml/dashboard.fxml");
 
     }
