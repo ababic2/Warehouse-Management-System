@@ -35,10 +35,10 @@ public class DashboardController implements Initializable, ControllerInterface {
     }
 
     public void btnEmployeesClicked(ActionEvent actionEvent) {
-        openNewStage("/fxml/listOfEmployees.fxml");
+        openNewStage("/fxml/rightSidePane/listOfEmployees.fxml");
     }
 
-    public void btnFirmsClicked(ActionEvent actionEvent) { openNewStage("/fxml/listOfFirms.fxml"); }
+    public void btnFirmsClicked(ActionEvent actionEvent) { openNewStage("/fxml/rightSidePane/listOfFirms.fxml"); }
 
     public String getEmployeesLabel() {
         return employeesLabel.get();

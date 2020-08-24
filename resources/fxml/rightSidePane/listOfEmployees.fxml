@@ -24,7 +24,7 @@
    <children>
       <BorderPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <top>
-            <GridPane fx:id="insideGrid" stylesheets="@../css/firmDetails.css" BorderPane.alignment="BOTTOM_CENTER">
+            <GridPane fx:id="insideGrid" stylesheets="@../../css/firmDetails.css" BorderPane.alignment="BOTTOM_CENTER">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
