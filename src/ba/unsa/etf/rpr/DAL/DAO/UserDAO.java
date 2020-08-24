@@ -1,9 +1,8 @@
 package ba.unsa.etf.rpr.DAL.DAO;
 
-import Exceptions.FailedBaseRegeneration;
-import ba.unsa.etf.rpr.HelpModel.DBConnection;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.HelpModel.Account;
+import ba.unsa.etf.rpr.HelpModel.Reference;
 import ba.unsa.etf.rpr.Interface.DAOInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO implements DAOInterface {
+
     private static UserDAO instance;
     private Connection conn = null;
 
@@ -24,31 +24,12 @@ public class UserDAO implements DAOInterface {
     private PreparedStatement departmentNameStatement;
 
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
+    private Reference<Connection> connReference = new Reference<>(null);
+
 
     private UserDAO() {
-        try {
-            conn = DBConnection.getConnection();
-            prepareStatements();
-        } catch (SQLException throwables) {
-            try {
-                baseRegeneration();
-                try {
-                    prepareStatements();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } catch (FailedBaseRegeneration failedBaseRegeneration) {
-                failedBaseRegeneration.getMessage();
-            }
-        }
-    }
-
-    public void prepareStatements() throws SQLException {
-        usernameStatement = conn.prepareStatement("select password, access_level from employees where username = ?");
-        firmStatement = conn.prepareStatement("select password, access_level from firms where username = ?");
-        countEmployees = conn.prepareStatement("select count(employee_id) from employees");
-        employeesStatement = conn.prepareStatement("select * from employees");
-        departmentNameStatement = conn.prepareStatement("select department_name from departments where department_id = ?");
+        connectToBase(connReference);
+        conn = connReference.get();
     }
 
     public static UserDAO getInstance() {
@@ -60,23 +41,9 @@ public class UserDAO implements DAOInterface {
         return count(countEmployees);
     }
 
-    public void addToList() {
-        try {
-            if(employees.size() > 0) {
-                employees.clear();
-            }
-            ResultSet rs = employeesStatement.executeQuery();
-            while(rs.next()) {
-                Employee modelEmployee =
-                        new Employee(rs.getInt(1), rs.getString(2), rs.getString(3),
-                                rs.getString(4),rs.getString(5), rs.getString(6),
-                                rs.getString(7), rs.getInt(8), rs.getString(9),null);
-                modelEmployee.setDepartmentName(getDepartmentName(rs.getInt(10)));
-                employees.add(modelEmployee);
-            }
-        } catch (SQLException throwables) {
-            throwables.getMessage();
-        }
+    public ObservableList<Employee> getInfoList() {
+        addToList(employeesStatement);
+        return employees;
     }
 
     public Account getPasswordForUsername(String username) {
@@ -117,9 +84,32 @@ public class UserDAO implements DAOInterface {
         }
     }
 
-    public ObservableList<Employee> getInfoList() {
-        addToList();
-        return employees;
+    public void prepareStatements() throws SQLException {
+        conn = connReference.get();
+        usernameStatement = conn.prepareStatement("select password, access_level from employees where username = ?");
+        firmStatement = conn.prepareStatement("select password, access_level from firms where username = ?");
+        countEmployees = conn.prepareStatement("select count(employee_id) from employees");
+        employeesStatement = conn.prepareStatement("select * from employees");
+        departmentNameStatement = conn.prepareStatement("select department_name from departments where department_id = ?");
+    }
+
+    public void addToList(PreparedStatement statement) {
+        try {
+            if(employees.size() > 0) {
+                employees.clear();
+            }
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()) {
+                Employee modelEmployee =
+                        new Employee(rs.getInt(1), rs.getString(2), rs.getString(3),
+                                rs.getString(4),rs.getString(5), rs.getString(6),
+                                rs.getString(7), rs.getInt(8), rs.getString(9),null);
+                modelEmployee.setDepartmentName(getDepartmentName(rs.getInt(10)));
+                employees.add(modelEmployee);
+            }
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
+import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
 import ba.unsa.etf.rpr.Interface.ControllerInterface;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,8 +21,12 @@ public class DashboardController implements Initializable, ControllerInterface {
 
     private UserDAO userDAO = UserDAO.getInstance();
     private FirmDAO firmDAO = FirmDAO.getInstance();
+    private ProductDAO productDAO = ProductDAO.getInstance();
+
+    public static boolean btnLowStock = false;
 
     public DashboardController() {
+        btnLowStock = false;
         employeesLabel = new SimpleStringProperty("");
         firmLabel = new SimpleStringProperty("");
         itemsLabel = new SimpleStringProperty("");
@@ -30,15 +35,32 @@ public class DashboardController implements Initializable, ControllerInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnLowStock = false;
         employeesLabel.set(userDAO.getCount().toString());
         firmLabel.set(firmDAO.getCount().toString());
+        itemsLabel.set(productDAO.getCount().toString());
+        lowStockLabel.set(productDAO.getCountLowStock().toString());
     }
 
     public void btnEmployeesClicked(ActionEvent actionEvent) {
+        btnLowStock = false;
         openNewStage("/fxml/rightSidePane/listOfEmployees.fxml");
     }
 
-    public void btnFirmsClicked(ActionEvent actionEvent) { openNewStage("/fxml/rightSidePane/listOfFirms.fxml"); }
+    public void btnFirmsClicked(ActionEvent actionEvent) {
+        btnLowStock = false;
+        openNewStage("/fxml/rightSidePane/listOfFirms.fxml");
+    }
+
+    public void btnItemsClicked(ActionEvent actionEvent) {
+        btnLowStock = false;
+        openNewStage("/fxml/rightSidePane/listOfItems.fxml");
+    }
+
+    public void btnLowStockClicked(ActionEvent actionEvent) {
+        btnLowStock = true;
+        openNewStage("/fxml/rightSidePane/listOfItems.fxml");
+    }
 
     public String getEmployeesLabel() {
         return employeesLabel.get();

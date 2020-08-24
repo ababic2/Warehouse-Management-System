@@ -113,12 +113,12 @@
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelItems" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css" text="0">
+                        <Label fx:id="labelItems" text="${controller.itemsLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button layoutX="139.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../css/dashboard.css" text="Items">
+                        <Button onAction="#btnItemsClicked" layoutX="139.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../css/dashboard.css" text="Items">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -135,12 +135,12 @@
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelLowStock" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css" text="0">
+                        <Label fx:id="labelLowStock" text="${controller.lowStockLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button layoutX="96.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../css/dashboard.css" text="Low stock items">
+                        <Button onAction="#btnLowStockClicked" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../css/dashboard.css" text="Low stock items">
                            <effect>
                               <DropShadow />
                            </effect>
