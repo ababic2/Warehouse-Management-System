@@ -23,6 +23,7 @@ public class ProductDAO implements DAOInterface {
     private PreparedStatement categoryStatement;
     private PreparedStatement countLowStockItemsStatement;
     private PreparedStatement lowStockItemsStatement;
+    private PreparedStatement itemWithIDStatement;
 
     private Connection conn = null;
 
@@ -65,6 +66,19 @@ public class ProductDAO implements DAOInterface {
         return products;
     }
 
+    public Product getItemWithId(int id) {
+        try {
+            itemWithIDStatement.setInt(1,id);
+            ResultSet rs = itemWithIDStatement.executeQuery();
+            Product product = new Product(rs.getInt(1), rs.getString(2),
+                        rs.getInt(3), rs.getInt(4), null);
+                product.setCategory(getCategory(rs.getInt(5)));
+                return product;
+            } catch (SQLException e) {
+                return  null;
+        }
+    }
+
     @Override
     public void prepareStatements() throws SQLException {
         conn = connReference.get();
@@ -73,6 +87,7 @@ public class ProductDAO implements DAOInterface {
         categoryStatement = conn.prepareStatement("select * from categories where category_id = ?");
         countLowStockItemsStatement = conn.prepareStatement("select count(product_id) from products where stock <= 5");
         lowStockItemsStatement = conn.prepareStatement("select * from products where stock <= 5");
+        itemWithIDStatement = conn.prepareStatement("select * from products where product_id = ?");
     }
 
     @Override

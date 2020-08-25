@@ -11,13 +11,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ItemDetailsController implements Initializable, ControllerInterface {
 
@@ -28,6 +29,8 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     public Label stockLabell;
     public Button btnNext;
     public Button btnPrevious;
+    public TextField searchField;
+    public CheckBox checkBox;
 
     private SimpleIntegerProperty itemIDLabel;
     private SimpleStringProperty name;
@@ -71,8 +74,9 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     }
 
     private void setBinding() {
-        itemIDLabel.setValue(currentProduct.getValue().getProductId());
         currentProduct.addListener((obs, oldValue, newValue) -> {
+            itemIDLabel.setValue(currentProduct.getValue().getProductId());
+            stock.setValue(currentProduct.getValue().getStock());
             if(oldValue != null) {
                 itemNameField.textProperty().unbindBidirectional(oldValue.nameProperty());
                 itemPriceLabel.textProperty().unbindBidirectional(oldValue.priceProperty());
@@ -83,7 +87,6 @@ public class ItemDetailsController implements Initializable, ControllerInterface
             itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
 
         });
-        stock.setValue(currentProduct.getValue().getStock());
     }
 
     private void bindingFieldsWithProperties() {
@@ -102,8 +105,88 @@ public class ItemDetailsController implements Initializable, ControllerInterface
         currentProduct.set(products.get(page));
     }
 
-    public void onSearchFieldClicked(ActionEvent actionEvent) {
+    public void btnSearchClicked(ActionEvent actionEvent) {
+        if(checkBox.isSelected()) {
+            checkBoxSelected();
+        } else {
+            if (searchField.getText() != null) {
+                String name = searchField.getText();
 
+                Product product = findItemWithNameStream(name);
+
+                if (product == null) {
+                    setAlertWindow("No result !");
+                } else {
+                    currentProduct.set(product);
+                    findPageAfterSearch();
+                }
+            }
+
+        }
+    }
+
+    private Product findItemWithNameStream(String name) {
+        List<Product> list = products.stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList());
+        if(list.size() == 0) return null;
+        return list.get(0);
+    }
+
+    private void setAlertWindow(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        return pattern.matcher(strNum).matches();
+    }
+
+    private void checkBoxSelected() {
+        if (searchField.getText() != null) {
+            if (isNumeric(searchField.getText())) {
+                int id = Integer.parseInt(searchField.getText());
+
+                Product product = findItemWithIDStream(id);
+
+                if (product == null) {
+                    setAlertWindow("No result !");
+                } else {
+                    currentProduct.set(product);
+                    findPageAfterSearch();
+                }
+            } else {
+                setAlertWindow("ID must be numeric !");
+            }
+        }
+    }
+
+    private Product findItemWithIDStream(int id) {
+        List<Product> list = products.stream().filter(s -> s.getProductId() == id).collect(Collectors.toList());
+        if(list.size() == 0) return null;
+        return list.get(0);
+    }
+
+    private void findPageAfterSearch() {
+        for(int i = 0; i < products.size(); i++) {
+            if(isEqual(i)) {
+                page = i;
+                break;
+            }
+        }
+    }
+
+    private boolean isEqual(int i) {
+        return (products.get(i).getProductId() == currentProduct.getValue().getProductId()) &&
+                (products.get(i).getPrice() == currentProduct.getValue().getPrice()) &&
+                (products.get(i).getStock() == currentProduct.getValue().getStock()) &&
+                (products.get(i).getName().equals(currentProduct.getValue().getName()));
     }
 
     public void btnEditClicked(ActionEvent actionEvent) {
@@ -208,4 +291,5 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     public void setCurrentProduct(Product currentProduct) {
         this.currentProduct.set(currentProduct);
     }
+
 }

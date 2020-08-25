@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.DAL.DTO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Product {
+public class Product implements Comparable{
 
     private SimpleIntegerProperty productId = new SimpleIntegerProperty(0);
     private SimpleStringProperty name = new SimpleStringProperty("");
@@ -84,5 +84,15 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Product product = (Product) o;
+        if(this.getProductId()==product.getProductId() &&
+                this.getName().equals(product.getName()) &&
+                this.getPrice() == product.getPrice() &&
+                this.getStock() == product.getStock()) return 0;
+        return 1;
     }
 }
