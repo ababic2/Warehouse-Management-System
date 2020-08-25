@@ -57,26 +57,27 @@ public class ItemDetailsController implements Initializable, ControllerInterface
         products.addAll(productDAO.getInfoList());
         bindingFieldsWithProperties();
         changeCurrentProduct();
+        setInitialProduct();
         setBinding();
         setDisableTo(true);
+    }
+
+    private void setInitialProduct() {
+        itemIDLabel.setValue(currentProduct.getValue().getProductId());
+        name.setValue(currentProduct.getValue().getName());
+        price.setValue(currentProduct.getValue().getPrice());
+        stock.setValue(currentProduct.getValue().getPrice());
+        type.setValue(currentProduct.getValue().getCategory().getCategoryName());
     }
 
     private void setBinding() {
         itemIDLabel.setValue(currentProduct.getValue().getProductId());
         currentProduct.addListener((obs, oldValue, newValue) -> {
-            if(page == 0) {
-                oldValue = null;
-                newValue = products.get(0);
-            }
-            System.out.println("OLD" + oldValue);
-            System.out.println("NEW " + newValue + "\n");
             if(oldValue != null) {
-                System.out.println("HH");
                 itemNameField.textProperty().unbindBidirectional(oldValue.nameProperty());
                 itemPriceLabel.textProperty().unbindBidirectional(oldValue.priceProperty());
                 itemTypeLabel.textProperty().unbindBidirectional(oldValue.getCategory().categoryNameProperty());
             }
-            System.out.println("HAHA");
             itemNameField.textProperty().bindBidirectional(newValue.nameProperty());
             itemPriceLabel.textProperty().bindBidirectional(newValue.priceProperty(),converter);
             itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
@@ -91,20 +92,11 @@ public class ItemDetailsController implements Initializable, ControllerInterface
         itemTypeLabel.textProperty().bindBidirectional(type);
     }
 
-    private void setFirstProduct() {
-        itemIDLabel.setValue(currentProduct.getValue().getProductId());
-        itemNameField.textProperty().bindBidirectional(currentProduct.getValue().nameProperty());
-//        itemPriceLabel.textProperty().bindBidirectional(currentProduct.getValue().getPrice(), converter);
-        itemTypeLabel.textProperty().bindBidirectional(currentProduct.getValue().getCategory().categoryNameProperty());
-        stock.setValue(currentProduct.getValue().getStock());
-    }
-
     private void setDisableTo(boolean var) {
         itemNameField.setDisable(var);
         itemTypeLabel.setDisable(var);
         itemPriceLabel.setDisable(var);
     }
-
 
     private void changeCurrentProduct() {
         currentProduct.set(products.get(page));
@@ -123,6 +115,10 @@ public class ItemDetailsController implements Initializable, ControllerInterface
 
     }
 
+    public void btnAddClicked(ActionEvent actionEvent) {
+
+    }
+
     public void btnNextClicked(ActionEvent actionEvent) {
         page++;
         if (page == products.size() - 1) {
@@ -132,7 +128,7 @@ public class ItemDetailsController implements Initializable, ControllerInterface
         changeCurrentProduct();
     }
 
-    public void btnPrevoiusClicked(ActionEvent actionEvent) {
+    public void btnPreviousClicked(ActionEvent actionEvent) {
         page--;
         if (page == 0) {
             btnPrevious.setDisable(true);
@@ -211,9 +207,5 @@ public class ItemDetailsController implements Initializable, ControllerInterface
 
     public void setCurrentProduct(Product currentProduct) {
         this.currentProduct.set(currentProduct);
-    }
-
-    public void btnAddClicked(ActionEvent actionEvent) {
-
     }
 }
