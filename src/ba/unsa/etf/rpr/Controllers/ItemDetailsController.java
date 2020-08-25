@@ -29,7 +29,6 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     public Button btnNext;
     public Button btnPrevious;
 
-
     private SimpleIntegerProperty itemIDLabel;
     private SimpleStringProperty name;
     private SimpleIntegerProperty price;
@@ -38,9 +37,9 @@ public class ItemDetailsController implements Initializable, ControllerInterface
 
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private ObjectProperty<Product> currentProduct = new SimpleObjectProperty<>();
-    private int page = 0;
-    private boolean disable = true;
     private ProductDAO productDAO = ProductDAO.getInstance();
+    private boolean disable = true;
+    private int page = 0;
 
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
@@ -56,24 +55,45 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         products.addAll(productDAO.getInfoList());
-        bindingFields();
-        btnPrevious.setDisable(true);
+        bindingFieldsWithProperties();
         changeCurrentProduct();
-        initializeFirstProduct();
-        setFields();
-        //setDisableTo(true);
+        setBinding();
+        setDisableTo(true);
     }
 
-    private void bindingFields() {
-//        itemNameField.textProperty().bindBidirectional(name);
+    private void setBinding() {
+        itemIDLabel.setValue(currentProduct.getValue().getProductId());
+        currentProduct.addListener((obs, oldValue, newValue) -> {
+            if(page == 0) {
+                oldValue = null;
+                newValue = products.get(0);
+            }
+            System.out.println("OLD" + oldValue);
+            System.out.println("NEW " + newValue + "\n");
+            if(oldValue != null) {
+                System.out.println("HH");
+                itemNameField.textProperty().unbindBidirectional(oldValue.nameProperty());
+                itemPriceLabel.textProperty().unbindBidirectional(oldValue.priceProperty());
+                itemTypeLabel.textProperty().unbindBidirectional(oldValue.getCategory().categoryNameProperty());
+            }
+            System.out.println("HAHA");
+            itemNameField.textProperty().bindBidirectional(newValue.nameProperty());
+            itemPriceLabel.textProperty().bindBidirectional(newValue.priceProperty(),converter);
+            itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
+
+        });
+        stock.setValue(currentProduct.getValue().getStock());
+    }
+
+    private void bindingFieldsWithProperties() {
+        itemNameField.textProperty().bindBidirectional(name);
         itemPriceLabel.textProperty().bindBidirectional(price, converter);
         itemTypeLabel.textProperty().bindBidirectional(type);
     }
 
-    private void initializeFirstProduct() {
-        currentProduct.set(products.get(0));
+    private void setFirstProduct() {
         itemIDLabel.setValue(currentProduct.getValue().getProductId());
-//        itemNameField.textProperty().bindBidirectional(currentProduct.getValue().nameProperty());
+        itemNameField.textProperty().bindBidirectional(currentProduct.getValue().nameProperty());
 //        itemPriceLabel.textProperty().bindBidirectional(currentProduct.getValue().getPrice(), converter);
         itemTypeLabel.textProperty().bindBidirectional(currentProduct.getValue().getCategory().categoryNameProperty());
         stock.setValue(currentProduct.getValue().getStock());
@@ -85,30 +105,6 @@ public class ItemDetailsController implements Initializable, ControllerInterface
         itemPriceLabel.setDisable(var);
     }
 
-    private void setFields() {
-        itemIDLabel.setValue(currentProduct.getValue().getProductId());
-        currentProduct.addListener((obs, oldValue, newValue) -> {
-            if(oldValue != null) {
-//                itemNameField.textProperty().unbindBidirectional(oldValue.nameProperty());
-                itemPriceLabel.textProperty().unbindBidirectional(oldValue.priceProperty());
-                itemTypeLabel.textProperty().unbindBidirectional(oldValue.getCategory().categoryNameProperty());
-            }
-            if(newValue == null) {
-                currentProduct.set(products.get(0));
-                itemIDLabel.setValue(currentProduct.getValue().getProductId());
-//                itemNameField.textProperty().bindBidirectional(currentProduct.getValue().nameProperty());
-                //itemPriceLabel.textProperty().bindBidirectional(currentProduct.getValue().getPrice(), converter);
-                itemTypeLabel.textProperty().bindBidirectional(currentProduct.getValue().getCategory().categoryNameProperty());
-                stock.setValue(currentProduct.getValue().getStock());
-            }
-            else {
-//                itemNameField.textProperty().bindBidirectional(newValue.nameProperty());
-                itemPriceLabel.textProperty().bindBidirectional(newValue.priceProperty(),converter);
-                itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
-            }
-        });
-        stock.setValue(currentProduct.getValue().getStock());
-    }
 
     private void changeCurrentProduct() {
         currentProduct.set(products.get(page));
@@ -129,25 +125,20 @@ public class ItemDetailsController implements Initializable, ControllerInterface
 
     public void btnNextClicked(ActionEvent actionEvent) {
         page++;
-        if(page != 0) {
-            btnPrevious.setDisable(false);
-        }
         if (page == products.size() - 1) {
             btnNext.setDisable(true);
         }
+        btnPrevious.setDisable(false);
         changeCurrentProduct();
-        setFields();
     }
 
     public void btnPrevoiusClicked(ActionEvent actionEvent) {
-            page--;
-            if( page != products.size() - 1 ) {
-                btnNext.setDisable(false);
-            } else if (page == 0) {
-                btnPrevious.setDisable(true);
-            }
-            changeCurrentProduct();
-            setFields();
+        page--;
+        if (page == 0) {
+            btnPrevious.setDisable(true);
+        }
+        btnNext.setDisable(false);
+         changeCurrentProduct();
     }
 
     public int getItemIDLabel() {

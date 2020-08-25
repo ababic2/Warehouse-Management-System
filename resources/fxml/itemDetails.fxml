@@ -58,7 +58,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="itemNameField" text="${controller.name}" disable="true" promptText="Item Name">
+                        <TextField fx:id="itemNameField" disable="true" promptText="Item Name">
                            <padding>
                               <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
                            </padding>
