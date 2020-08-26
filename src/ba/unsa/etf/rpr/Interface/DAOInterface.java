@@ -36,9 +36,12 @@ public interface DAOInterface {
         }
 
     default Integer count(PreparedStatement statement) {
+        ResultSet rs = null;
             try {
-                ResultSet rs = statement.executeQuery();
-                return rs.getInt(1);
+                rs = statement.executeQuery();
+                Integer result = rs.getInt(1);
+
+                return result;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 return 0;

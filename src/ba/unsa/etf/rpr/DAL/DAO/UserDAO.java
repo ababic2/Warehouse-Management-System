@@ -15,13 +15,13 @@ import java.sql.SQLException;
 public class UserDAO implements DAOInterface {
 
     private static UserDAO instance;
-    private Connection conn = null;
+    private static Connection conn = null;
 
-    private PreparedStatement usernameStatement;
-    private PreparedStatement firmStatement;
-    private PreparedStatement countEmployees;
-    private PreparedStatement employeesStatement;
-    private PreparedStatement departmentNameStatement;
+    private static PreparedStatement usernameStatement;
+    private static PreparedStatement firmStatement;
+    private static PreparedStatement countEmployees;
+    private static PreparedStatement employeesStatement;
+    private static PreparedStatement departmentNameStatement;
 
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
     private Reference<Connection> connReference = new Reference<>(null);

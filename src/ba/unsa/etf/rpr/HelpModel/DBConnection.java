@@ -6,15 +6,17 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
+    private static Connection connection;
     private static final String URL = "jdbc:sqlite:/home/ababic/IdeaProjects/JavaFX/baza.db";
 
     public static Connection getConnection() {
-        Connection con = null;
         try {
-            con = DriverManager.getConnection(URL);
+            if (connection == null) {
+                connection = DriverManager.getConnection(URL);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return con;
+        return connection;
     }
 }

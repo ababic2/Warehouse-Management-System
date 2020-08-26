@@ -24,10 +24,15 @@ public class ProductDAO implements DAOInterface {
     private PreparedStatement countLowStockItemsStatement;
     private PreparedStatement lowStockItemsStatement;
     private PreparedStatement itemWithIDStatement;
+    private PreparedStatement deleteItemWithIdStatement;
 
     private Connection conn = null;
 
     public ProductDAO() {
+        tryConn();
+    }
+
+    private void tryConn() {
         connectToBase(connReference);
         conn = connReference.get();
     }
@@ -47,10 +52,12 @@ public class ProductDAO implements DAOInterface {
     }
 
     private Category getCategory(int id) {
+        ResultSet rs = null;
         try {
             categoryStatement.setInt(1,id);
-            ResultSet rs = categoryStatement.executeQuery();
+            rs = categoryStatement.executeQuery();
             Category category = new Category(rs.getInt(1), rs.getString(2));
+
             return category;
         } catch (SQLException throwables) {
             return null;
@@ -67,12 +74,14 @@ public class ProductDAO implements DAOInterface {
     }
 
     public Product getItemWithId(int id) {
+        ResultSet rs = null;
         try {
             itemWithIDStatement.setInt(1,id);
-            ResultSet rs = itemWithIDStatement.executeQuery();
+            rs = itemWithIDStatement.executeQuery();
             Product product = new Product(rs.getInt(1), rs.getString(2),
                         rs.getInt(3), rs.getInt(4), null);
                 product.setCategory(getCategory(rs.getInt(5)));
+
                 return product;
             } catch (SQLException e) {
                 return  null;
@@ -88,6 +97,7 @@ public class ProductDAO implements DAOInterface {
         countLowStockItemsStatement = conn.prepareStatement("select count(product_id) from products where stock <= 5");
         lowStockItemsStatement = conn.prepareStatement("select * from products where stock <= 5");
         itemWithIDStatement = conn.prepareStatement("select * from products where product_id = ?");
+        deleteItemWithIdStatement = conn.prepareStatement("delete from products where product_id = ?");
     }
 
     @Override
@@ -95,15 +105,52 @@ public class ProductDAO implements DAOInterface {
         if(products.size() > 0) {
             products.clear();
         }
+        ResultSet rs = null;
         try {
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             while(rs.next()) {
                 Product product = new Product(rs.getInt(1), rs.getString(2),
                         rs.getInt(3), rs.getInt(4), null);
                 product.setCategory(getCategory(rs.getInt(5)));
                 products.add(product);
             }
+
         } catch (SQLException throwables) {
+        }
+
+    }
+//
+//    private void closeAfterStatement(PreparedStatement statement, ResultSet rs) {
+//        if (rs != null) {
+//            try {
+//                rs.close();
+//            } catch (SQLException e) { /* ignored */}
+//        }
+//        if (statement != null) {
+//            try {
+//                statement.close();
+//            } catch (SQLException e) { /* ignored */}
+//        }
+//    }
+
+
+//    public void connectC() throws Exception {
+//
+//        if (conn == null) {
+//            conn = DBConnection.getConnection();
+//        } else {
+//            conn.close();
+//            conn = DBConnection.getConnection();
+//            prepareStatements();
+//        }
+//    }
+
+    public void deleteProductWithId(int id) {
+        try {
+            deleteItemWithIdStatement.setInt(1,id);
+            deleteItemWithIdStatement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 }

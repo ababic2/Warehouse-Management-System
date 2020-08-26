@@ -57,6 +57,7 @@ public class ItemDetailsController implements Initializable, ControllerInterface
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("INITIALIZE");
         products.addAll(productDAO.getInfoList());
         bindingFieldsWithProperties();
         changeCurrentProduct();
@@ -75,6 +76,7 @@ public class ItemDetailsController implements Initializable, ControllerInterface
 
     private void setBinding() {
         currentProduct.addListener((obs, oldValue, newValue) -> {
+            System.out.println("BINDAM");
             itemIDLabel.setValue(currentProduct.getValue().getProductId());
             stock.setValue(currentProduct.getValue().getStock());
             if(oldValue != null) {
@@ -85,7 +87,6 @@ public class ItemDetailsController implements Initializable, ControllerInterface
             itemNameField.textProperty().bindBidirectional(newValue.nameProperty());
             itemPriceLabel.textProperty().bindBidirectional(newValue.priceProperty(),converter);
             itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
-
         });
     }
 
@@ -141,6 +142,7 @@ public class ItemDetailsController implements Initializable, ControllerInterface
 
     private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
+    //for checking if id is numeric
     public boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -195,7 +197,12 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     }
 
     public void btnDeleteClicked(ActionEvent actionEvent) {
-
+        int id = Integer.parseInt(itemIdLabel.getText());
+        productDAO.deleteProductWithId(id);
+        products = productDAO.getInfoList();
+        System.out.println(products.size());
+       /* if(page == 0) goToNextPage();
+        else goToPreviousPage();*/
     }
 
     public void btnAddClicked(ActionEvent actionEvent) {
@@ -203,6 +210,10 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     }
 
     public void btnNextClicked(ActionEvent actionEvent) {
+        goToNextPage();
+    }
+
+    private void goToNextPage() {
         page++;
         if (page == products.size() - 1) {
             btnNext.setDisable(true);
@@ -212,12 +223,16 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     }
 
     public void btnPreviousClicked(ActionEvent actionEvent) {
+        goToPreviousPage();
+    }
+
+    private void goToPreviousPage() {
         page--;
         if (page == 0) {
             btnPrevious.setDisable(true);
         }
         btnNext.setDisable(false);
-         changeCurrentProduct();
+        changeCurrentProduct();
     }
 
     public int getItemIDLabel() {
