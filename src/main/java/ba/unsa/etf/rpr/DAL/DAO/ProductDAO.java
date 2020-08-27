@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ProductDAO implements DAOInterface {
 
@@ -29,6 +30,8 @@ public class ProductDAO implements DAOInterface {
     private PreparedStatement deleteItemWithIdStatement;
     private PreparedStatement firmStatement;
     private PreparedStatement increaseStockOfProductStatement;
+    private PreparedStatement addProductStatement;
+    private PreparedStatement checkIfExistStatement;
 
     private Connection conn = null;
 
@@ -107,13 +110,18 @@ public class ProductDAO implements DAOInterface {
         conn = connReference.get();
         countProductsStatement = conn.prepareStatement("select count(product_id) from products");
         productsStatement = conn.prepareStatement("select * from products");
+
         categoryStatement = conn.prepareStatement("select * from categories where category_id = ?");
         countLowStockItemsStatement = conn.prepareStatement("select count(product_id) from products where stock <= 5");
         lowStockItemsStatement = conn.prepareStatement("select * from products where stock <= 5");
+
         itemWithIDStatement = conn.prepareStatement("select * from products where product_id = ?");
         deleteItemWithIdStatement = conn.prepareStatement("delete from products where product_id = ?");
         firmStatement = conn.prepareStatement("select * from firms where firm_id = ?");
+
         increaseStockOfProductStatement = conn.prepareStatement("update products set stock = ? where product_id = ?");
+        addProductStatement = conn.prepareStatement("insert into products(product_id, product_name, price, stock, category_id, firm_id) values (?,?,?,?,?,?)");
+        checkIfExistStatement = conn.prepareStatement("select count(product_id) from products where product_name = ? and category_id = ? and firm_id = ?");
     }
 
     @Override
@@ -162,6 +170,49 @@ public class ProductDAO implements DAOInterface {
             return rs.getInt(1);
         } catch (SQLException exception) {
             return -1;
+        }
+    }
+
+    public ArrayList<Category> getCategories() {
+        ArrayList<Category>categories = new ArrayList<>();
+        try {
+            PreparedStatement ps = conn.prepareStatement("select * from categories");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Category category = new Category (rs.getInt(1), rs.getString(2));
+                categories.add(category);
+            }
+            return categories;
+        } catch (SQLException exception) {
+            return null;
+        }
+
+    }
+
+    public void addProduct(Product product) {
+        try {
+            addProductStatement.setInt(1, product.getProductId());
+            addProductStatement.setString(2, product.getName());
+            addProductStatement.setInt(3, product.getPrice());
+            addProductStatement.setInt(4, product.getStock());
+            addProductStatement.setInt(5, product.getCategory().getCategoryId());
+            addProductStatement.setInt(6, product.getFirm().getFirmId());
+            addProductStatement.executeUpdate();
+        } catch (SQLException exception) {
+        }
+    }
+
+    public boolean checkIfAlreadyExist(Product product) {
+        try {
+            checkIfExistStatement.setString(1, product.getName());
+            checkIfExistStatement.setInt(2, product.getCategory().getCategoryId());
+            checkIfExistStatement.setInt(3, product.getFirm().getFirmId());
+            ResultSet rs = checkIfExistStatement.executeQuery();
+            System.out.println(rs.getInt(1));
+            if(rs.getInt(1) != 0) return true;
+            return false;
+        } catch (SQLException exception) {
+            return false;
         }
     }
 }

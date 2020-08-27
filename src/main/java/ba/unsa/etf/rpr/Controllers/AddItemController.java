@@ -1,6 +1,5 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.CategoryDAO;
 import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
 import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Category;
@@ -10,9 +9,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,12 +32,12 @@ public class AddItemController implements Initializable {
 
 
     ProductDAO productDAO = ProductDAO.getInstance();
-    CategoryDAO categoryDAO = CategoryDAO.getInstance();
+    //    CategoryDAO categoryDAO = CategoryDAO.getInstance();
     FirmDAO firmDAO = FirmDAO.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        categories.addAll(categoryDAO.getCategories());
+        categories.addAll(productDAO.getCategories());
         categoryChoice.setItems(categories);
 
         firms.addAll(firmDAO.getInfoList());
@@ -47,18 +48,33 @@ public class AddItemController implements Initializable {
         //no repeat of id
         int id = productDAO.maxID();
         id++;
-        if(nameProduct.getText() == null || priceProduct.getText() == null ||
-        stockProduct.getText()== null || categoryChoice.getSelectionModel().getSelectedItem() == null ||
-        firmChoice.getSelectionModel().getSelectedItem() == null) {
+        if (nameProduct.getText() == null || priceProduct.getText() == null ||
+                stockProduct.getText() == null || categoryChoice.getSelectionModel().getSelectedItem() == null ||
+                firmChoice.getSelectionModel().getSelectedItem() == null) {
             errorLabel.setVisible(true);
-        }
-        else{
+        } else {
             errorLabel.setVisible(false);
             Product product = new Product(id, nameProduct.getText(),
                     Integer.parseInt(priceProduct.getText()),
                     Integer.parseInt(stockProduct.getText()),
                     categoryChoice.getSelectionModel().getSelectedItem(),
                     firmChoice.getSelectionModel().getSelectedItem());
+
+            if (checkIfThereIsAlreadyInBase(product)) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Already exist ! Try increasing stock of product or create new one.");
+                alert.showAndWait();
+            } else {
+                productDAO.addProduct(product);
+                Stage current = (Stage) errorLabel.getScene().getWindow();
+                current.close();
+            }
         }
+    }
+
+    private boolean checkIfThereIsAlreadyInBase(Product product) {
+        return productDAO.checkIfAlreadyExist(product);
     }
 }

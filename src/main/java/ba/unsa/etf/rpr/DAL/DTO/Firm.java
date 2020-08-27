@@ -134,4 +134,9 @@ public class Firm {
     public void setAccessLevel(String accessLevel) {
         this.accessLevel.set(accessLevel);
     }
+
+    @Override
+    public String toString() {
+        return getFirmId() + ", " + getFirmName();
+    }
 }
