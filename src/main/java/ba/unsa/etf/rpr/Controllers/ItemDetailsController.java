@@ -151,11 +151,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
             int id = Integer.parseInt(itemIdLabel.getText());
             productDAO.deleteProductWithId(id);
-
-            products.remove(page);
-
-            if (page == 0) goToNextPage();
-            else goToPreviousPage();
+//
+//            products.remove(page);
+//
+//            if (page == 0) goToNextPage();
+//            else goToPreviousPage();
     }
 
     @Override
