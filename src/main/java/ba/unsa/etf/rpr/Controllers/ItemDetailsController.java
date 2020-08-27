@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
+import ba.unsa.etf.rpr.HelpModel.Reference;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -54,6 +55,8 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private boolean disable = true;
     private int page = 0;
 
+    public Reference<Product> addedProduct = new Reference<>(null);
+
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
 
@@ -83,6 +86,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     }
 
     private void setButtonsDisableTo() {
+
         if(!currentUser.getAccessLevel().equals("EMPLOYEE")) {
             btnIncreaseStock.setDisable(true);
             btnDecreaseStock.setDisable(true);
@@ -226,11 +230,12 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     @Override
     public void btnAddClicked(ActionEvent actionEvent) {
         openNewStage("/fxml/addItem.fxml");
-//        products.clear();
-//        products.addAll(productDAO.getInfoList());
-//        page++;
-//        changeCurrent();
-//        setButtonsNextPrevious();
+
+        products.clear();
+        products.addAll(productDAO.getInfoList());
+
+        if (page == 0) goToNextPage();
+        else goToPreviousPage();
     }
 
     @Override
