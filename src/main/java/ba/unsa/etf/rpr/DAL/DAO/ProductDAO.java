@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductDAO implements DAOInterface {
+
     private static ProductDAO instance;
 
     private ObservableList<Product> products = FXCollections.observableArrayList();
@@ -32,10 +33,6 @@ public class ProductDAO implements DAOInterface {
     private Connection conn = null;
 
     public ProductDAO() {
-        tryConn();
-    }
-
-    private void tryConn() {
         connectToBase(connReference);
         conn = connReference.get();
     }
@@ -155,6 +152,16 @@ public class ProductDAO implements DAOInterface {
             increaseStockOfProductStatement.setInt(2, id);
             increaseStockOfProductStatement.executeUpdate();
         } catch (SQLException exception) {
+        }
+    }
+
+    public int maxID() {
+        try {
+            PreparedStatement ps = conn.prepareStatement("select max(product_id) from products");
+            ResultSet rs = ps.executeQuery();
+            return rs.getInt(1);
+        } catch (SQLException exception) {
+            return -1;
         }
     }
 }

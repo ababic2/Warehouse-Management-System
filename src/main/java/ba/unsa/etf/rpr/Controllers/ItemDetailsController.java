@@ -11,13 +11,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
 
 public class ItemDetailsController implements Initializable, DetailsInterface {
 
@@ -29,10 +34,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     public TextField itemPriceLabel;
     public TextField searchField;
 
+    public Button btnAdd;
     public Button btnNext;
     public Button btnPrevious;
     public Button btnIncreaseStock;
-    public Button btnAdd;
+    public Button btnDecreaseStock;
 
     public CheckBox checkBox;
 
@@ -69,7 +75,19 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         setInitialProduct();
         setBinding();
         setFieldsDisableTo(true);
+        setButtonsDisableTo();
         btnPrevious.setDisable(true);
+    }
+
+    private void setButtonsDisableTo() {
+        if(!currentUser.getAccessLevel().equals("EMPLOYEE")) {
+            btnIncreaseStock.setDisable(true);
+            btnDecreaseStock.setDisable(true);
+
+        } else {
+            btnIncreaseStock.setDisable(false);
+            btnDecreaseStock.setDisable(false);
+        }
     }
 
     private void setInitialProduct() {
@@ -201,7 +219,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void btnAddClicked(ActionEvent actionEvent) {
-
+        openNewStage("/fxml/addItem.fxml");
     }
 
     @Override
@@ -260,8 +278,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         currentProduct.getValue().setStock(newStock);
         stock.setValue(newStock);
     }
-
-
 
     public SimpleIntegerProperty itemIDLabelProperty() {
         return itemIDLabel;
