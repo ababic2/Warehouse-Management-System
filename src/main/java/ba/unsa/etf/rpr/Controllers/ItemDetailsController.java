@@ -75,7 +75,10 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         setInitialProduct();
         setBinding();
         setFieldsDisableTo(true);
+
         setButtonsDisableTo();
+
+        setButtonsNextPrevious();
         btnPrevious.setDisable(true);
     }
 
@@ -141,11 +144,14 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void btnDeleteClicked(ActionEvent actionEvent) {
-        int id = Integer.parseInt(itemIdLabel.getText());
-        productDAO.deleteProductWithId(id);
 
-        if(page == 0) goToNextPage();
-        else goToPreviousPage();
+            int id = Integer.parseInt(itemIdLabel.getText());
+            productDAO.deleteProductWithId(id);
+
+            products.remove(page);
+
+            if (page == 0) goToNextPage();
+            else goToPreviousPage();
     }
 
     @Override
@@ -220,6 +226,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     @Override
     public void btnAddClicked(ActionEvent actionEvent) {
         openNewStage("/fxml/addItem.fxml");
+//        products.clear();
+//        products.addAll(productDAO.getInfoList());
+//        page++;
+//        changeCurrent();
+//        setButtonsNextPrevious();
     }
 
     @Override
@@ -241,20 +252,30 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     private void goToNextPage() {
         page++;
-        if (page == products.size() - 1) {
-            btnNext.setDisable(true);
-        }
-        btnPrevious.setDisable(false);
+        setButtonsNextPrevious();
         changeCurrent();
     }
 
     private void goToPreviousPage() {
         page--;
-        if (page == 0) {
-            btnPrevious.setDisable(true);
-        }
-        btnNext.setDisable(false);
+        setButtonsNextPrevious();
         changeCurrent();
+    }
+
+    private void setButtonsNextPrevious() {
+        if(products.size() == 1) {
+            btnNext.setDisable(true);
+            btnPrevious.setDisable(true);
+        } else if (page == 0) {
+            btnPrevious.setDisable(true);
+            btnNext.setDisable(false);
+        } else if(page == products.size() - 1) {
+            btnNext.setDisable(true);
+            btnPrevious.setDisable(false);
+        } else {
+            btnNext.setDisable(false);
+            btnPrevious.setDisable(false);
+        }
     }
 
     public int getItemIDLabel() {

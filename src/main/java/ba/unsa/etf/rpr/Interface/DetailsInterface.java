@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -61,5 +62,10 @@ public interface DetailsInterface {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    default int confirmDeleteAction() {
+        return JOptionPane.showConfirmDialog(null,
+                "Do you want to proceed?", "Select an Option...",JOptionPane.YES_NO_CANCEL_OPTION);
     }
 }
