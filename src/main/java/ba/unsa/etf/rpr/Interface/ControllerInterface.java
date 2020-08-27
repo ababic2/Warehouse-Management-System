@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public interface ControllerInterface {
     default void openNewStage(String url) {
@@ -19,5 +20,14 @@ public interface ControllerInterface {
         } catch (IOException e) {
             e.getCause();
         }
+    }
+
+    //for checking if id is numeric
+    default boolean isNumeric2(String strNum) {
+        Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+        if (strNum == null) {
+            return false;
+        }
+        return pattern.matcher(strNum).matches();
     }
 }

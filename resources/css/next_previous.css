@@ -18,6 +18,30 @@
     -fx-background-radius: 50%;
 }
 
+#btnIncreaseStock {
+    -fx-font-size: 10;
+    -fx-background-image: url("../img/increase.png");
+    -fx-background-size: 50 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+}
+
+#btnDecreaseStock {
+    -fx-font-size: 10;
+    -fx-background-image: url("../img/decrease.png");
+    -fx-background-size: 50 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+}
+
+.tooltip {
+
+}
+
 #btnSearch {
     -fx-font-size: 10;
     -fx-background-image: url("../img/search.png");

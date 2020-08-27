@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.DAL.DAO;
 
 import ba.unsa.etf.rpr.DAL.DTO.Category;
+import ba.unsa.etf.rpr.DAL.DTO.Firm;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
 import ba.unsa.etf.rpr.HelpModel.Reference;
 import ba.unsa.etf.rpr.Interface.DAOInterface;
@@ -25,6 +26,8 @@ public class ProductDAO implements DAOInterface {
     private PreparedStatement lowStockItemsStatement;
     private PreparedStatement itemWithIDStatement;
     private PreparedStatement deleteItemWithIdStatement;
+    private PreparedStatement firmStatement;
+    private PreparedStatement increaseStockOfProductStatement;
 
     private Connection conn = null;
 
@@ -57,8 +60,22 @@ public class ProductDAO implements DAOInterface {
             categoryStatement.setInt(1,id);
             rs = categoryStatement.executeQuery();
             Category category = new Category(rs.getInt(1), rs.getString(2));
-
             return category;
+        } catch (SQLException throwables) {
+            return null;
+        }
+    }
+
+    private Firm getFirm(int id) {
+        ResultSet rs = null;
+        try {
+
+            firmStatement.setInt(1,id);
+            rs = firmStatement.executeQuery();
+            Firm firm = new Firm(rs.getInt(1), rs.getString(2), rs.getString(3),
+                    rs.getString(4),rs.getString(5), rs.getString(6),
+                    rs.getString(7), rs.getString(8));
+            return firm;
         } catch (SQLException throwables) {
             return null;
         }
@@ -79,9 +96,9 @@ public class ProductDAO implements DAOInterface {
             itemWithIDStatement.setInt(1,id);
             rs = itemWithIDStatement.executeQuery();
             Product product = new Product(rs.getInt(1), rs.getString(2),
-                        rs.getInt(3), rs.getInt(4), null);
+                        rs.getInt(3), rs.getInt(4), null, null);
                 product.setCategory(getCategory(rs.getInt(5)));
-
+                product.setFirm(getFirm(rs.getInt(6)));
                 return product;
             } catch (SQLException e) {
                 return  null;
@@ -98,6 +115,8 @@ public class ProductDAO implements DAOInterface {
         lowStockItemsStatement = conn.prepareStatement("select * from products where stock <= 5");
         itemWithIDStatement = conn.prepareStatement("select * from products where product_id = ?");
         deleteItemWithIdStatement = conn.prepareStatement("delete from products where product_id = ?");
+        firmStatement = conn.prepareStatement("select * from firms where firm_id = ?");
+        increaseStockOfProductStatement = conn.prepareStatement("update products set stock = ? where product_id = ?");
     }
 
     @Override
@@ -110,8 +129,9 @@ public class ProductDAO implements DAOInterface {
             rs = statement.executeQuery();
             while(rs.next()) {
                 Product product = new Product(rs.getInt(1), rs.getString(2),
-                        rs.getInt(3), rs.getInt(4), null);
+                        rs.getInt(3), rs.getInt(4), null, null);
                 product.setCategory(getCategory(rs.getInt(5)));
+                product.setFirm(getFirm(rs.getInt(6)));
                 products.add(product);
             }
 
@@ -119,31 +139,6 @@ public class ProductDAO implements DAOInterface {
         }
 
     }
-//
-//    private void closeAfterStatement(PreparedStatement statement, ResultSet rs) {
-//        if (rs != null) {
-//            try {
-//                rs.close();
-//            } catch (SQLException e) { /* ignored */}
-//        }
-//        if (statement != null) {
-//            try {
-//                statement.close();
-//            } catch (SQLException e) { /* ignored */}
-//        }
-//    }
-
-
-//    public void connectC() throws Exception {
-//
-//        if (conn == null) {
-//            conn = DBConnection.getConnection();
-//        } else {
-//            conn.close();
-//            conn = DBConnection.getConnection();
-//            prepareStatements();
-//        }
-//    }
 
     public void deleteProductWithId(int id) {
         try {
@@ -151,6 +146,15 @@ public class ProductDAO implements DAOInterface {
             deleteItemWithIdStatement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    public void increaseStockOfProduct(int id, int newStock) {
+        try {
+            increaseStockOfProductStatement.setInt(1,newStock);
+            increaseStockOfProductStatement.setInt(2, id);
+            increaseStockOfProductStatement.executeUpdate();
+        } catch (SQLException exception) {
         }
     }
 }

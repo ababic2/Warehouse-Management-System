@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
-import ba.unsa.etf.rpr.Interface.ControllerInterface;
+import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -17,19 +17,23 @@ import javafx.util.converter.NumberStringConverter;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class ItemDetailsController implements Initializable, ControllerInterface {
+public class ItemDetailsController implements Initializable, DetailsInterface {
 
     public Label itemIdLabel;
+    public Label stockLabell;
+
     public TextField itemNameField;;
     public TextField itemTypeLabel;
     public TextField itemPriceLabel;
-    public Label stockLabell;
+    public TextField searchField;
+
     public Button btnNext;
     public Button btnPrevious;
-    public TextField searchField;
+    public Button btnIncreaseStock;
+    public Button btnAdd;
+
     public CheckBox checkBox;
 
     private SimpleIntegerProperty itemIDLabel;
@@ -59,18 +63,20 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("INITIALIZE");
         products.addAll(productDAO.getInfoList());
+        System.out.println(products.get(0));
         bindingFieldsWithProperties();
-        changeCurrentProduct();
+        changeCurrent();
         setInitialProduct();
         setBinding();
-        setDisableTo(true);
+        setFieldsDisableTo(true);
+        btnPrevious.setDisable(true);
     }
 
     private void setInitialProduct() {
         itemIDLabel.setValue(currentProduct.getValue().getProductId());
         name.setValue(currentProduct.getValue().getName());
         price.setValue(currentProduct.getValue().getPrice());
-        stock.setValue(currentProduct.getValue().getPrice());
+        stock.setValue(currentProduct.getValue().getStock());
         type.setValue(currentProduct.getValue().getCategory().getCategoryName());
     }
 
@@ -96,24 +102,41 @@ public class ItemDetailsController implements Initializable, ControllerInterface
         itemTypeLabel.textProperty().bindBidirectional(type);
     }
 
-    private void setDisableTo(boolean var) {
+    private void setFieldsDisableTo(boolean var) {
         itemNameField.setDisable(var);
         itemTypeLabel.setDisable(var);
         itemPriceLabel.setDisable(var);
     }
 
-    private void changeCurrentProduct() {
-        currentProduct.set(products.get(page));
+    private boolean isEqual(int i) {
+        return (products.get(i).getProductId() == currentProduct.getValue().getProductId()) &&
+                (products.get(i).getPrice() == currentProduct.getValue().getPrice()) &&
+                (products.get(i).getStock() == currentProduct.getValue().getStock()) &&
+                (products.get(i).getName().equals(currentProduct.getValue().getName()));
     }
 
+    @Override
+    public void changeCurrent() {
+        currentProduct.set(products.get(page));
+
+    }
+
+    @Override
+    public void btnDeleteClicked(ActionEvent actionEvent) {
+        int id = Integer.parseInt(itemIdLabel.getText());
+        productDAO.deleteProductWithId(id);
+
+        if(page == 0) goToNextPage();
+        else goToPreviousPage();
+    }
+
+    @Override
     public void btnSearchClicked(ActionEvent actionEvent) {
         if(checkBox.isSelected()) {
             checkBoxSelected();
         } else {
             if (searchField.getText() != null) {
-                String name = searchField.getText();
-
-                Product product = findItemWithNameStream(name);
+                Product product = findItemWithNameStream(searchField.getText());
 
                 if (product == null) {
                     setAlertWindow("No result !");
@@ -124,30 +147,6 @@ public class ItemDetailsController implements Initializable, ControllerInterface
             }
 
         }
-    }
-
-    private Product findItemWithNameStream(String name) {
-        List<Product> list = products.stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList());
-        if(list.size() == 0) return null;
-        return list.get(0);
-    }
-
-    private void setAlertWindow(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
-
-    //for checking if id is numeric
-    public boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        return pattern.matcher(strNum).matches();
     }
 
     private void checkBoxSelected() {
@@ -169,6 +168,12 @@ public class ItemDetailsController implements Initializable, ControllerInterface
         }
     }
 
+    private Product findItemWithNameStream(String name) {
+        List<Product> result = products.stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList());
+        if(result.size() == 0) return null;
+        return result.get(0);
+    }
+
     private Product findItemWithIDStream(int id) {
         List<Product> list = products.stream().filter(s -> s.getProductId() == id).collect(Collectors.toList());
         if(list.size() == 0) return null;
@@ -182,35 +187,38 @@ public class ItemDetailsController implements Initializable, ControllerInterface
                 break;
             }
         }
+        if (page == products.size() - 1) {
+            btnNext.setDisable(true);
+            btnPrevious.setDisable(false);
+        } else if (page == 0) {
+            btnNext.setDisable(false);
+            btnPrevious.setDisable(true);
+        } else {
+            btnPrevious.setDisable(false);
+            btnNext.setDisable(false);
+        }
     }
 
-    private boolean isEqual(int i) {
-        return (products.get(i).getProductId() == currentProduct.getValue().getProductId()) &&
-                (products.get(i).getPrice() == currentProduct.getValue().getPrice()) &&
-                (products.get(i).getStock() == currentProduct.getValue().getStock()) &&
-                (products.get(i).getName().equals(currentProduct.getValue().getName()));
-    }
-
-    public void btnEditClicked(ActionEvent actionEvent) {
-        setDisableTo(!disable);
-        disable = !disable;
-    }
-
-    public void btnDeleteClicked(ActionEvent actionEvent) {
-        int id = Integer.parseInt(itemIdLabel.getText());
-        productDAO.deleteProductWithId(id);
-        products = productDAO.getInfoList();
-        System.out.println(products.size());
-       /* if(page == 0) goToNextPage();
-        else goToPreviousPage();*/
-    }
-
+    @Override
     public void btnAddClicked(ActionEvent actionEvent) {
 
     }
 
+    @Override
+    public void btnEditClicked(ActionEvent actionEvent) {
+        setFieldsDisableTo(!disable);
+        disable = !disable;
+    }
+
+    @Override
     public void btnNextClicked(ActionEvent actionEvent) {
         goToNextPage();
+    }
+
+    @Override
+    public void btnPreviousClicked(ActionEvent actionEvent) {
+        goToPreviousPage();
+
     }
 
     private void goToNextPage() {
@@ -219,11 +227,7 @@ public class ItemDetailsController implements Initializable, ControllerInterface
             btnNext.setDisable(true);
         }
         btnPrevious.setDisable(false);
-        changeCurrentProduct();
-    }
-
-    public void btnPreviousClicked(ActionEvent actionEvent) {
-        goToPreviousPage();
+        changeCurrent();
     }
 
     private void goToPreviousPage() {
@@ -232,12 +236,32 @@ public class ItemDetailsController implements Initializable, ControllerInterface
             btnPrevious.setDisable(true);
         }
         btnNext.setDisable(false);
-        changeCurrentProduct();
+        changeCurrent();
     }
 
     public int getItemIDLabel() {
         return itemIDLabel.get();
     }
+
+    public void btnIncreaseStockClicked(ActionEvent actionEvent) {
+        int id = Integer.parseInt(itemIdLabel.getText());
+        int newStock = Integer.parseInt(stockLabell.getText());
+        newStock++;
+        productDAO.increaseStockOfProduct(id, newStock);
+        currentProduct.getValue().setStock(newStock);
+        stock.setValue(newStock);
+    }
+
+    public void btnDecreaseStock(ActionEvent actionEvent) {
+        int id = Integer.parseInt(itemIdLabel.getText());
+        int newStock = Integer.parseInt(stockLabell.getText());
+        newStock--;
+        productDAO.increaseStockOfProduct(id, newStock);
+        currentProduct.getValue().setStock(newStock);
+        stock.setValue(newStock);
+    }
+
+
 
     public SimpleIntegerProperty itemIDLabelProperty() {
         return itemIDLabel;
@@ -306,5 +330,4 @@ public class ItemDetailsController implements Initializable, ControllerInterface
     public void setCurrentProduct(Product currentProduct) {
         this.currentProduct.set(currentProduct);
     }
-
 }

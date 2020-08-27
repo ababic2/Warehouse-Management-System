@@ -10,24 +10,26 @@ public class Product implements Comparable{
     private SimpleIntegerProperty price = new SimpleIntegerProperty(0);
     private SimpleIntegerProperty stock = new SimpleIntegerProperty(0);
     private Category category;
+    private Firm firm;
 
     public Product() {
     }
 
-    public Product(int productId, String name, int price, int stock, Category category) {
+    public Product(int productId, String name, int price, int stock, Category category, Firm firm) {
         this.productId = new SimpleIntegerProperty(productId);
         this.name = new SimpleStringProperty(name);
         this.price = new SimpleIntegerProperty(price);
         this.stock = new SimpleIntegerProperty(stock);
         this.category = category;
+        this.firm = firm;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", name=" + name +
-                ", price=" + price;
+    public Firm getFirm() {
+        return firm;
+    }
+
+    public void setFirm(Firm firm) {
+        this.firm = firm;
     }
 
     public int getProductId() {
@@ -84,6 +86,15 @@ public class Product implements Comparable{
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", name=" + name +
+                ", price=" + price +
+                ",stock =" + stock;
     }
 
     @Override

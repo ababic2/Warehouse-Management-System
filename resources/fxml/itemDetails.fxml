@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -121,6 +120,45 @@
                         </Label>
                      </children>
                   </HBox>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="btnDecreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDecreaseStock" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Increase stock" />
+                           </tooltip>
+                        </Button>
+                        <Button fx:id="btnIncreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnIncreaseStockClicked" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Decrease Stock" />
+                           </tooltip>
+                        </Button>
+                     </children>
+                  </GridPane>
                </children>
                <padding>
                   <Insets top="50.0" />
@@ -146,29 +184,21 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="btnPrevious" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnPreviousClicked" prefHeight="75.0" prefWidth="75.0" style="-fx-border-radius: 50; -fx-background-radius: 50;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="btnPrevious" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnPreviousClicked" prefHeight="75.0" prefWidth="75.0" style="-fx-border-radius: 50; -fx-background-radius: 50;" stylesheets="@../css/next_previous.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <effect>
                               <DropShadow />
                            </effect>
                            <padding>
                               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                            </padding>
-                           <stylesheets>
-                              <URL value="@../css/itemDetails.css" />
-                              <URL value="@../css/next_previous.css" />
-                           </stylesheets>
                         </Button>
-                        <Button fx:id="btnNext" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNextClicked" prefHeight="75.0" prefWidth="75.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="btnNext" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNextClicked" prefHeight="75.0" prefWidth="75.0" stylesheets="@../css/next_previous.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <effect>
                               <DropShadow />
                            </effect>
                            <padding>
                               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                            </padding>
-                           <stylesheets>
-                              <URL value="@../css/itemDetails.css" />
-                              <URL value="@../css/next_previous.css" />
-                           </stylesheets>
                         </Button>
                      </children>
                      <padding>
@@ -202,7 +232,7 @@
                                           <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
                                        </padding>
                                     </TextField>
-                                    <Button fx:id="btnSearch" onAction="#btnSearchClicked" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/next_previous.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                    <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearchClicked" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/next_previous.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                        <padding>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </padding>
@@ -211,6 +241,9 @@
                                        </effect>
                                     </Button>
                                  </children>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                 </rowConstraints>
                               </GridPane>
                               <CheckBox fx:id="checkBox" mnemonicParsing="false" text="search by ID" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <padding>
@@ -262,7 +295,7 @@
                                     <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
                                  </padding>
                                  <tooltip>
-                                    <Tooltip text="Delete this firm" />
+                                    <Tooltip text="Add new product" />
                                  </tooltip>
                               </Button>
                            </children>

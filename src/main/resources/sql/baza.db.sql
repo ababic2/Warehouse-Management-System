@@ -1,4 +1,13 @@
 BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "products" (
+	"product_id"	INTEGER,
+	"product_name"	TEXT,
+	"price"	INTEGER,
+	"stock"	INTEGER,
+	"category_id"	INTEGER,
+	"firm_id"	INTEGER,
+	PRIMARY KEY("product_id")
+);
 CREATE TABLE IF NOT EXISTS "employees" (
 	"employee_id"	INTEGER,
 	"first_name"	TEXT NOT NULL,
@@ -24,30 +33,20 @@ CREATE TABLE IF NOT EXISTS "firms" (
 	"access_level"	TEXT,
 	PRIMARY KEY("firm_id")
 );
-CREATE TABLE IF NOT EXISTS "request" (
-	"request_id"	INTEGER,
-	"firm_id"	INTEGER,
-	"product_id"	INTEGER,
-	PRIMARY KEY("request_id")
-);
 CREATE TABLE IF NOT EXISTS "categories" (
 	"category_id"	INTEGER,
 	"category_name"	TEXT,
 	PRIMARY KEY("category_id")
-);
-CREATE TABLE IF NOT EXISTS "products" (
-	"product_id"	INTEGER,
-	"product_name"	TEXT,
-	"price"	INTEGER,
-	"stock"	INTEGER,
-	"category_id"	INTEGER,
-	PRIMARY KEY("product_id")
 );
 CREATE TABLE IF NOT EXISTS "departments" (
 	"department_id"	INTEGER,
 	"department_name"	TEXT,
 	PRIMARY KEY("department_id")
 );
+INSERT INTO "products" VALUES (2,'Twingo',5,10,1,1);
+INSERT INTO "products" VALUES (4,'Sinalco',2,5,2,2);
+INSERT INTO "products" VALUES (5,'Sofa',200,15,3,3);
+INSERT INTO "products" VALUES (6,'Rug',100,2,3,4);
 INSERT INTO "employees" VALUES (1,'Sarah','Rodrigues','sarah','hello12345','admin','sarah@gmail.com',500,'22-05-2007',1);
 INSERT INTO "employees" VALUES (2,'Terri','Cabrera','terri','hello12345','employee','terrisia@gmail.com',500,'19-04-2007',1);
 INSERT INTO "employees" VALUES (3,'Flynn','Rosas','flynn','hello12345','employee','flynn@gmail.com',600,'10-02-2006',2);
@@ -67,12 +66,6 @@ INSERT INTO "categories" VALUES (1,'Food');
 INSERT INTO "categories" VALUES (2,'Drink');
 INSERT INTO "categories" VALUES (3,'Furniture');
 INSERT INTO "categories" VALUES (4,'Clothes');
-INSERT INTO "products" VALUES (2,'Twingo',5,10,1);
-INSERT INTO "products" VALUES (3,'Snickers',2,4,1);
-INSERT INTO "products" VALUES (4,'Sinalco',2,5,2);
-INSERT INTO "products" VALUES (5,'Sofa',200,15,3);
-INSERT INTO "products" VALUES (6,'Rug',100,2,3);
-INSERT INTO "products" VALUES (7,'DeShirt',25,12,4);
 INSERT INTO "departments" VALUES (1,'Receiver');
 INSERT INTO "departments" VALUES (2,'Control');
 INSERT INTO "departments" VALUES (3,'Safety');
