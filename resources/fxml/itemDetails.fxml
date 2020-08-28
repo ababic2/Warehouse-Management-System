@@ -259,7 +259,6 @@
                               <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="105.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <ToggleButton fx:id="editButton" mnemonicParsing="false" onAction="#btnEditClicked" prefHeight="50.0" prefWidth="20.0" stylesheets="@../css/itemDetails.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -293,17 +292,6 @@
                                  </padding>
                                  <tooltip>
                                     <Tooltip text="Add new product and then click Refresh" />
-                                 </tooltip>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#btnRefreshClicked" stylesheets="@../css/itemDetails.css" text="Refresh" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                 <padding>
-                                    <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
-                                 </padding>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                                 <tooltip>
-                                    <Tooltip text="Refresh List of Products" />
                                  </tooltip>
                               </Button>
                            </children>

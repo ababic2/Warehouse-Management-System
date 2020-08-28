@@ -215,4 +215,17 @@ public class ProductDAO implements DAOInterface {
             return false;
         }
     }
+
+    public void updateProduct(int id, String newName, int newPrice, int newStock) {
+        try {
+            PreparedStatement ps = conn.prepareStatement("update products set product_name = ?, price = ?, stock = ? where product_id = ?");
+            ps.setString(1, newName);
+            ps.setInt(2, newPrice);
+            ps.setInt(3, newStock);
+            ps.setInt(4, id);
+            ps.executeUpdate();
+        } catch (SQLException exception) {
+        }
+
+    }
 }

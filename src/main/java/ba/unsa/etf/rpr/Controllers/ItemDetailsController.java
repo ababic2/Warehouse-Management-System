@@ -8,6 +8,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -143,7 +144,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     @Override
     public void changeCurrent() {
         currentProduct.set(products.get(page));
-
     }
 
     @Override
@@ -151,11 +151,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
             int id = Integer.parseInt(itemIdLabel.getText());
             productDAO.deleteProductWithId(id);
-//
-//            products.remove(page);
-//
-//            if (page == 0) goToNextPage();
-//            else goToPreviousPage();
+
+            products.remove(page);
+
+            if (page == 0) goToNextPage();
+            else goToPreviousPage();
     }
 
     @Override
@@ -231,17 +231,63 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     public void btnAddClicked(ActionEvent actionEvent) {
         openNewStage("/fxml/addItem.fxml");
 
-        products.clear();
-        products.addAll(productDAO.getInfoList());
-
-        if (page == 0) goToNextPage();
-        else goToPreviousPage();
+//        products.clear();
+//        products.addAll(productDAO.getInfoList());
+//
+//        if (page == 0) goToNextPage();
+//        else goToPreviousPage();
     }
+
+    private int editClick = 0;
+
+    private ChangeListener nameListener = null;
+    private ChangeListener priceListener = null;
+    private ChangeListener stockListener = null;
 
     @Override
     public void btnEditClicked(ActionEvent actionEvent) {
+
         setFieldsDisableTo(!disable);
         disable = !disable;
+        editClick++;
+
+    if(editClick == 1) {
+        nameListener = (obs, oldValue, newValue) -> {
+            name.setValue((String) newValue);
+            products.get(page).setName(name.getValue());
+            System.out.println("J" + name.getValue());
+        };
+        itemNameField.textProperty().addListener(nameListener);
+
+        priceListener = (obs, oldValue, newValue) -> {
+            price.setValue(Integer.parseInt((String) newValue));
+            products.get(page).setPrice(price.getValue());
+            System.out.println("J" + price.getValue());
+        };
+        itemPriceLabel.textProperty().addListener(priceListener);
+
+        stockListener = (obs, oldValue, newValue) -> {
+            stock.setValue(Integer.parseInt((String) newValue));
+            products.get(page).setStock(stock.getValue());
+            System.out.println("J" + stock.getValue());
+        };
+        stockLabell.textProperty().addListener(stockListener);
+    } else if (editClick == 2) {
+
+            System.out.println("HELLOOOOO");
+            changeCurrent();
+            System.out.println("1");
+
+            productDAO.updateProduct(currentProduct.getValue().getProductId(), currentProduct.getValue().getName(),
+                    currentProduct.getValue().getPrice(), currentProduct.getValue().getStock());
+
+            System.out.println("2");
+
+            itemNameField.textProperty().removeListener(nameListener);
+            itemPriceLabel.textProperty().removeListener(priceListener);
+            stockLabell.textProperty().removeListener(stockListener);
+            editClick = 0;
+        }
     }
 
     @Override
