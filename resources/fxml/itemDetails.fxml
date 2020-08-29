@@ -119,7 +119,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="stockLabell" alignment="CENTER" contentDisplay="CENTER" text="${controller.stock}">
+                        <Label fx:id="stockLabel" alignment="CENTER" contentDisplay="CENTER" text="${controller.stock}">
                            <font>
                               <Font size="23.0" />
                            </font>

@@ -28,7 +28,7 @@ import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
 public class ItemDetailsController implements Initializable, DetailsInterface {
 
     public Label itemIdLabel;
-    public Label stockLabell;
+    public Label stockLabel;
 
     public TextField itemNameField;;
     public TextField itemTypeLabel;
@@ -64,7 +64,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private ChangeListener<String> nameListener = null;
     private ChangeListener<String> priceListener = null;
     private ChangeListener<String> stockListener = null;
-
 
     public ItemDetailsController() {
         itemIDLabel = new SimpleIntegerProperty(0);
@@ -138,13 +137,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         itemPriceLabel.setDisable(var);
     }
 
-    private boolean isEqual(int i) {
-        return (products.get(i).getProductId() == currentProduct.getValue().getProductId()) &&
-                (products.get(i).getPrice() == currentProduct.getValue().getPrice()) &&
-                (products.get(i).getStock() == currentProduct.getValue().getStock()) &&
-                (products.get(i).getName().equals(currentProduct.getValue().getName()));
-    }
-
     @Override
     public void changeCurrent() {
         currentProduct.set(products.get(page));
@@ -198,7 +190,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         }
     }
 
-
     private void findPageAfterSearch() {
         for(int i = 0; i < products.size(); i++) {
             if(currentProduct.getValue().compareTo(products.get(i)) == 0) {
@@ -213,8 +204,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     public void btnAddClicked(ActionEvent actionEvent) {
         openNewStage("/fxml/addItem.fxml");
     }
-
-
 
     private void goToPreviousPage() {
         page--;
@@ -252,7 +241,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
             stock.setValue(Integer.parseInt((String) newValue));
             products.get(page).setStock(stock.getValue());
         };
-        stockLabell.textProperty().addListener(stockListener);
+        stockLabel.textProperty().addListener(stockListener);
     } else if (editClick == 2) {
 
             System.out.println("HELLOOOOO");
@@ -266,7 +255,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
             itemNameField.textProperty().removeListener(nameListener);
             itemPriceLabel.textProperty().removeListener(priceListener);
-            stockLabell.textProperty().removeListener(stockListener);
+            stockLabel.textProperty().removeListener(stockListener);
             editClick = 0;
         }
     }
@@ -282,7 +271,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     public void btnIncreaseStockClicked(ActionEvent actionEvent) {
         int id = Integer.parseInt(itemIdLabel.getText());
-        int newStock = Integer.parseInt(stockLabell.getText());
+        int newStock = Integer.parseInt(stockLabel.getText());
         newStock++;
         productDAO.increaseStockOfProduct(id, newStock);
         currentProduct.getValue().setStock(newStock);
@@ -291,7 +280,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     public void btnDecreaseStock(ActionEvent actionEvent) {
         int id = Integer.parseInt(itemIdLabel.getText());
-        int newStock = Integer.parseInt(stockLabell.getText());
+        int newStock = Integer.parseInt(stockLabel.getText());
         newStock--;
         productDAO.increaseStockOfProduct(id, newStock);
         currentProduct.getValue().setStock(newStock);

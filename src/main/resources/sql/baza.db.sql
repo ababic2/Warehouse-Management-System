@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS "employees" (
 	"username"	TEXT NOT NULL,
 	"password"	TEXT NOT NULL,
 	"access_level"	TEXT,
-	"e-mail"	TEXT,
+	"e_mail"	TEXT,
 	"salary"	INTEGER NOT NULL,
 	"hire_date"	TEXT NOT NULL,
 	"department_id"	INTEGER,

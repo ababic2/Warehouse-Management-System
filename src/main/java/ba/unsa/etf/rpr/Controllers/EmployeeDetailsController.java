@@ -74,6 +74,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("INITIALIZE");
         employees.addAll(userDAO.getInfoList());
         departments.addAll(userDAO.getDepartments());
         departmentChoice.setItems(departments);
@@ -81,11 +82,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
         bindingFieldsWithProperties();
         changeCurrent();
-        if(radioAdmin.getText().equals(currentEmployee.getValue().getAccessLevelString())) {
-            radioAdmin.setSelected(true);
-        } else {
-            radioEmployee.setSelected(true);
-        }
 
         System.out.println(employees.get(page));
         setInitialEmployee();
@@ -94,6 +90,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
         radioEmployee.setToggleGroup(toggleGroup);
         radioAdmin.setToggleGroup(toggleGroup);
+        setRadioButtons();
 
         setButtonsDisableTo();
 
@@ -115,12 +112,13 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     private void setBinding() {
         currentEmployee.addListener((obs, oldValue, newValue) -> {
+            System.out.println("BINDAM");
             id.setValue(currentEmployee.getValue().getEmployeeId());
             if(oldValue != null) {
-                nameField.textProperty().unbindBidirectional(name);
-                mailField.textProperty().unbindBidirectional(mail);
-                salaryField.textProperty().unbindBidirectional(salary);
-                dateField.textProperty().unbindBidirectional(date);
+                nameField.textProperty().unbindBidirectional(oldValue.firstNameProperty());
+                mailField.textProperty().unbindBidirectional(oldValue.eMailProperty());
+                salaryField.textProperty().unbindBidirectional(oldValue.salaryProperty());
+                dateField.textProperty().unbindBidirectional(oldValue.hireDateProperty());
             }
             nameField.textProperty().bindBidirectional(newValue.firstNameProperty());
             mailField.textProperty().bindBidirectional(newValue.eMailProperty());
@@ -210,8 +208,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         setFieldsDisableTo(!disable);
         disable = !disable;
         editClick++;
-        departments.addAll(userDAO.getDepartments());
-        departmentChoice.setItems(departments);
 
         if (editClick == 1) {
             nameListener = (obs, oldValue, newValue) -> {
@@ -239,26 +235,25 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
             };
             dateField.textProperty().addListener(dateListener);
 
-            currentEmployee.getValue().setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
+            employees.get(page).setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
 
             if(radioAdmin.isSelected()) {
-                currentEmployee.getValue().setAccessLevelString("Admin");
+                employees.get(page).setAccessLevelString("admin");
             } else {
-                currentEmployee.getValue().setAccessLevelString("Employee");
+                employees.get(page).setAccessLevelString("employee");
             }
-
         } else if (editClick == 2) {
-//            changeCurrent();
-//            userDAO.updateProduct(currentEmployee.getValue().getEmployeeId(), currentEmployee.getValue().getFirstName(),
-//                    currentEmployee.getValue().geteMail(), currentEmployee.getValue().getSalary(),
-//                    currentEmployee.getValue().getDepartment(), currentEmployee.getValue().getHireDate());
-//
-//            nameField.textProperty().removeListener(nameListener);
-//            mailField.textProperty().removeListener(mailListener);
-//            salaryField.textProperty().removeListener(salaryListener);
-//            departmentField.textProperty().removeListener(departmentListener);
-//            dateField.textProperty().removeListener(dateListener);
-//            editClick = 0;
+            changeCurrent();
+
+            userDAO.updateProduct(currentEmployee.getValue().getEmployeeId(), currentEmployee.getValue().getFirstName(),
+                    currentEmployee.getValue().geteMail(), currentEmployee.getValue().getSalary(),
+                    currentEmployee.getValue().getDepartment(), currentEmployee.getValue().getHireDate());
+
+            nameField.textProperty().removeListener(nameListener);
+            mailField.textProperty().removeListener(mailListener);
+            salaryField.textProperty().removeListener(salaryListener);
+            dateField.textProperty().removeListener(dateListener);
+            editClick = 0;
         }
     }
 
