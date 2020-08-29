@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDAO implements DAOInterface {
 
@@ -85,6 +86,21 @@ public class UserDAO implements DAOInterface {
         }
     }
 
+    public ArrayList<Department> getDepartments() {
+        ArrayList<Department> departments = new ArrayList<>();
+        try {
+            PreparedStatement getDepStatement = conn.prepareStatement("select  * from departments");
+            ResultSet rs = getDepStatement.executeQuery();
+            while(rs.next()) {
+                Department department = new Department(rs.getInt(1), rs.getString(2));
+                departments.add(department);
+            }
+            return departments;
+        } catch (SQLException exception) {
+            return null;
+        }
+    }
+
     public void prepareStatements() throws SQLException {
         conn = connReference.get();
         usernameStatement = conn.prepareStatement("select password, access_level from employees where username = ?");
@@ -122,4 +138,9 @@ public class UserDAO implements DAOInterface {
         }
 
     }
+//    public void updateProduct(int employeeId, String firstName, String geteMail, int salary, String departmentName, String hireDate) {
+//        PreparedStatement updateEmployee =
+//                conn.prepareStatement("update employees set first_name = ?, e-mail = ?, salary = ?, ")
+
+//    }
 }

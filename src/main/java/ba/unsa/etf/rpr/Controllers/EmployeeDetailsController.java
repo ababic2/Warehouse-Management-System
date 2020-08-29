@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
+import ba.unsa.etf.rpr.DAL.DTO.Department;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import javafx.beans.property.ObjectProperty;
@@ -19,15 +20,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
-
 public class EmployeeDetailsController implements Initializable, DetailsInterface {
 
 
     public TextField nameField;
     public TextField mailField;
     public TextField salaryField;
-    public TextField departmentField;
     public TextField dateField;
 
     public Button btnAdd;
@@ -38,7 +36,11 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     public Label idLabel;
 
     public CheckBox checkBox;
+    public ChoiceBox<Department> departmentChoice;
     public TextField searchField;
+    public RadioButton radioEmployee;
+    public RadioButton radioAdmin;
+    private ToggleGroup toggleGroup = new ToggleGroup();
 
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
@@ -49,6 +51,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     private UserDAO userDAO = UserDAO.getInstance();
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
+    private ObservableList<Department> departments = FXCollections.observableArrayList();
 
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
@@ -59,7 +62,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     private ChangeListener salaryListener;
     private ChangeListener mailListener;
     private ChangeListener dateListener;
-
 
     public EmployeeDetailsController() {
         id = new SimpleIntegerProperty(0);
@@ -73,12 +75,25 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         employees.addAll(userDAO.getInfoList());
+        departments.addAll(userDAO.getDepartments());
+        departmentChoice.setItems(departments);
+
+
         bindingFieldsWithProperties();
         changeCurrent();
+        if(radioAdmin.getText().equals(currentEmployee.getValue().getAccessLevelString())) {
+            radioAdmin.setSelected(true);
+        } else {
+            radioEmployee.setSelected(true);
+        }
+
         System.out.println(employees.get(page));
         setInitialEmployee();
         setBinding();
         setFieldsDisableTo(true);
+
+        radioEmployee.setToggleGroup(toggleGroup);
+        radioAdmin.setToggleGroup(toggleGroup);
 
         setButtonsDisableTo();
 
@@ -88,15 +103,15 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     }
 
     private void setButtonsDisableTo() {
-        if(!currentUser.getAccessLevel().equals("ADMIN")) {
-            btnAdd.setDisable(true);
-            btnEdit.setDisable(true);
-
-        } else {
-            btnAdd.setDisable(false);
-            btnEdit.setDisable(false);
-        }
-    }
+//        if(!currentUser.getAccessLevel().equals("ADMIN")) {
+//            btnAdd.setDisable(true);
+//            btnEdit.setDisable(true);
+//
+//        } else {
+//            btnAdd.setDisable(false);
+//            btnEdit.setDisable(false);
+//        }
+    } //zakomentarisano
 
     private void setBinding() {
         currentEmployee.addListener((obs, oldValue, newValue) -> {
@@ -106,13 +121,11 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
                 mailField.textProperty().unbindBidirectional(mail);
                 salaryField.textProperty().unbindBidirectional(salary);
                 dateField.textProperty().unbindBidirectional(date);
-                departmentField.textProperty().unbindBidirectional(department);
             }
             nameField.textProperty().bindBidirectional(newValue.firstNameProperty());
             mailField.textProperty().bindBidirectional(newValue.eMailProperty());
             salaryField.textProperty().bindBidirectional(newValue.salaryProperty(), converter);
             dateField.textProperty().bindBidirectional(newValue.hireDateProperty());
-            departmentField.textProperty().bindBidirectional(newValue.getDepartment().departmentNameProperty());
         });
     }
 
@@ -121,16 +134,19 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         name.setValue(currentEmployee.getValue().getFirstName() +" " + currentEmployee.getValue().getLastName());
         mail.setValue(currentEmployee.getValue().geteMail());
         salary.setValue(currentEmployee.getValue().getSalary());
-        department.setValue(currentEmployee.getValue().getDepartment().getDepartmentName());
         date.setValue(currentEmployee.getValue().getHireDate());
+        departmentChoice.setValue(departments.get(0));
+        setRadioButtons();
     }
 
     private void setFieldsDisableTo(boolean var) {
         nameField.setDisable(var);
         mailField.setDisable(var);
         salaryField.setDisable(var);
-        departmentField.setDisable(var);
         dateField.setDisable(var);
+        departmentChoice.setDisable(var);
+        radioAdmin.setDisable(true);
+        radioEmployee.setDisable(true);
     }
 
     public void changeCurrent() {
@@ -142,7 +158,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         mailField.textProperty().bindBidirectional(mail);
         salaryField.textProperty().bindBidirectional(salary, converter);
         dateField.textProperty().bindBidirectional(date);
-        departmentField.textProperty().bindBidirectional(department);
     }
 
     public void btnPreviousClicked(ActionEvent actionEvent) {
@@ -153,6 +168,17 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         page--;
         DetailsInterface.setButtonsNextPrev(employees.size(), btnNext, btnPrevious, page);
         changeCurrent();
+        int id = employees.get(page).getDepartment().getDepartmentId();
+        departmentChoice.setValue(departments.stream().filter(s -> s.getDepartmentId() == (id)).collect(Collectors.toList()).get(0));
+        setRadioButtons();
+    }
+
+    private void setRadioButtons() {
+        if(currentEmployee.getValue().getAccessLevelString().equals("admin")) {
+            radioAdmin.setSelected(true);
+        } else {
+            radioEmployee.setSelected(true);
+        }
     }
 
     public void btnNextClicked(ActionEvent actionEvent) {
@@ -163,6 +189,9 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         page++;
         DetailsInterface.setButtonsNextPrev(employees.size(), btnNext, btnPrevious, page);
         changeCurrent();
+        int id = employees.get(page).getDepartment().getDepartmentId();
+        departmentChoice.setValue(departments.stream().filter(s -> s.getDepartmentId() == id).collect(Collectors.toList()).get(0));
+        setRadioButtons();
     }
 
     public void btnDeleteClicked(ActionEvent actionEvent) {
@@ -181,6 +210,8 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         setFieldsDisableTo(!disable);
         disable = !disable;
         editClick++;
+        departments.addAll(userDAO.getDepartments());
+        departmentChoice.setItems(departments);
 
         if (editClick == 1) {
             nameListener = (obs, oldValue, newValue) -> {
@@ -189,17 +220,18 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
             };
             nameField.textProperty().addListener(nameListener);
 
+            mailListener = (obs, oldValue, newValue) -> {
+                mail.setValue((String) newValue);
+                employees.get(page).seteMail(mail.getValue());
+            };
+            mailField.textProperty().addListener(mailListener);
+
             salaryListener = (obs, oldValue, newValue) -> {
                 salary.setValue(Integer.parseInt((String) newValue));
                 employees.get(page).setSalary(salary.getValue());
             };
             salaryField.textProperty().addListener(salaryListener);
 
-            mailListener = (obs, oldValue, newValue) -> {
-                mail.setValue((String) newValue);
-                employees.get(page).seteMail(mail.getValue());
-            };
-            mailField.textProperty().addListener(mailListener);
 
             dateListener = (obs, oldValue, newValue) -> {
                 date.setValue((String) newValue);
@@ -207,22 +239,29 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
             };
             dateField.textProperty().addListener(dateListener);
 
-            departmentListener = (obs, oldValue, newValue) -> {
-                department.setValue((String) newValue);
-                employees.get(page).seteMail(mail.getValue());
-            };
-            mailField.textProperty().addListener(mailListener);
-        } else if (editClick == 2) {
-            changeCurrent();
-            userDAO.updateProduct(currentEmployee.getValue().getEmployeeId(), currentEmployee.getValue().getName(),
-                    currentProduct.getValue().getPrice(), currentProduct.getValue().getStock());
+            currentEmployee.getValue().setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
 
-            nameField.textProperty().removeListener(nameListener);
-            salaryField.textProperty().removeListener(salaryListener);
-            mailField.textProperty().removeListener(mailListener);
-            editClick = 0;
+            if(radioAdmin.isSelected()) {
+                currentEmployee.getValue().setAccessLevelString("Admin");
+            } else {
+                currentEmployee.getValue().setAccessLevelString("Employee");
+            }
+
+        } else if (editClick == 2) {
+//            changeCurrent();
+//            userDAO.updateProduct(currentEmployee.getValue().getEmployeeId(), currentEmployee.getValue().getFirstName(),
+//                    currentEmployee.getValue().geteMail(), currentEmployee.getValue().getSalary(),
+//                    currentEmployee.getValue().getDepartment(), currentEmployee.getValue().getHireDate());
+//
+//            nameField.textProperty().removeListener(nameListener);
+//            mailField.textProperty().removeListener(mailListener);
+//            salaryField.textProperty().removeListener(salaryListener);
+//            departmentField.textProperty().removeListener(departmentListener);
+//            dateField.textProperty().removeListener(dateListener);
+//            editClick = 0;
         }
     }
+
 
     public void btnAddClicked(ActionEvent actionEvent) {
 
