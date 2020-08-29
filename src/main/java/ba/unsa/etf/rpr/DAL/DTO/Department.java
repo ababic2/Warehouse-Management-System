@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Department {
-    
+
     private SimpleIntegerProperty departmentId;
     private SimpleStringProperty departmentName;
 
@@ -38,5 +38,10 @@ public class Department {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName.set(departmentName);
+    }
+
+    @Override
+    public String toString() {
+        return getDepartmentId() + ", " + getDepartmentName();
     }
 }

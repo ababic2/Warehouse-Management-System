@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -67,5 +68,21 @@ public interface DetailsInterface {
     default int confirmDeleteAction() {
         return JOptionPane.showConfirmDialog(null,
                 "Do you want to proceed?", "Select an Option...",JOptionPane.YES_NO_CANCEL_OPTION);
+    }
+
+    static void setButtonsNextPrev(int size, Button btnNext, Button btnPrevious, int page) {
+        if(size == 1) {
+            btnNext.setDisable(true);
+            btnPrevious.setDisable(true);
+        } else if (page == 0) {
+            btnPrevious.setDisable(true);
+            btnNext.setDisable(false);
+        } else if(page == size - 1) {
+            btnNext.setDisable(true);
+            btnPrevious.setDisable(false);
+        } else {
+            btnNext.setDisable(false);
+            btnPrevious.setDisable(false);
+        }
     }
 }

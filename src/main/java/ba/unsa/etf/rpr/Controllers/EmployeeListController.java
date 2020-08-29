@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
+import ba.unsa.etf.rpr.DAL.DTO.Department;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -21,7 +22,7 @@ public class EmployeeListController implements Initializable {
     public TableColumn<Employee, String> mailColumn;
     public TableColumn<Employee, String> salaryColumn;
     public TableColumn<Employee, String> hireDateColumn;
-    public TableColumn<Employee, String> depColumn;
+    public TableColumn<Employee, Department> depColumn;
     private UserDAO userDAO = UserDAO.getInstance();
 
     @Override
@@ -41,6 +42,6 @@ public class EmployeeListController implements Initializable {
 
         salaryColumn.setCellValueFactory(new PropertyValueFactory<>("salary"));
         hireDateColumn.setCellValueFactory(new PropertyValueFactory<>("hireDate"));
-        depColumn.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
+        depColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
     }
 }

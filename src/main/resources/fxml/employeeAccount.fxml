@@ -40,7 +40,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="idLabel" alignment="CENTER" contentDisplay="CENTER" HBox.hgrow="ALWAYS">
+                        <Label fx:id="idLabel" text="${controller.id}" alignment="CENTER" contentDisplay="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -272,7 +272,7 @@
                               <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ToggleButton fx:id="editButton" mnemonicParsing="false" onAction="#btnEditClicked" prefHeight="50.0" prefWidth="20.0" stylesheets="@../css/itemDetails.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <ToggleButton fx:id="btnEdit" mnemonicParsing="false" onAction="#btnEditClicked" prefHeight="50.0" prefWidth="20.0" stylesheets="@../css/itemDetails.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" right="40.0" top="10.0" />
                                  </padding>

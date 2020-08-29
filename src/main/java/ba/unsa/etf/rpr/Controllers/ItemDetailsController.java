@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -86,7 +85,8 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
         setButtonsDisableTo();
 
-        setButtonsNextPrevious();
+        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
+
         btnPrevious.setDisable(true);
     }
 
@@ -168,8 +168,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
             checkBoxSelected();
         } else {
             if (searchField.getText() != null) {
-                Product product = findItemWithNameStream(searchField.getText());
-
+                Product product = products.stream().filter(s -> s.getName().equals(searchField.getText())).collect(Collectors.toList()).get(0);
                 if (product == null) {
                     setAlertWindow("No result !");
                 } else {
@@ -177,7 +176,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
                     findPageAfterSearch();
                 }
             }
-
         }
     }
 
@@ -186,7 +184,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
             if (isNumeric(searchField.getText())) {
                 int id = Integer.parseInt(searchField.getText());
 
-                Product product = findItemWithIDStream(id);
+                Product product = products.stream().filter(s -> s.getProductId() == id).collect(Collectors.toList()).get(0);
 
                 if (product == null) {
                     setAlertWindow("No result !");
@@ -200,35 +198,15 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         }
     }
 
-    private Product findItemWithNameStream(String name) {
-        List<Product> result = products.stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList());
-        if(result.size() == 0) return null;
-        return result.get(0);
-    }
-
-    private Product findItemWithIDStream(int id) {
-        List<Product> list = products.stream().filter(s -> s.getProductId() == id).collect(Collectors.toList());
-        if(list.size() == 0) return null;
-        return list.get(0);
-    }
 
     private void findPageAfterSearch() {
         for(int i = 0; i < products.size(); i++) {
-            if(isEqual(i)) {
+            if(currentProduct.getValue().compareTo(products.get(i)) == 0) {
                 page = i;
                 break;
             }
         }
-        if (page == products.size() - 1) {
-            btnNext.setDisable(true);
-            btnPrevious.setDisable(false);
-        } else if (page == 0) {
-            btnNext.setDisable(false);
-            btnPrevious.setDisable(true);
-        } else {
-            btnPrevious.setDisable(false);
-            btnNext.setDisable(false);
-        }
+        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
     }
 
     @Override
@@ -236,31 +214,17 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         openNewStage("/fxml/addItem.fxml");
     }
 
-    private void setButtonsNextPrevious() {
-        if(products.size() == 1) {
-            btnNext.setDisable(true);
-            btnPrevious.setDisable(true);
-        } else if (page == 0) {
-            btnPrevious.setDisable(true);
-            btnNext.setDisable(false);
-        } else if(page == products.size()  - 1) {
-            btnNext.setDisable(true);
-            btnPrevious.setDisable(false);
-        } else {
-            btnNext.setDisable(false);
-            btnPrevious.setDisable(false);
-        }
-    }
+
 
     private void goToPreviousPage() {
         page--;
-        setButtonsNextPrevious();
+        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
         changeCurrent();
     }
 
     private void goToNextPage() {
         page++;
-        setButtonsNextPrevious();
+        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
         changeCurrent();
     }
 
@@ -316,10 +280,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     public void btnPreviousClicked(ActionEvent actionEvent) { goToPreviousPage();
     }
 
-    public int getItemIDLabel() {
-        return itemIDLabel.get();
-    }
-
     public void btnIncreaseStockClicked(ActionEvent actionEvent) {
         int id = Integer.parseInt(itemIdLabel.getText());
         int newStock = Integer.parseInt(stockLabell.getText());
@@ -336,6 +296,10 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         productDAO.increaseStockOfProduct(id, newStock);
         currentProduct.getValue().setStock(newStock);
         stock.setValue(newStock);
+    }
+
+    public int getItemIDLabel() {
+        return itemIDLabel.get();
     }
 
     public SimpleIntegerProperty itemIDLabelProperty() {

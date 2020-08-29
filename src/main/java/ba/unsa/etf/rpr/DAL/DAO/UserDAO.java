@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.DAL.DAO;
 
+import ba.unsa.etf.rpr.DAL.DTO.Department;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.HelpModel.Account;
 import ba.unsa.etf.rpr.HelpModel.Reference;
@@ -71,13 +72,13 @@ public class UserDAO implements DAOInterface {
         }
     }
 
-    private String getDepartmentName(int id) {
+    private Department getDepartment(int id) {
         try {
-            departmentNameStatement.setInt(1,id);
-            ResultSet rs = departmentNameStatement.executeQuery();
-            if(rs.next()) {
-                return rs.getString("department_name");
-            } else return null;
+            PreparedStatement departmentStatement = conn.prepareStatement("select * from departments where department_id = ?");
+            departmentStatement.setInt(1,id);
+            ResultSet rs = departmentStatement.executeQuery();
+            Department department = new Department(rs.getInt(1), rs.getString(2));
+            return department;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
@@ -104,7 +105,7 @@ public class UserDAO implements DAOInterface {
                         new Employee(rs.getInt(1), rs.getString(2), rs.getString(3),
                                 rs.getString(4),rs.getString(5), rs.getString(6),
                                 rs.getString(7), rs.getInt(8), rs.getString(9),null);
-                modelEmployee.setDepartmentName(getDepartmentName(rs.getInt(10)));
+                modelEmployee.setDepartment(getDepartment(rs.getInt(10)));
                 employees.add(modelEmployee);
             }
         } catch (SQLException throwables) {
@@ -112,4 +113,13 @@ public class UserDAO implements DAOInterface {
         }
     }
 
+    public void deleteUserWithId(int id) {
+        try {
+            PreparedStatement deleteStatement = conn.prepareStatement("delete from employees where employee_id = ?");
+            deleteStatement.setInt(1,id);
+            deleteStatement.executeUpdate();
+        } catch (SQLException exception) {
+        }
+
+    }
 }

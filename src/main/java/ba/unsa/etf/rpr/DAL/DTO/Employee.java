@@ -3,7 +3,8 @@ package ba.unsa.etf.rpr.DAL.DTO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Employee extends Object{
+public class Employee extends Object implements Comparable {
+
     private SimpleIntegerProperty employeeId; //ne mijenja se
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
@@ -15,7 +16,16 @@ public class Employee extends Object{
     private SimpleStringProperty password;
     private SimpleStringProperty accessLevelString;
 
-    private String departmentName;
+    private Department department;
+
+    @Override
+    public int compareTo(Object o) {
+        Employee employee = (Employee) o;
+        if(this.getFirstName().equals(employee.getFirstName()) &&
+            this.getLastName().equals(employee.getLastName()) &&
+            this.getEmployeeId() == employee.getEmployeeId())return  0;
+        return -1;
+    }
 
     private enum AccessLevel{ADMIN, EMPLOYEE;};
     private AccessLevel accessLevel;
@@ -25,7 +35,7 @@ public class Employee extends Object{
 
     public Employee(int employeeId, String firstName, String lastName,
                     String username, String password, String accessLevel,
-                    String eMail, int salary, String hireDate, String departmentName
+                    String eMail, int salary, String hireDate, Department department
                     ) {
         this.employeeId = new SimpleIntegerProperty(employeeId);
         this.firstName = new SimpleStringProperty(firstName);
@@ -35,7 +45,7 @@ public class Employee extends Object{
         this.hireDate = new SimpleStringProperty(hireDate);
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
-        this.departmentName = departmentName;
+        this.department = department;
         if(accessLevel.toLowerCase().equals("admin")) {
             this.accessLevel = AccessLevel.ADMIN;
         } else {
@@ -140,12 +150,20 @@ public class Employee extends Object{
         this.password.set(password);
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentName(String department) {
-        this.departmentName = department;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public AccessLevel getAccessLevel() {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(AccessLevel accessLevel) {
+        this.accessLevel = accessLevel;
     }
 
     public String getAccessLevelString() {
@@ -171,7 +189,7 @@ public class Employee extends Object{
                 ", hireDate=" + hireDate +
                 ", username=" + username +
                 ", password=" + password +
-                ", departmentName='" + departmentName + '\'' +
+                ", departmentName='" + department.getDepartmentName() + '\'' +
                 ", accessLevel=" + accessLevel +
                 '}';
     }
