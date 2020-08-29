@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Category;
 import ba.unsa.etf.rpr.DAL.DTO.Firm;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
+import ba.unsa.etf.rpr.HelpModel.Reference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +30,7 @@ public class AddItemController implements Initializable {
 
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     private ObservableList<Firm> firms = FXCollections.observableArrayList();
-
+    private Reference<Product> reference = null;
 
     ProductDAO productDAO = ProductDAO.getInstance();
     //    CategoryDAO categoryDAO = CategoryDAO.getInstance();
@@ -47,6 +48,7 @@ public class AddItemController implements Initializable {
     public void btnSaveClicked(ActionEvent actionEvent) {
         //no repeat of id
         int id = productDAO.maxID();
+        Product product;
         id++;
         if (nameProduct.getText() == null || priceProduct.getText() == null ||
                 stockProduct.getText() == null || categoryChoice.getSelectionModel().getSelectedItem() == null ||
@@ -54,7 +56,7 @@ public class AddItemController implements Initializable {
             errorLabel.setVisible(true);
         } else {
             errorLabel.setVisible(false);
-            Product product = new Product(id, nameProduct.getText(),
+            product = new Product(id, nameProduct.getText(),
                     Integer.parseInt(priceProduct.getText()),
                     Integer.parseInt(stockProduct.getText()),
                     categoryChoice.getSelectionModel().getSelectedItem(),
@@ -68,6 +70,7 @@ public class AddItemController implements Initializable {
                 alert.showAndWait();
             } else {
                 productDAO.addProduct(product);
+                reference.set(product);
                 Stage current = (Stage) errorLabel.getScene().getWindow();
                 current.close();
             }

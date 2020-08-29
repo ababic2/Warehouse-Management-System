@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public interface ControllerInterface {
+
     default void openNewStage(String url) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(url));
@@ -16,7 +17,6 @@ public interface ControllerInterface {
             Stage logInPrompt = new Stage();
             logInPrompt.setScene(scene);
             logInPrompt.show();
-
         } catch (IOException e) {
             e.getCause();
         }

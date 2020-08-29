@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Employee extends Object{
-    private int employeeId; //ne mijenja se
+    private SimpleIntegerProperty employeeId; //ne mijenja se
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
     private SimpleStringProperty eMail;
@@ -27,7 +27,7 @@ public class Employee extends Object{
                     String username, String password, String accessLevel,
                     String eMail, int salary, String hireDate, String departmentName
                     ) {
-        this.employeeId = employeeId;
+        this.employeeId = new SimpleIntegerProperty(employeeId);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.eMail = new SimpleStringProperty(eMail);
@@ -45,11 +45,15 @@ public class Employee extends Object{
     }
 
     public int getEmployeeId() {
+        return employeeId.get();
+    }
+
+    public SimpleIntegerProperty employeeIdProperty() {
         return employeeId;
     }
 
     public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+        this.employeeId.set(employeeId);
     }
 
     public String getFirstName() {

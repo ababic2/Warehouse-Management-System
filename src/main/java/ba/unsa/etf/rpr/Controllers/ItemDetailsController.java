@@ -61,6 +61,12 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
 
+    private int editClick = 0;
+    private ChangeListener<String> nameListener = null;
+    private ChangeListener<String> priceListener = null;
+    private ChangeListener<String> stockListener = null;
+
+
     public ItemDetailsController() {
         itemIDLabel = new SimpleIntegerProperty(0);
         name = new SimpleStringProperty("");
@@ -71,9 +77,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("INITIALIZE");
         products.addAll(productDAO.getInfoList());
-        System.out.println(products.get(0));
         bindingFieldsWithProperties();
         changeCurrent();
         setInitialProduct();
@@ -230,19 +234,35 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     @Override
     public void btnAddClicked(ActionEvent actionEvent) {
         openNewStage("/fxml/addItem.fxml");
-
-//        products.clear();
-//        products.addAll(productDAO.getInfoList());
-//
-//        if (page == 0) goToNextPage();
-//        else goToPreviousPage();
     }
 
-    private int editClick = 0;
+    private void setButtonsNextPrevious() {
+        if(products.size() == 1) {
+            btnNext.setDisable(true);
+            btnPrevious.setDisable(true);
+        } else if (page == 0) {
+            btnPrevious.setDisable(true);
+            btnNext.setDisable(false);
+        } else if(page == products.size()  - 1) {
+            btnNext.setDisable(true);
+            btnPrevious.setDisable(false);
+        } else {
+            btnNext.setDisable(false);
+            btnPrevious.setDisable(false);
+        }
+    }
 
-    private ChangeListener nameListener = null;
-    private ChangeListener priceListener = null;
-    private ChangeListener stockListener = null;
+    private void goToPreviousPage() {
+        page--;
+        setButtonsNextPrevious();
+        changeCurrent();
+    }
+
+    private void goToNextPage() {
+        page++;
+        setButtonsNextPrevious();
+        changeCurrent();
+    }
 
     @Override
     public void btnEditClicked(ActionEvent actionEvent) {
@@ -255,21 +275,18 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         nameListener = (obs, oldValue, newValue) -> {
             name.setValue((String) newValue);
             products.get(page).setName(name.getValue());
-            System.out.println("J" + name.getValue());
         };
         itemNameField.textProperty().addListener(nameListener);
 
         priceListener = (obs, oldValue, newValue) -> {
             price.setValue(Integer.parseInt((String) newValue));
             products.get(page).setPrice(price.getValue());
-            System.out.println("J" + price.getValue());
         };
         itemPriceLabel.textProperty().addListener(priceListener);
 
         stockListener = (obs, oldValue, newValue) -> {
             stock.setValue(Integer.parseInt((String) newValue));
             products.get(page).setStock(stock.getValue());
-            System.out.println("J" + stock.getValue());
         };
         stockLabell.textProperty().addListener(stockListener);
     } else if (editClick == 2) {
@@ -296,37 +313,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     }
 
     @Override
-    public void btnPreviousClicked(ActionEvent actionEvent) {
-        goToPreviousPage();
-
-    }
-
-    private void goToNextPage() {
-        page++;
-        setButtonsNextPrevious();
-        changeCurrent();
-    }
-
-    private void goToPreviousPage() {
-        page--;
-        setButtonsNextPrevious();
-        changeCurrent();
-    }
-
-    private void setButtonsNextPrevious() {
-        if(products.size() == 1) {
-            btnNext.setDisable(true);
-            btnPrevious.setDisable(true);
-        } else if (page == 0) {
-            btnPrevious.setDisable(true);
-            btnNext.setDisable(false);
-        } else if(page == products.size() - 1) {
-            btnNext.setDisable(true);
-            btnPrevious.setDisable(false);
-        } else {
-            btnNext.setDisable(false);
-            btnPrevious.setDisable(false);
-        }
+    public void btnPreviousClicked(ActionEvent actionEvent) { goToPreviousPage();
     }
 
     public int getItemIDLabel() {
