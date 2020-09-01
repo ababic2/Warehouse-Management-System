@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Employee extends Object implements Comparable {
 
-    private SimpleIntegerProperty employeeId; //ne mijenja se
+    private SimpleIntegerProperty employeeId;
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
     private SimpleStringProperty eMail;
@@ -18,18 +18,9 @@ public class Employee extends Object implements Comparable {
 
     private Department department;
 
-    @Override
-    public int compareTo(Object o) {
-        Employee employee = (Employee) o;
-        if(this.getFirstName().equals(employee.getFirstName()) &&
-            this.getLastName().equals(employee.getLastName()) &&
-            this.getEmployeeId() == employee.getEmployeeId())return  0;
-        return -1;
-    }
-
     private enum AccessLevel{ADMIN, EMPLOYEE;};
-    private AccessLevel accessLevel;
 
+    private AccessLevel accessLevel;
     public Employee() {
     }
 
@@ -192,5 +183,14 @@ public class Employee extends Object implements Comparable {
                 ", departmentName='" + department.getDepartmentName() + '\'' +
                 ", accessLevel=" + accessLevel +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Employee employee = (Employee) o;
+        if(this.getFirstName().equals(employee.getFirstName()) &&
+                this.getLastName().equals(employee.getLastName()) &&
+                this.getEmployeeId() == employee.getEmployeeId())return  0;
+        return -1;
     }
 }

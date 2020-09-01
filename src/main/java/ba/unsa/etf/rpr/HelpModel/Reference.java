@@ -6,6 +6,9 @@ package ba.unsa.etf.rpr.HelpModel;
 public class Reference<T> {
     private T referent;
 
+    public Reference() {
+    }
+
     public Reference(T initialValue) {
         referent = initialValue;
     }

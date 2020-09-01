@@ -38,6 +38,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     public Button btnAdd;
     public Button btnNext;
     public Button btnPrevious;
+    public Button btnRefresh;
     public Button btnIncreaseStock;
     public Button btnDecreaseStock;
 
@@ -52,10 +53,10 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private ObjectProperty<Product> currentProduct = new SimpleObjectProperty<>();
     private ProductDAO productDAO = ProductDAO.getInstance();
+    public static Reference<Product> addedProduct = new Reference<>();
+
     private boolean disable = true;
     private int page = 0;
-
-    public Reference<Product> addedProduct = new Reference<>(null);
 
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
@@ -78,14 +79,12 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         products.addAll(productDAO.getInfoList());
         bindingFieldsWithProperties();
         changeCurrent();
+
         setInitialProduct();
         setBinding();
         setFieldsDisableTo(true);
-
         setButtonsDisableTo();
-
         DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
-
         btnPrevious.setDisable(true);
     }
 
@@ -144,10 +143,8 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void btnDeleteClicked(ActionEvent actionEvent) {
-
             int id = Integer.parseInt(itemIdLabel.getText());
             productDAO.deleteProductWithId(id);
-
             products.remove(page);
 
             if (page == 0) goToNextPage();
@@ -202,7 +199,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void btnAddClicked(ActionEvent actionEvent) {
-        openNewStage("/fxml/addItem.fxml");
+        openNewStage("/fxml/add_fxml/addItem.fxml");
     }
 
     private void goToPreviousPage() {
@@ -285,6 +282,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         productDAO.increaseStockOfProduct(id, newStock);
         currentProduct.getValue().setStock(newStock);
         stock.setValue(newStock);
+    }
+
+    public void btnRefreshClicked(ActionEvent actionEvent) {
+        products.add(addedProduct.get());
+        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
     }
 
     public int getItemIDLabel() {

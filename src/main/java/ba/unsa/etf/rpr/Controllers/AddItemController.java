@@ -5,7 +5,6 @@ import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Category;
 import ba.unsa.etf.rpr.DAL.DTO.Firm;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
-import ba.unsa.etf.rpr.HelpModel.Reference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +18,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static ba.unsa.etf.rpr.Controllers.ItemDetailsController.addedProduct;
+
 public class AddItemController implements Initializable {
 
     public TextField nameProduct;
@@ -30,7 +31,6 @@ public class AddItemController implements Initializable {
 
     private ObservableList<Category> categories = FXCollections.observableArrayList();
     private ObservableList<Firm> firms = FXCollections.observableArrayList();
-    private Reference<Product> reference = null;
 
     ProductDAO productDAO = ProductDAO.getInstance();
     //    CategoryDAO categoryDAO = CategoryDAO.getInstance();
@@ -70,8 +70,8 @@ public class AddItemController implements Initializable {
                 alert.showAndWait();
             } else {
                 productDAO.addProduct(product);
-                reference.set(product);
                 Stage current = (Stage) errorLabel.getScene().getWindow();
+                addedProduct.set(product);
                 current.close();
             }
         }

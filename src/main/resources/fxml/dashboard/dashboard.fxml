@@ -23,7 +23,7 @@
    <children>
       <BorderPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <top>
-            <GridPane fx:id="insideGrid" stylesheets="@../css/firmDetails.css" BorderPane.alignment="BOTTOM_CENTER">
+            <GridPane fx:id="insideGrid" stylesheets="@../../css/firmDetails.css" BorderPane.alignment="BOTTOM_CENTER">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -31,7 +31,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="dashboardLabel" stylesheets="@../css/dashboard.css" text="Dashboard" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <Label fx:id="dashboardLabel" stylesheets="@../../css/dashboard.css" text="Dashboard" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
                      </padding>
@@ -56,24 +56,24 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane stylesheets="@../css/dashboard.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <AnchorPane stylesheets="@../../css/dashboard.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="171.0" layoutX="100.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="52.0">
                            <image>
-                              <Image url="@../img/dashboard_img/employees.png" />
+                              <Image url="@../../img/dashboard_img/employees.png" />
                            </image>
                            <effect>
                               <DropShadow />
                            </effect>
                         </ImageView>
 
-                        <Button fx:id="btnEmployees" layoutX="117.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnEmployeesClicked" stylesheets="@../css/dashboard.css" text="Employees">
+                        <Button fx:id="btnEmployees" layoutX="117.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnEmployeesClicked" stylesheets="@../../css/dashboard.css" text="Employees">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Button>
 
-                        <Label fx:id="labelEmployees" text="${controller.employeesLabel}" alignment="CENTER" layoutX="102.0" layoutY="52.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css" >
+                        <Label fx:id="labelEmployees" text="${controller.employeesLabel}" alignment="CENTER" layoutX="102.0" layoutY="52.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" >
                            <effect>
                               <DropShadow />
                            </effect>
@@ -81,66 +81,66 @@
 
                      </children>
                   </AnchorPane>
-                  <AnchorPane stylesheets="@../css/dashboard.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <AnchorPane stylesheets="@../../css/dashboard.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
                            <image>
-                              <Image url="@../img/dashboard_img/firms.png" />
+                              <Image url="@../../img/dashboard_img/firms.png" />
                            </image>
                            <effect>
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelFirms" text="${controller.firmLabel}" alignment="CENTER" layoutX="108.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css" >
+                        <Label fx:id="labelFirms" text="${controller.firmLabel}" alignment="CENTER" layoutX="108.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" >
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button onAction="#btnFirmsClicked" layoutX="138.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../css/dashboard.css" text="Firms">
+                        <Button onAction="#btnFirmsClicked" layoutX="138.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../../css/dashboard.css" text="Firms">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane stylesheets="@../css/dashboard.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <AnchorPane stylesheets="@../../css/dashboard.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
                            <image>
-                              <Image url="@../img/dashboard_img/items.png" />
+                              <Image url="@../../img/dashboard_img/items.png" />
                            </image>
                            <effect>
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelItems" text="${controller.itemsLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css">
+                        <Label fx:id="labelItems" text="${controller.itemsLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button onAction="#btnItemsClicked" layoutX="139.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../css/dashboard.css" text="Items">
+                        <Button onAction="#btnItemsClicked" layoutX="139.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../../css/dashboard.css" text="Items">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane stylesheets="@../css/dashboard.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <AnchorPane stylesheets="@../../css/dashboard.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
                            <image>
-                              <Image url="@../img/dashboard_img/low_stock_items.png" />
+                              <Image url="@../../img/dashboard_img/low_stock_items.png" />
                            </image>
                            <effect>
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelLowStock" text="${controller.lowStockLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/dashboard.css">
+                        <Label fx:id="labelLowStock" text="${controller.lowStockLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button onAction="#btnLowStockClicked" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../css/dashboard.css" text="Low stock items">
+                        <Button onAction="#btnLowStockClicked" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../../css/dashboard.css" text="Low stock items">
                            <effect>
                               <DropShadow />
                            </effect>

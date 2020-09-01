@@ -17,7 +17,6 @@ import java.util.HashMap;
 
 import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
 
-
 public class HomeController {
     public SplitPane splitPane;
     public Pane rightPane;
@@ -40,8 +39,7 @@ public class HomeController {
         loadViews();
         currLoggedIn.setText(currentUser.getUsername());
         currentAccess.setText(currentUser.getAccessLevel());
-        ctrlRightPane("/fxml/dashboard.fxml");
-
+        ctrlRightPane("/fxml/dashboard/dashboard.fxml");
     }
 
     private void loadViews() {
@@ -56,7 +54,6 @@ public class HomeController {
         borderSelector(event); //Marking selected navigator button
 
         Button btn = (Button)event.getSource();
-
 
         String btnText = btn.getText();
         if(btnText.equals("Log Out")) logOut();
@@ -119,12 +116,6 @@ public class HomeController {
         newRightPane.resize(rightPane.getWidth(),rightPane.getHeight());
     }
 
-    /**
-     * This method will mark selected navigator
-     * from left navigation pane and will remove it if another
-     * navition button is clicked.
-     * @param event
-     */
     private void borderSelector(ActionEvent event) {
         Button btn = (Button)event.getSource();
 

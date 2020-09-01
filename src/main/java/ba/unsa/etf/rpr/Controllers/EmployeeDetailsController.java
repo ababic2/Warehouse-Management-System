@@ -63,6 +63,8 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     private ChangeListener salaryListener;
     private ChangeListener mailListener;
     private ChangeListener dateListener;
+    private int editClick = 0;
+
 
     public EmployeeDetailsController() {
         id = new SimpleIntegerProperty(0);
@@ -75,28 +77,23 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("INITIALIZE");
         employees.addAll(userDAO.getInfoList());
         departments.addAll(userDAO.getDepartments());
         departmentChoice.setItems(departments);
 
-
         bindingFieldsWithProperties();
         changeCurrent();
 
-        System.out.println(employees.get(page));
         setInitialEmployee();
         setBinding();
-        setFieldsDisableTo(true);
+        setFieldsBoxRadioDisableTo(true);
 
         radioEmployee.setToggleGroup(toggleGroup);
         radioAdmin.setToggleGroup(toggleGroup);
         setRadioButtons();
 
         setButtonsDisableTo();
-
         DetailsInterface.setButtonsNextPrev(employees.size(), btnNext, btnPrevious, page);
-
         btnPrevious.setDisable(true);
     }
 
@@ -138,7 +135,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         setRadioButtons();
     }
 
-    private void setFieldsDisableTo(boolean var) {
+    private void setFieldsBoxRadioDisableTo(boolean var) {
         nameField.setDisable(var);
         mailField.setDisable(var);
         salaryField.setDisable(var);
@@ -172,14 +169,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         setRadioButtons();
     }
 
-    private void setRadioButtons() {
-        if(currentEmployee.getValue().getAccessLevelString().equals("admin")) {
-            radioAdmin.setSelected(true);
-        } else {
-            radioEmployee.setSelected(true);
-        }
-    }
-
     public void btnNextClicked(ActionEvent actionEvent) {
         goToNextPage();
     }
@@ -193,6 +182,14 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         setRadioButtons();
     }
 
+    private void setRadioButtons() {
+        if(currentEmployee.getValue().getAccessLevelString().equals("admin")) {
+            radioAdmin.setSelected(true);
+        } else {
+            radioEmployee.setSelected(true);
+        }
+    }
+
     public void btnDeleteClicked(ActionEvent actionEvent) {
         int id = Integer.parseInt(idLabel.getText());
         userDAO.deleteUserWithId(id);
@@ -203,10 +200,13 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         else goToPreviousPage();
     }
 
-    private int editClick = 0;
+
+    public void btnAddClicked(ActionEvent actionEvent) {
+
+    }
 
     public void btnEditClicked(ActionEvent actionEvent) {
-        setFieldsDisableTo(!disable);
+        setFieldsBoxRadioDisableTo(!disable);
         disable = !disable;
         editClick++;
 
@@ -266,11 +266,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
             dateField.textProperty().removeListener(dateListener);
             editClick = 0;
         }
-    }
-
-
-    public void btnAddClicked(ActionEvent actionEvent) {
-
     }
 
     public void btnSearchClicked(ActionEvent actionEvent) {

@@ -259,6 +259,7 @@
                               <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="105.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <ToggleButton fx:id="editButton" mnemonicParsing="false" onAction="#btnEditClicked" prefHeight="50.0" prefWidth="20.0" stylesheets="@../css/itemDetails.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -282,6 +283,14 @@
                                  <tooltip>
                                     <Tooltip text="Delete this firm" />
                                  </tooltip>
+                              </Button>
+                              <Button fx:id="btnRefresh" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnRefreshClicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@../css/itemDetails.css" GridPane.rowIndex="3">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
                               </Button>
                               <Button fx:id="btnAdd" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAddClicked" stylesheets="@../css/itemDetails.css" text="Add" GridPane.rowIndex="2">
                                  <effect>
