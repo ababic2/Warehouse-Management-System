@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -143,8 +144,8 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         salaryField.setDisable(var);
         dateField.setDisable(var);
         departmentChoice.setDisable(var);
-        radioAdmin.setDisable(true);
-        radioEmployee.setDisable(true);
+        radioAdmin.setDisable(var);
+        radioEmployee.setDisable(var);
     }
 
     public void changeCurrent() {
@@ -237,17 +238,27 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
             employees.get(page).setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
 
-            if(radioAdmin.isSelected()) {
-                employees.get(page).setAccessLevelString("admin");
-            } else {
-                employees.get(page).setAccessLevelString("employee");
-            }
+            toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+                public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+                    if (toggleGroup.getSelectedToggle() != null) {
+                        if(toggleGroup.getSelectedToggle().equals(radioAdmin)) {
+                            employees.get(page).setAccessLevelString("admin");
+                        } else {
+                            employees.get(page).setAccessLevelString("employee");
+                        }
+
+                    }
+                }
+            });
+
         } else if (editClick == 2) {
             changeCurrent();
+            System.out.println(currentEmployee.getValue().getAccessLevelString());
 
-            userDAO.updateProduct(currentEmployee.getValue().getEmployeeId(), currentEmployee.getValue().getFirstName(),
+            userDAO.updateEmployee(currentEmployee.getValue().getEmployeeId(), currentEmployee.getValue().getFirstName(),
                     currentEmployee.getValue().geteMail(), currentEmployee.getValue().getSalary(),
-                    currentEmployee.getValue().getDepartment(), currentEmployee.getValue().getHireDate());
+                    currentEmployee.getValue().getDepartment(), currentEmployee.getValue().getHireDate(),
+                    currentEmployee.getValue().getAccessLevelString());
 
             nameField.textProperty().removeListener(nameListener);
             mailField.textProperty().removeListener(mailListener);

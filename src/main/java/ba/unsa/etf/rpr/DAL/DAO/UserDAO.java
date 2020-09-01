@@ -139,16 +139,17 @@ public class UserDAO implements DAOInterface {
 
     }
 
-    public void updateProduct(int employeeId, String firstName, String mail, int salary, Department department, String hireDate) {
+    public void updateEmployee(int employeeId, String firstName, String mail, int salary, Department department, String hireDate, String accessLevel) {
         try {
             PreparedStatement updateEmployee =
-                    conn.prepareStatement("update employees set first_name = ?, e_mail = ?, salary = ?, department_id = ?, hire_date = ? where employee_id = ? ");
+                    conn.prepareStatement("update employees set first_name = ?, e_mail = ?, salary = ?, department_id = ?, hire_date = ?, access_level = ? where employee_id = ? ");
             updateEmployee.setString(1, firstName);
             updateEmployee.setString(2, mail);
             updateEmployee.setInt(3, salary);
             updateEmployee.setInt(4,department.getDepartmentId());
             updateEmployee.setString(5, hireDate);
-            updateEmployee.setInt(6, employeeId);
+            updateEmployee.setString(6, accessLevel);
+            updateEmployee.setInt(7, employeeId);
             updateEmployee.executeUpdate();
         } catch (SQLException exception) {
 
