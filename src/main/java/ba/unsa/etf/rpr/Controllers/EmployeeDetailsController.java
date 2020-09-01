@@ -1,28 +1,24 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Department;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
-import javafx.beans.property.ObjectProperty;
+import ba.unsa.etf.rpr.Model.EmployeeAccountModel;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class EmployeeDetailsController implements Initializable, DetailsInterface {
-
 
     public TextField nameField;
     public TextField mailField;
@@ -50,13 +46,9 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     private SimpleStringProperty department;
     private SimpleStringProperty date;
 
-    private UserDAO userDAO = UserDAO.getInstance();
-    private ObservableList<Employee> employees = FXCollections.observableArrayList();
-    private ObservableList<Department> departments = FXCollections.observableArrayList();
-
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
-    private ObjectProperty<Employee> currentEmployee =  new SimpleObjectProperty<>();
+
     private int page = 0;
     private boolean disable = true;
     private ChangeListener nameListener;
@@ -65,6 +57,12 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     private ChangeListener dateListener;
     private int editClick = 0;
 
+    private EmployeeAccountModel model;
+
+    public EmployeeDetailsController(EmployeeAccountModel employeeAccountModel) {
+        this();
+        this.model = employeeAccountModel;
+    }
 
     public EmployeeDetailsController() {
         id = new SimpleIntegerProperty(0);
@@ -77,12 +75,11 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        employees.addAll(userDAO.getInfoList());
-        departments.addAll(userDAO.getDepartments());
-        departmentChoice.setItems(departments);
+
+        departmentChoice.setItems(model.getDepartments());
 
         bindingFieldsWithProperties();
-        changeCurrent();
+        model.changeCurrent(page);
 
         setInitialEmployee();
         setBinding();
@@ -93,7 +90,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         setRadioButtons();
 
         setButtonsDisableTo();
-        DetailsInterface.setButtonsNextPrev(employees.size(), btnNext, btnPrevious, page);
+        DetailsInterface.setButtonsNextPrev(model.getEmployees().size(), btnNext, btnPrevious, page);
         btnPrevious.setDisable(true);
     }
 
@@ -109,9 +106,8 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     } //zakomentarisano
 
     private void setBinding() {
-        currentEmployee.addListener((obs, oldValue, newValue) -> {
-            System.out.println("BINDAM");
-            id.setValue(currentEmployee.getValue().getEmployeeId());
+        model.currentEmployeeProperty().addListener((obs, oldValue, newValue) -> {
+            id.setValue(model.getCurrentEmployee().getEmployeeId());
             if(oldValue != null) {
                 nameField.textProperty().unbindBidirectional(oldValue.firstNameProperty());
                 mailField.textProperty().unbindBidirectional(oldValue.eMailProperty());
@@ -126,12 +122,12 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     }
 
     private void setInitialEmployee() {
-        id.setValue(currentEmployee.getValue().getEmployeeId());
-        name.setValue(currentEmployee.getValue().getFirstName() +" " + currentEmployee.getValue().getLastName());
-        mail.setValue(currentEmployee.getValue().geteMail());
-        salary.setValue(currentEmployee.getValue().getSalary());
-        date.setValue(currentEmployee.getValue().getHireDate());
-        departmentChoice.setValue(departments.get(0));
+        id.setValue(model.getCurrentEmployee().getEmployeeId());
+        name.setValue(model.getCurrentEmployee().getFirstName() +" " + model.getCurrentEmployee().getLastName());
+        mail.setValue(model.getCurrentEmployee().geteMail());
+        salary.setValue(model.getCurrentEmployee().getSalary());
+        date.setValue(model.getCurrentEmployee().getHireDate());
+        departmentChoice.setValue(model.getDepartments().get(0));
         setRadioButtons();
     }
 
@@ -143,10 +139,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         departmentChoice.setDisable(var);
         radioAdmin.setDisable(var);
         radioEmployee.setDisable(var);
-    }
-
-    public void changeCurrent() {
-        currentEmployee.set(employees.get(page));
     }
 
     private void bindingFieldsWithProperties() {
@@ -162,10 +154,10 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     private void goToPreviousPage() {
         page--;
-        DetailsInterface.setButtonsNextPrev(employees.size(), btnNext, btnPrevious, page);
-        changeCurrent();
-        int id = employees.get(page).getDepartment().getDepartmentId();
-        departmentChoice.setValue(departments.stream().filter(s -> s.getDepartmentId() == (id)).collect(Collectors.toList()).get(0));
+        DetailsInterface.setButtonsNextPrev(model.getEmployees().size(), btnNext, btnPrevious, page);
+        model.changeCurrent(page);
+        int id = model.getEmployees().get(page).getDepartment().getDepartmentId();
+        departmentChoice.setValue(model.getDepartments().stream().filter(s -> s.getDepartmentId() == (id)).collect(Collectors.toList()).get(0));
         setRadioButtons();
     }
 
@@ -175,15 +167,15 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     private void goToNextPage() {
         page++;
-        DetailsInterface.setButtonsNextPrev(employees.size(), btnNext, btnPrevious, page);
-        changeCurrent();
-        int id = employees.get(page).getDepartment().getDepartmentId();
-        departmentChoice.setValue(departments.stream().filter(s -> s.getDepartmentId() == id).collect(Collectors.toList()).get(0));
+        DetailsInterface.setButtonsNextPrev(model.getEmployees().size(), btnNext, btnPrevious, page);
+        model.changeCurrent(page);
+        int id = model.getEmployees().get(page).getDepartment().getDepartmentId();
+        departmentChoice.setValue(model.getDepartments().stream().filter(s -> s.getDepartmentId() == id).collect(Collectors.toList()).get(0));
         setRadioButtons();
     }
 
     private void setRadioButtons() {
-        if(currentEmployee.getValue().getAccessLevelString().equals("admin")) {
+        if(model.getCurrentEmployee().getAccessLevelString().equals("admin")) {
             radioAdmin.setSelected(true);
         } else {
             radioEmployee.setSelected(true);
@@ -192,17 +184,12 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
     public void btnDeleteClicked(ActionEvent actionEvent) {
         int id = Integer.parseInt(idLabel.getText());
-        userDAO.deleteUserWithId(id);
 
-        employees.remove(page);
+        model.deleteUserWithId(id);
+        model.getEmployees().remove(page); //check heree!!!!!!!!!!!!!!!!!!!!!!
 
         if (page == 0) goToNextPage();
         else goToPreviousPage();
-    }
-
-
-    public void btnAddClicked(ActionEvent actionEvent) {
-
     }
 
     public void btnEditClicked(ActionEvent actionEvent) {
@@ -213,38 +200,42 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         if (editClick == 1) {
             nameListener = (obs, oldValue, newValue) -> {
                 name.setValue((String) newValue);
-                employees.get(page).setFirstName(name.getValue());
+                model.getEmployees().get(page).setFirstName(name.getValue());
             };
             nameField.textProperty().addListener(nameListener);
 
             mailListener = (obs, oldValue, newValue) -> {
                 mail.setValue((String) newValue);
-                employees.get(page).seteMail(mail.getValue());
+                model.getEmployees().get(page).seteMail(mail.getValue());
             };
             mailField.textProperty().addListener(mailListener);
 
             salaryListener = (obs, oldValue, newValue) -> {
                 salary.setValue(Integer.parseInt((String) newValue));
-                employees.get(page).setSalary(salary.getValue());
+                model.getEmployees().get(page).setSalary(salary.getValue());
             };
             salaryField.textProperty().addListener(salaryListener);
 
 
             dateListener = (obs, oldValue, newValue) -> {
                 date.setValue((String) newValue);
-                employees.get(page).setHireDate(date.getValue());
+                model.getEmployees().get(page).setHireDate(date.getValue());
             };
             dateField.textProperty().addListener(dateListener);
 
-            employees.get(page).setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
+            departmentChoice.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<Department>>() {
+                public void changed(ObservableValue<? extends SingleSelectionModel<Department>> observableValue, SingleSelectionModel<Department> departmentSingleSelectionModel, SingleSelectionModel<Department> t1) {
+                    model.getEmployees().get(page).setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
+                }
+            });
 
             toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
                 public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
                     if (toggleGroup.getSelectedToggle() != null) {
                         if(toggleGroup.getSelectedToggle().equals(radioAdmin)) {
-                            employees.get(page).setAccessLevelString("admin");
+                            model.getEmployees().get(page).setAccessLevelString("admin");
                         } else {
-                            employees.get(page).setAccessLevelString("employee");
+                            model.getEmployees().get(page).setAccessLevelString("employee");
                         }
 
                     }
@@ -252,14 +243,8 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
             });
 
         } else if (editClick == 2) {
-            changeCurrent();
-            System.out.println(currentEmployee.getValue().getAccessLevelString());
-
-            userDAO.updateEmployee(currentEmployee.getValue().getEmployeeId(), currentEmployee.getValue().getFirstName(),
-                    currentEmployee.getValue().geteMail(), currentEmployee.getValue().getSalary(),
-                    currentEmployee.getValue().getDepartment(), currentEmployee.getValue().getHireDate(),
-                    currentEmployee.getValue().getAccessLevelString());
-
+            model.changeCurrent(page);
+            model.updateEmployee();
             nameField.textProperty().removeListener(nameListener);
             mailField.textProperty().removeListener(mailListener);
             salaryField.textProperty().removeListener(salaryListener);
@@ -273,11 +258,11 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
             checkBoxSelected();
         } else {
             if (searchField.getText() != null) {
-                Employee employee = employees.stream().filter(s -> s.getFirstName().equals(searchField.getText())).collect(Collectors.toList()).get(0);
-                if (employee == null) {
+                List<Employee> list = model.getEmployees().stream().filter(s -> s.getFirstName().equals(searchField.getText())).collect(Collectors.toList());
+                if (list.size() == 0) {
                     setAlertWindow("No result !");
                 } else {
-                    currentEmployee.set(employee);
+                    model.setCurrentEmployee(list.get(0));
                     findPageAfterSearch();
                 }
             }
@@ -288,11 +273,11 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         if (searchField.getText() != null) {
             if (isNumeric(searchField.getText())) {
                 int id = Integer.parseInt(searchField.getText());
-                Employee employee = employees.stream().filter((emp) -> emp.getEmployeeId() == id).collect(Collectors.toList()).get(0);
-                if (employee == null) {
+                List<Employee> list = model.getEmployees().stream().filter((emp) -> emp.getEmployeeId() == id).collect(Collectors.toList());
+                if (list.size() == 0) {
                     setAlertWindow("No result !");
                 } else {
-                    currentEmployee.set(employee);
+                    model.setCurrentEmployee(list.get(0));
                     findPageAfterSearch();
                 }
             } else {
@@ -302,13 +287,13 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     }
 
     private void findPageAfterSearch() {
-        for(int i = 0; i < employees.size(); i++) {
-            if(currentEmployee.getValue().compareTo(employees.get(i)) == 0) {
+        for(int i = 0; i < model.getEmployees().size(); i++) {
+            if(model.getCurrentEmployee().compareTo(model.getEmployees().get(i)) == 0) {
                 page = i;
                 break;
             }
         }
-        DetailsInterface.setButtonsNextPrev(employees.size(), btnNext, btnPrevious, page);
+        DetailsInterface.setButtonsNextPrev(model.getEmployees().size(), btnNext, btnPrevious, page);
     }
 
     public int getId() {

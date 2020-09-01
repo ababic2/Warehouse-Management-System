@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Firm;
+import ba.unsa.etf.rpr.Model.DashboardModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,12 +20,16 @@ public class FirmListController implements Initializable {
     public TableColumn<Firm, String> ownerColumn;
     public TableColumn<Firm, String> phoneColumn;
     public TableColumn<Firm, String> adessColumn;
-    private FirmDAO firmDAO = FirmDAO.getInstance();
+    private DashboardModel dashboardModel;
+
+    public FirmListController(DashboardModel dashboardModel) {
+        this.dashboardModel = dashboardModel;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCells();
-        firmTableView.setItems(firmDAO.getInfoList());
+        firmTableView.setItems(dashboardModel.getFirms());
     }
 
     private void setCells() {

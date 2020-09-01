@@ -1,25 +1,26 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
-import ba.unsa.etf.rpr.HelpModel.Reference;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
-import javafx.beans.property.ObjectProperty;
+import ba.unsa.etf.rpr.Model.ProductModel;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -50,21 +51,23 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private SimpleIntegerProperty stock;
     private SimpleStringProperty type;
 
-    private ObservableList<Product> products = FXCollections.observableArrayList();
-    private ObjectProperty<Product> currentProduct = new SimpleObjectProperty<>();
-    private ProductDAO productDAO = ProductDAO.getInstance();
-    public static Reference<Product> addedProduct = new Reference<>();
+    private ProductModel model;
 
     private boolean disable = true;
     private int page = 0;
 
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
-
     private int editClick = 0;
+
     private ChangeListener<String> nameListener = null;
     private ChangeListener<String> priceListener = null;
     private ChangeListener<String> stockListener = null;
+
+    public ItemDetailsController(ProductModel m) {
+        this();
+        model = m;
+    }
 
     public ItemDetailsController() {
         itemIDLabel = new SimpleIntegerProperty(0);
@@ -76,19 +79,19 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        products.addAll(productDAO.getInfoList());
+//        products.addAll(productDAO.getInfoList());
         bindingFieldsWithProperties();
-        changeCurrent();
+        model.changeCurrent(page);
 
         setInitialProduct();
         setBinding();
         setFieldsDisableTo(true);
         setButtonsDisableTo();
-        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
+        DetailsInterface.setButtonsNextPrev(model.getSizeOfList(), btnNext, btnPrevious, page);
         btnPrevious.setDisable(true);
     }
 
-    private void setButtonsDisableTo() {
+    private void setButtonsDisableTo() { /// bit će prepravkaaa
 
         if(!currentUser.getAccessLevel().equals("EMPLOYEE")) {
             btnIncreaseStock.setDisable(true);
@@ -101,18 +104,18 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     }
 
     private void setInitialProduct() {
-        itemIDLabel.setValue(currentProduct.getValue().getProductId());
-        name.setValue(currentProduct.getValue().getName());
-        price.setValue(currentProduct.getValue().getPrice());
-        stock.setValue(currentProduct.getValue().getStock());
-        type.setValue(currentProduct.getValue().getCategory().getCategoryName());
+        itemIDLabel.setValue(model.currentProductProperty().getValue().getProductId());
+        name.setValue(model.getCurrentProduct().getName());
+        price.setValue(model.getCurrentProduct().getPrice());
+        stock.setValue(model.getCurrentProduct().getStock());
+        type.setValue(model.getCurrentProduct().getCategory().getCategoryName());
     }
 
     private void setBinding() {
-        currentProduct.addListener((obs, oldValue, newValue) -> {
+        model.currentProductProperty().addListener((obs, oldValue, newValue) -> {
             System.out.println("BINDAM");
-            itemIDLabel.setValue(currentProduct.getValue().getProductId());
-            stock.setValue(currentProduct.getValue().getStock());
+            itemIDLabel.setValue(model.getCurrentProduct().getProductId());
+            stock.setValue(model.getCurrentProduct().getStock());
             if(oldValue != null) {
                 itemNameField.textProperty().unbindBidirectional(oldValue.nameProperty());
                 itemPriceLabel.textProperty().unbindBidirectional(oldValue.priceProperty());
@@ -137,15 +140,10 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     }
 
     @Override
-    public void changeCurrent() {
-        currentProduct.set(products.get(page));
-    }
-
-    @Override
     public void btnDeleteClicked(ActionEvent actionEvent) {
             int id = Integer.parseInt(itemIdLabel.getText());
-            productDAO.deleteProductWithId(id);
-            products.remove(page);
+            model.deleteProductWithId(id);
+            model.removeProductOnPage(page);
 
             if (page == 0) goToNextPage();
             else goToPreviousPage();
@@ -157,11 +155,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
             checkBoxSelected();
         } else {
             if (searchField.getText() != null) {
-                Product product = products.stream().filter(s -> s.getName().equals(searchField.getText())).collect(Collectors.toList()).get(0);
-                if (product == null) {
+                List<Product> list = model.getProducts().stream().filter(s -> s.getName().equals(searchField.getText())).collect(Collectors.toList());
+                if (list.size() == 0) {
                     setAlertWindow("No result !");
                 } else {
-                    currentProduct.set(product);
+                    model.setCurrentProduct(list.get(0));
                     findPageAfterSearch();
                 }
             }
@@ -172,13 +170,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         if (searchField.getText() != null) {
             if (isNumeric(searchField.getText())) {
                 int id = Integer.parseInt(searchField.getText());
-
-                Product product = products.stream().filter(s -> s.getProductId() == id).collect(Collectors.toList()).get(0);
-
-                if (product == null) {
+                List<Product> list = model.getProducts().stream().filter(s -> s.getProductId() == id).collect(Collectors.toList());
+                if (list.size() == 0) {
                     setAlertWindow("No result !");
                 } else {
-                    currentProduct.set(product);
+                    model.setCurrentProduct(list.get(0));
                     findPageAfterSearch();
                 }
             } else {
@@ -188,30 +184,39 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     }
 
     private void findPageAfterSearch() {
-        for(int i = 0; i < products.size(); i++) {
-            if(currentProduct.getValue().compareTo(products.get(i)) == 0) {
+        for(int i = 0; i < model.getSizeOfList(); i++) {
+            if(model.getCurrentProduct().compareTo(model.getProducts().get(i)) == 0) {
                 page = i;
                 break;
             }
         }
-        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
+        DetailsInterface.setButtonsNextPrev(model.getSizeOfList(), btnNext, btnPrevious, page);
     }
 
-    @Override
     public void btnAddClicked(ActionEvent actionEvent) {
-        openNewStage("/fxml/add_fxml/addItem.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add_fxml/addItem.fxml"));
+            loader.setController(new AddItemController(model));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage logInPrompt = new Stage();
+            logInPrompt.setScene(scene);
+            logInPrompt.show();
+        } catch (IOException e) {
+            e.getCause();
+        }
     }
 
     private void goToPreviousPage() {
         page--;
-        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
-        changeCurrent();
+        DetailsInterface.setButtonsNextPrev(model.getSizeOfList(), btnNext, btnPrevious, page);
+        model.changeCurrent(page);
     }
 
     private void goToNextPage() {
         page++;
-        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
-        changeCurrent();
+        DetailsInterface.setButtonsNextPrev(model.getSizeOfList(), btnNext, btnPrevious, page);
+        model.changeCurrent(page);
     }
 
     @Override
@@ -224,32 +229,24 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     if(editClick == 1) {
         nameListener = (obs, oldValue, newValue) -> {
             name.setValue((String) newValue);
-            products.get(page).setName(name.getValue());
+            model.getProducts().get(page).setName(name.getValue());
         };
         itemNameField.textProperty().addListener(nameListener);
 
         priceListener = (obs, oldValue, newValue) -> {
             price.setValue(Integer.parseInt((String) newValue));
-            products.get(page).setPrice(price.getValue());
+            model.getProducts().get(page).setPrice(price.getValue());
         };
         itemPriceLabel.textProperty().addListener(priceListener);
 
         stockListener = (obs, oldValue, newValue) -> {
             stock.setValue(Integer.parseInt((String) newValue));
-            products.get(page).setStock(stock.getValue());
+            model.getProducts().get(page).setStock(stock.getValue());
         };
         stockLabel.textProperty().addListener(stockListener);
     } else if (editClick == 2) {
-
-            System.out.println("HELLOOOOO");
-            changeCurrent();
-            System.out.println("1");
-
-            productDAO.updateProduct(currentProduct.getValue().getProductId(), currentProduct.getValue().getName(),
-                    currentProduct.getValue().getPrice(), currentProduct.getValue().getStock());
-
-            System.out.println("2");
-
+            model.changeCurrent(page);
+            model.updateProductInBase();
             itemNameField.textProperty().removeListener(nameListener);
             itemPriceLabel.textProperty().removeListener(priceListener);
             stockLabel.textProperty().removeListener(stockListener);
@@ -270,8 +267,8 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         int id = Integer.parseInt(itemIdLabel.getText());
         int newStock = Integer.parseInt(stockLabel.getText());
         newStock++;
-        productDAO.increaseStockOfProduct(id, newStock);
-        currentProduct.getValue().setStock(newStock);
+        model.changeStock(id, newStock);
+        model.getCurrentProduct().setStock(newStock);
         stock.setValue(newStock);
     }
 
@@ -279,14 +276,14 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         int id = Integer.parseInt(itemIdLabel.getText());
         int newStock = Integer.parseInt(stockLabel.getText());
         newStock--;
-        productDAO.increaseStockOfProduct(id, newStock);
-        currentProduct.getValue().setStock(newStock);
+        model.changeStock(id, newStock);
+        model.getCurrentProduct().setStock(newStock);
         stock.setValue(newStock);
     }
 
     public void btnRefreshClicked(ActionEvent actionEvent) {
-        products.add(addedProduct.get());
-        DetailsInterface.setButtonsNextPrev(products.size(), btnNext, btnPrevious, page);
+        model.addProductToList(model.getAddedProduct());
+        DetailsInterface.setButtonsNextPrev(model.getSizeOfList(), btnNext, btnPrevious, page);
     }
 
     public int getItemIDLabel() {
@@ -347,17 +344,5 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     public void setType(String type) {
         this.type.set(type);
-    }
-
-    public Product getCurrentProduct() {
-        return currentProduct.get();
-    }
-
-    public ObjectProperty<Product> currentProductProperty() {
-        return currentProduct;
-    }
-
-    public void setCurrentProduct(Product currentProduct) {
-        this.currentProduct.set(currentProduct);
     }
 }

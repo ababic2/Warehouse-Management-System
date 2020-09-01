@@ -1,29 +1,33 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
-import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
-import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
-import ba.unsa.etf.rpr.Interface.ControllerInterface;
+import ba.unsa.etf.rpr.Model.DashboardModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DashboardController implements Initializable, ControllerInterface {
-    //iskoristeno jednosmjerno povezivanje jer ima puno labela i bilo bi
-    //puno ponavljanja koda, greske bla bla
+public class DashboardController implements Initializable {
+
     private SimpleStringProperty employeesLabel;
     private SimpleStringProperty firmLabel;
     private SimpleStringProperty itemsLabel;
     private SimpleStringProperty lowStockLabel;
 
-    private UserDAO userDAO = UserDAO.getInstance();
-    private FirmDAO firmDAO = FirmDAO.getInstance();
-    private ProductDAO productDAO = ProductDAO.getInstance();
-
     public static boolean btnLowStock = false;
+
+    private DashboardModel dashboardModel;
+
+    public DashboardController(DashboardModel dashboardModel) {
+        this();
+        this.dashboardModel = dashboardModel;
+    }
 
     public DashboardController() {
         btnLowStock = false;
@@ -36,30 +40,54 @@ public class DashboardController implements Initializable, ControllerInterface {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnLowStock = false;
-        employeesLabel.set(userDAO.getCount().toString());
-        firmLabel.set(firmDAO.getCount().toString());
-        itemsLabel.set(productDAO.getCount().toString());
-        lowStockLabel.set(productDAO.getCountLowStock().toString());
+        employeesLabel.set(dashboardModel.getNumberOfEmployed());
+        firmLabel.set(dashboardModel.getNumberOfFirms());
+        itemsLabel.set(dashboardModel.getNumberOfItems());
+        lowStockLabel.set(dashboardModel.getNumberOfLowStockItems());
+    }
+
+    private void setScene(FXMLLoader loader) throws IOException {
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage logInPrompt = new Stage();
+        logInPrompt.setScene(scene);
+        logInPrompt.show();
     }
 
     public void btnEmployeesClicked(ActionEvent actionEvent) {
         btnLowStock = false;
-        openNewStage("/fxml/rightSidePane/listOfEmployees.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard/listOfEmployees.fxml"));
+            loader.setController(new EmployeeListController(dashboardModel));
+            setScene(loader);
+        } catch (IOException e) {}
     }
 
     public void btnFirmsClicked(ActionEvent actionEvent) {
         btnLowStock = false;
-        openNewStage("/fxml/rightSidePane/listOfFirms.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard/listOfFirms.fxml"));
+            loader.setController(new FirmListController(dashboardModel));
+            setScene(loader);
+        } catch (IOException e) {}
     }
 
     public void btnItemsClicked(ActionEvent actionEvent) {
         btnLowStock = false;
-        openNewStage("/fxml/rightSidePane/listOfItems.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard/listOfItems.fxml"));
+            loader.setController(new ItemListController(dashboardModel));
+            setScene(loader);
+        } catch (IOException e) {}
     }
 
     public void btnLowStockClicked(ActionEvent actionEvent) {
         btnLowStock = true;
-        openNewStage("/fxml/rightSidePane/listOfItems.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard/listOfItems.fxml"));
+            loader.setController(new ItemListController(dashboardModel));
+            setScene(loader);
+        } catch (IOException e) {}
     }
 
     public String getEmployeesLabel() {
@@ -70,9 +98,7 @@ public class DashboardController implements Initializable, ControllerInterface {
         return employeesLabel;
     }
 
-    public String getFirmLabel() {
-        return firmLabel.get();
-    }
+    public String getFirmLabel() { return firmLabel.get(); }
 
     public SimpleStringProperty firmLabelProperty() {
         return firmLabel;
@@ -93,5 +119,4 @@ public class DashboardController implements Initializable, ControllerInterface {
     public SimpleStringProperty lowStockLabelProperty() {
         return lowStockLabel;
     }
-
 }

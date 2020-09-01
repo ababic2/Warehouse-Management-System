@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ProductDAO implements DAOInterface {
 
@@ -154,7 +153,7 @@ public class ProductDAO implements DAOInterface {
         }
     }
 
-    public void increaseStockOfProduct(int id, int newStock) {
+    public void changeStock(int id, int newStock) {
         try {
             increaseStockOfProductStatement.setInt(1,newStock);
             increaseStockOfProductStatement.setInt(2, id);
@@ -163,7 +162,7 @@ public class ProductDAO implements DAOInterface {
         }
     }
 
-    public int maxID() {
+    public int getMaxId() {
         try {
             PreparedStatement ps = conn.prepareStatement("select max(product_id) from products");
             ResultSet rs = ps.executeQuery();
@@ -171,22 +170,6 @@ public class ProductDAO implements DAOInterface {
         } catch (SQLException exception) {
             return -1;
         }
-    }
-
-    public ArrayList<Category> getCategories() {
-        ArrayList<Category>categories = new ArrayList<>();
-        try {
-            PreparedStatement ps = conn.prepareStatement("select * from categories");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                Category category = new Category (rs.getInt(1), rs.getString(2));
-                categories.add(category);
-            }
-            return categories;
-        } catch (SQLException exception) {
-            return null;
-        }
-
     }
 
     public void addProduct(Product product) {

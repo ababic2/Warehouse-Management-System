@@ -1,8 +1,8 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Department;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
+import ba.unsa.etf.rpr.Model.DashboardModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 public class EmployeeListController implements Initializable {
 
-    public TableView<Employee> employeeTableView; ///????
+    public TableView<Employee> employeeTableView;
     public TableColumn<Employee, Integer> idColumn;
     public TableColumn<Employee, String> usernameColumn;
     public TableColumn<Employee, String> firstNameColumn;
@@ -23,12 +23,16 @@ public class EmployeeListController implements Initializable {
     public TableColumn<Employee, String> salaryColumn;
     public TableColumn<Employee, String> hireDateColumn;
     public TableColumn<Employee, Department> depColumn;
-    private UserDAO userDAO = UserDAO.getInstance();
+    private DashboardModel dashboardModel;
+
+    public EmployeeListController(DashboardModel dashboardModel) {
+        this.dashboardModel = dashboardModel;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCells();
-        employeeTableView.setItems(userDAO.getInfoList());
+        employeeTableView.setItems(dashboardModel.getEmployees());
     }
 
     private void setCells() {

@@ -42,11 +42,6 @@ public interface DetailsInterface {
         return pattern.matcher(strNum).matches();
     }
 
-    // When searching, listing...change current user/item
-    void changeCurrent();
-
-    void btnAddClicked(ActionEvent actionEvent);
-
     void btnNextClicked(ActionEvent actionEvent);
 
     void btnPreviousClicked(ActionEvent actionEvent);

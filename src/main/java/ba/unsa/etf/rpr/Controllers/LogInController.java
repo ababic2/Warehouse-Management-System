@@ -1,8 +1,8 @@
 package ba.unsa.etf.rpr.Controllers;
 
 
-import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
 import ba.unsa.etf.rpr.HelpModel.CurrentUser;
+import ba.unsa.etf.rpr.Model.LogInModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -22,22 +22,23 @@ public class LogInController implements Initializable {
 
     public PasswordField loggerPassword;
     public TextField loggerUsername;
-
+    public TextField passShowField;
 
     public CheckBox passwordMask;
-    public TextField passShowField;
     public Button buttonLogIn;
     public Button buttonSignUp;
     public Label requiredLabel;
     public Label wrongUsernameField;
     public Label wrongPassField;
 
+    private LogInModel logInModel;
     private boolean isMaskChoosen = false;
-
     private String accessLevel;
-
-    private String passFromBase = null;
     public static CurrentUser currentUser = new CurrentUser();
+
+    public LogInController(LogInModel logInModel) {
+        this.logInModel = logInModel;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,22 +53,19 @@ public class LogInController implements Initializable {
         });
     }
 
-    private void lookForUsernameAndPassInBase(String username, String password) {
-        UserDAO userDAO = UserDAO.getInstance();
-        if(userDAO.getPasswordForUsername(username) == null ) {
+    private void checkPassAndUsername(String username, String password) {
+        if(!logInModel.lookForUsernameInBase(username)) {
             sendMessageForWrongUsername();
+        } else if(!logInModel.lookForPassInBaseForUsername(username, password)) {
+            sendMessageForWrongPassword();
         } else {
-            passFromBase = userDAO.getPasswordForUsername(username).getPassword();
-            if (!passFromBase.equals(password)) {
-                sendMessageForWrongPassword();
-            } else {
-                System.out.println("OKE username i pass");
-                accessLevel = userDAO.getPasswordForUsername(username).getAccessLevel();
+                logInModel.setUpAccountForUser(username);
+                accessLevel = logInModel.setUpAccountForUser(username).getAccessLevel();
+                //ovo će zamijeniti currentUser-a
                 currentUser.setUsername(loggerUsername.getText());
                 currentUser.setAccessLevel(accessLevel);
                 openNewStage("/fxml/home.fxml");
             }
-        }
     }
 
     public CurrentUser getCurrentUser() {
@@ -77,33 +75,27 @@ public class LogInController implements Initializable {
     private void openNewStage(String url) {
         Stage current = (Stage) loggerUsername.getScene().getWindow();
         current.close();
-
         try {
-            // Setting dashboard window
             Parent root = FXMLLoader.load(getClass().getResource(url));
-
             Scene scene = new Scene(root);
             Stage logInPrompt = new Stage();
             logInPrompt.setScene(scene);
             logInPrompt.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void sendMessageForWrongPassword() {
-        System.out.println("Wrong pass");
         wrongPassField.setVisible(true);
     }
 
     private void sendMessageForWrongUsername() {
-        System.out.println("wronguser");
         wrongUsernameField.setVisible(true);
     }
 
     private void changeLabelBackground(String n) {
-        if (is_Valid_Password(n) ) {
+        if (logInModel.is_Valid_Password(n)) {
             loggerPassword.getStyleClass().removeAll("poljeNijeIspravno");
             loggerPassword.getStyleClass().add("poljeIspravno");
 
@@ -135,32 +127,6 @@ public class LogInController implements Initializable {
             }
         }
 
-    private static boolean is_Valid_Password(String password) {
-
-        if (password.length() > 0 && password.length() < 8 ) return false;
-
-        int charCount = 0;
-        int numCount = 0;
-        for (int i = 0; i < password.length(); i++) {
-
-            char ch = password.charAt(i);
-
-            if (is_Numeric(ch)) numCount++;
-            else if (is_Letter(ch)) charCount++;
-            else return false;
-        }
-        return (charCount >= 2 && numCount >= 2);
-    }
-
-    private static boolean is_Letter(char ch) {
-        ch = Character.toUpperCase(ch);
-        return (ch >= 'A' && ch <= 'Z');
-    }
-
-    private static boolean is_Numeric(char ch) {
-        return (ch >= '0' && ch <= '9');
-    }
-
     //provjeri da li ima taj username i pass u bazi, i vidi koji je accesslevel ako da otvori dash inace alert
     public void onLogInButtonClicked(ActionEvent actionEvent) {
         if(loggerUsername.getText().length() == 0 || loggerPassword.getText().length() == 0) {
@@ -173,9 +139,9 @@ public class LogInController implements Initializable {
             wrongPassField.setVisible(false);
 
             if(isMaskChoosen) {
-                lookForUsernameAndPassInBase(loggerUsername.getText(),passShowField.getText());
+                checkPassAndUsername(loggerUsername.getText(),passShowField.getText());
             } else {
-                lookForUsernameAndPassInBase(loggerUsername.getText(), loggerPassword.getText());
+                checkPassAndUsername(loggerUsername.getText(), loggerPassword.getText());
             }
         }
 

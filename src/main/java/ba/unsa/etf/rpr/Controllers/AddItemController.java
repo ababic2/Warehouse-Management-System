@@ -1,12 +1,9 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
-import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Category;
 import ba.unsa.etf.rpr.DAL.DTO.Firm;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import ba.unsa.etf.rpr.Model.ProductModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -18,8 +15,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static ba.unsa.etf.rpr.Controllers.ItemDetailsController.addedProduct;
-
 public class AddItemController implements Initializable {
 
     public TextField nameProduct;
@@ -29,25 +24,21 @@ public class AddItemController implements Initializable {
     public ChoiceBox<Firm> firmChoice;
     public Label errorLabel;
 
-    private ObservableList<Category> categories = FXCollections.observableArrayList();
-    private ObservableList<Firm> firms = FXCollections.observableArrayList();
+    private ProductModel model;
 
-    ProductDAO productDAO = ProductDAO.getInstance();
-    //    CategoryDAO categoryDAO = CategoryDAO.getInstance();
-    FirmDAO firmDAO = FirmDAO.getInstance();
+    public AddItemController(ProductModel model) {
+        this.model = model;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        categories.addAll(productDAO.getCategories());
-        categoryChoice.setItems(categories);
-
-        firms.addAll(firmDAO.getInfoList());
-        firmChoice.setItems(firms);
+        categoryChoice.setItems(model.getCategories());
+        firmChoice.setItems(model.getFirms());
     }
 
     public void btnSaveClicked(ActionEvent actionEvent) {
         //no repeat of id
-        int id = productDAO.maxID();
+        int id = model.getMaxId();
         Product product;
         id++;
         if (nameProduct.getText() == null || priceProduct.getText() == null ||
@@ -69,15 +60,16 @@ public class AddItemController implements Initializable {
                 alert.setContentText("Already exist ! Try increasing stock of product or create new one.");
                 alert.showAndWait();
             } else {
-                productDAO.addProduct(product);
+                model.addProductToBase(product);
                 Stage current = (Stage) errorLabel.getScene().getWindow();
-                addedProduct.set(product);
+                model.setAddedProduct(product);
+                //addedProduct.set(product);
                 current.close();
             }
         }
     }
 
     private boolean checkIfThereIsAlreadyInBase(Product product) {
-        return productDAO.checkIfAlreadyExist(product);
+        return model.checkIfProductAlreadyExist(product);
     }
 }

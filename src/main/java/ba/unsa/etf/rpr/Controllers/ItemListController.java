@@ -1,8 +1,8 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Category;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
+import ba.unsa.etf.rpr.Model.DashboardModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,14 +21,17 @@ public class ItemListController implements Initializable {
     public TableColumn<Product,Integer> priceColumn;
     public TableColumn<Product,Integer> stockColumn;
     public TableColumn<Product,Category> categoryColumn;
+    private DashboardModel dashboardModel;
 
-    private ProductDAO productDAO = ProductDAO.getInstance();
+    public ItemListController(DashboardModel dashboardModel) {
+        this.dashboardModel = dashboardModel;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCells();
-        if(!btnLowStock) productsTableView.setItems(productDAO.getInfoList());
-        else productsTableView.setItems(productDAO.getInfoLowStockList());
+        if(!btnLowStock) productsTableView.setItems(dashboardModel.getProducts());
+        else productsTableView.setItems(dashboardModel.getLowStockProducts());
     }
     private void setCells() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("productId"));

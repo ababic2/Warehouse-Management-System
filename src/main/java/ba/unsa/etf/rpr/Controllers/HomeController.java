@@ -1,5 +1,8 @@
 package ba.unsa.etf.rpr.Controllers;
 
+import ba.unsa.etf.rpr.Model.DashboardModel;
+import ba.unsa.etf.rpr.Model.EmployeeAccountModel;
+import ba.unsa.etf.rpr.Model.ProductModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,11 +42,11 @@ public class HomeController {
         loadViews();
         currLoggedIn.setText(currentUser.getUsername());
         currentAccess.setText(currentUser.getAccessLevel());
-        ctrlRightPane("/fxml/dashboard/dashboard.fxml");
+        ctrlRightPane("/fxml/dashboard/dashboard.fxml","Dashboard");
     }
 
     private void loadViews() {
-        views.put("Dashboard", "/fxml/dashboard.fxml");
+        views.put("Dashboard", "/fxml/dashboard/dashboard.fxml");
         views.put("Items", "/fxml/itemDetails.fxml");
         views.put("Firms", "/fxml/firmDetails.fxml");
         views.put("Employee Accounts", "/fxml/employeeAccount.fxml");
@@ -60,14 +63,14 @@ public class HomeController {
         else {
 
             try {
-                ctrlRightPane(views.get(btnText));
+                ctrlRightPane(views.get(btnText), btnText);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    //when log out is clicked then log in will appear
+    //When log out is clicked then log in will appear
     private void logOut() {
         Stage current =  (Stage)loggedLabel.getScene().getWindow();
         current.close();
@@ -87,10 +90,10 @@ public class HomeController {
     }
 
     @FXML
-    private void ctrlRightPane(String URL) throws IOException {
+    private void ctrlRightPane(String URL, String name) throws IOException {
         try {
             rightPane.getChildren().clear(); //Removing previous nodes
-            newRightPane = FXMLLoader.load(getClass().getResource(URL));
+            setNewStage(URL, name);
 
             newRightPane.setPrefHeight(rightPane.getHeight());
             newRightPane.setPrefWidth(rightPane.getWidth());
@@ -98,14 +101,26 @@ public class HomeController {
             rightPane.getChildren().add(newRightPane);
 
             //Listener to monitor any window size change
-
             rightPane.layoutBoundsProperty().addListener((obs, oldValue, newValue) -> {
                 autoResizePane();
             });
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {}
+    }
+
+    private void setNewStage(String URL, String name) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(URL));
+        if(name.equals("Dashboard")) {
+            DashboardModel dashBoardModel = new DashboardModel();
+            loader.setController(new DashboardController(dashBoardModel));
+        } else if(name.equals("Items")) {
+            ProductModel productModel = new ProductModel();
+            loader.setController(new ItemDetailsController(productModel));
+        } else if(name.equals("Employee Accounts")) {
+            EmployeeAccountModel employeeAccountModel = new EmployeeAccountModel();
+            loader.setController(new EmployeeDetailsController(employeeAccountModel));
         }
+        newRightPane = loader.load();
     }
 
     private void autoResizePane() {

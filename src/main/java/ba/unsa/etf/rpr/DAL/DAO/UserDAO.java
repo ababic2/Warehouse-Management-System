@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class UserDAO implements DAOInterface {
 
@@ -23,7 +22,8 @@ public class UserDAO implements DAOInterface {
     private static PreparedStatement firmStatement;
     private static PreparedStatement countEmployees;
     private static PreparedStatement employeesStatement;
-    private static PreparedStatement departmentNameStatement;
+    private DepartmentDAO departmentDAO = DepartmentDAO.getInstance();
+
 
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
     private Reference<Connection> connReference = new Reference<>(null);
@@ -73,41 +73,12 @@ public class UserDAO implements DAOInterface {
         }
     }
 
-    private Department getDepartment(int id) {
-        try {
-            PreparedStatement departmentStatement = conn.prepareStatement("select * from departments where department_id = ?");
-            departmentStatement.setInt(1,id);
-            ResultSet rs = departmentStatement.executeQuery();
-            Department department = new Department(rs.getInt(1), rs.getString(2));
-            return department;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
-    }
-
-    public ArrayList<Department> getDepartments() {
-        ArrayList<Department> departments = new ArrayList<>();
-        try {
-            PreparedStatement getDepStatement = conn.prepareStatement("select  * from departments");
-            ResultSet rs = getDepStatement.executeQuery();
-            while(rs.next()) {
-                Department department = new Department(rs.getInt(1), rs.getString(2));
-                departments.add(department);
-            }
-            return departments;
-        } catch (SQLException exception) {
-            return null;
-        }
-    }
-
     public void prepareStatements() throws SQLException {
         conn = connReference.get();
         usernameStatement = conn.prepareStatement("select password, access_level from employees where username = ?");
         firmStatement = conn.prepareStatement("select password, access_level from firms where username = ?");
         countEmployees = conn.prepareStatement("select count(employee_id) from employees");
         employeesStatement = conn.prepareStatement("select * from employees");
-        departmentNameStatement = conn.prepareStatement("select department_name from departments where department_id = ?");
     }
 
     public void addToList(PreparedStatement statement) {
@@ -121,11 +92,10 @@ public class UserDAO implements DAOInterface {
                         new Employee(rs.getInt(1), rs.getString(2), rs.getString(3),
                                 rs.getString(4),rs.getString(5), rs.getString(6),
                                 rs.getString(7), rs.getInt(8), rs.getString(9),null);
-                modelEmployee.setDepartment(getDepartment(rs.getInt(10)));
+                modelEmployee.setDepartment(departmentDAO.getDepartment(rs.getInt(10)));
                 employees.add(modelEmployee);
             }
         } catch (SQLException throwables) {
-            throwables.getMessage();
         }
     }
 

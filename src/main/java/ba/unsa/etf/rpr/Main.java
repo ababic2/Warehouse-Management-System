@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr;
 
+import ba.unsa.etf.rpr.Controllers.LogInController;
+import ba.unsa.etf.rpr.Model.LogInModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,12 +18,15 @@ public class Main  extends Application {
         //Stage je prozor koji ce biti kreiran
         //Scene je sadrzaj prozora
         // start metoda kreira scenu prema prilozenom fxml fajlu
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/log_in.fxml"));
-        primaryStage.setTitle("Hello World");
+
+        LogInModel logInModel = new LogInModel();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log_in.fxml"));
+        loader.setController(new LogInController(logInModel));
+        Parent root = loader.load();
+        primaryStage.setTitle("Welcome");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
-
     public static void main(String[] args) throws Exception {
          launch(args);
     }
