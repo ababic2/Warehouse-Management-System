@@ -21,6 +21,8 @@ public class DepartmentDAO implements DAOInterface {
 
     private PreparedStatement departmentNameStatement;
     private PreparedStatement getDepStatement;
+    private PreparedStatement getMaxId;
+    private PreparedStatement addDepartmentStatement;
 
     private DepartmentDAO() {
         connectToBase(connReference);
@@ -54,6 +56,8 @@ public class DepartmentDAO implements DAOInterface {
         conn = connReference.get();
         departmentNameStatement = conn.prepareStatement("select department_name from departments where department_id = ?");
         getDepStatement = conn.prepareStatement("select  * from departments");
+        getMaxId = conn.prepareStatement("select max(department_id) from departments");
+        addDepartmentStatement = conn.prepareStatement("insert into departments(department_id, department_name) values (?,?)");
     }
 
     public Department getDepartment(int id) {
@@ -66,6 +70,17 @@ public class DepartmentDAO implements DAOInterface {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
+        }
+    }
+
+    public void addDepartment(String name) {
+        try {
+            ResultSet rs = getMaxId.executeQuery();
+            int id = rs.getInt(1);
+            addDepartmentStatement.setInt(1,id);
+            addDepartmentStatement.setString(2, name);
+            addDepartmentStatement.executeUpdate();
+        } catch (SQLException exception) {
         }
     }
 }

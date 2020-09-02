@@ -23,6 +23,8 @@ public class CategoryDAO implements DAOInterface {
     private Reference<Connection> connReference = new Reference<>(null);
 
     private PreparedStatement categoriesStatement;
+    private PreparedStatement categoryWithMaxId;
+    private PreparedStatement addCategory;
 
     private CategoryDAO() {
         connectToBase(connReference);
@@ -54,10 +56,26 @@ public class CategoryDAO implements DAOInterface {
     public void prepareStatements() throws SQLException {
         conn = connReference.get();
         categoriesStatement = conn.prepareStatement("select * from categories");
+        categoryWithMaxId = conn.prepareStatement("select max(category_id) from categories");
+        addCategory = conn.prepareStatement("insert into categories(category_id, category_name) values (?,?)");
     }
 
     public ObservableList<Category> getInfoList() {
         addToList(categoriesStatement);
         return categories;
+    }
+
+    public void addCategory(String name) {
+        try {
+            ResultSet rs = categoryWithMaxId.executeQuery();
+            int id = rs.getInt(1);
+            id++;
+            addCategory.setInt(1,id);
+            addCategory.setString(2,name);
+            addCategory.executeUpdate();
+        } catch (SQLException exception) {
+
+
+        }
     }
 }

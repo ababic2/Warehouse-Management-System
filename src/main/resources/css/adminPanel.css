@@ -19,8 +19,14 @@
     -fx-background-color: #aeaeb3;
 }
 
-
 .button {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-border-radius: 30%;
+    -fx-background-radius: 30%;
+}
+
+.toggle-button {
     -fx-font-size: 20;
     -fx-font-family: FreeSerif;
     -fx-border-radius: 30%;
