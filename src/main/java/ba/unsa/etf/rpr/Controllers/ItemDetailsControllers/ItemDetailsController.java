@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.Controllers;
+package ba.unsa.etf.rpr.Controllers.ItemDetailsControllers;
 
 import ba.unsa.etf.rpr.DAL.DTO.Product;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
@@ -113,7 +113,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     private void setBinding() {
         model.currentProductProperty().addListener((obs, oldValue, newValue) -> {
-            System.out.println("BINDAM");
             itemIDLabel.setValue(model.getCurrentProduct().getProductId());
             stock.setValue(model.getCurrentProduct().getStock());
             if(oldValue != null) {

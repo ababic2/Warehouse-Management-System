@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.Controllers;
+package ba.unsa.etf.rpr.Controllers.DashboardControllers;
 
 import ba.unsa.etf.rpr.DAL.DTO.Category;
 import ba.unsa.etf.rpr.DAL.DTO.Product;

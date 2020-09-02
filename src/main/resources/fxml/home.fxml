@@ -76,7 +76,7 @@
             </GridPane>
             <VBox prefHeight="406.0" prefWidth="357.0" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/btn.css" text="Dashboard" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/menuButtons.css" text="Dashboard" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -97,7 +97,7 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnItems" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/btn.css" text="Items" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnItems" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/menuButtons.css" text="Items" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -115,7 +115,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnFirms" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/btn.css" text="Firms" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnFirms" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/menuButtons.css" text="Firms" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -133,7 +133,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnShipping" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Shipping" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnShipping" alignment="BASELINE_LEFT" mnemonicParsing="false" stylesheets="@../css/menuButtons.css" text="Shipping" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -151,7 +151,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnAccounts" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/btn.css" text="Employee Accounts" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnAccounts" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/menuButtons.css" text="Employee Accounts" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -169,7 +169,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnAdmin" onAction="#btnNavigator" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Admin" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnAdmin" onAction="#btnNavigator" mnemonicParsing="false" stylesheets="@../css/menuButtons.css" text="Admin" VBox.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="15.0" left="130.0" right="166.0" top="15.0" />
                      </padding>
@@ -187,7 +187,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/btn.css" text="Log Out">
+                  <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/menuButtons.css" text="Log Out">
                      <padding>
                         <Insets bottom="15.0" left="130.0" right="155.0" top="15.0" />
                      </padding>

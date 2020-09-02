@@ -14,11 +14,6 @@ public class Main  extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //pokrece kreiranje objekata
-        //Stage je prozor koji ce biti kreiran
-        //Scene je sadrzaj prozora
-        // start metoda kreira scenu prema prilozenom fxml fajlu
-
         LogInModel logInModel = new LogInModel();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log_in.fxml"));
         loader.setController(new LogInController(logInModel));

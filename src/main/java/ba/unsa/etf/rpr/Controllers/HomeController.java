@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
+import ba.unsa.etf.rpr.Controllers.DashboardControllers.DashboardController;
+import ba.unsa.etf.rpr.Controllers.ItemDetailsControllers.ItemDetailsController;
 import ba.unsa.etf.rpr.Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -122,6 +124,9 @@ public class HomeController {
         } else if(name.equals("Admin")) {
             AdminPanelModel adminPanelModel = new AdminPanelModel();
             loader.setController(new AdminPanelController(adminPanelModel));
+        } else if(name.equals("Firms")) {
+            FirmModel firmModel = new FirmModel();
+            loader.setController(new FirmDetailsController(firmModel));
         }
         newRightPane = loader.load();
     }
