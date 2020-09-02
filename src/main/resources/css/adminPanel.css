@@ -1,0 +1,28 @@
+#adminPanelLabel {
+    -fx-background-image: url("../img/rightPaneName/adminPanel.png");
+    -fx-background-size: 50 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+    -fx-font-family: FreeSerif;
+    -fx-font-size: 40;
+    -fx-text-alignment: center;
+    -fx-underline: true;
+}
+
+#buttonsGrid {
+    -fx-background-image: url("../img/geometric-background.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+#insideGrid {
+    -fx-background-color: #aeaeb3;
+}
+
+
+.button {
+    -fx-font-size: 20;
+    -fx-font-family: FreeSerif;
+    -fx-border-radius: 30%;
+    -fx-background-radius: 30%;
+}

@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--<SplitPane fx:id="splitPane" dividerPositions="0.30209205020920504" prefHeight="700.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">-->
+<!--<SplitPane fx:id="splitPane" dividerPositions="0.30209205020920504" prefHeight="700.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">-->
 
 <SplitPane fx:id="splitPane" dividerPositions="0.299581589958159" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">
    <items>
@@ -169,7 +169,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnAdmin" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Admin" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnAdmin" onAction="#btnNavigator" mnemonicParsing="false" stylesheets="@../css/btn.css" text="Admin" VBox.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="15.0" left="130.0" right="166.0" top="15.0" />
                      </padding>

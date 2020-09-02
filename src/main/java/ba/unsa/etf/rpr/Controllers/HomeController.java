@@ -1,8 +1,6 @@
 package ba.unsa.etf.rpr.Controllers;
 
-import ba.unsa.etf.rpr.Model.DashboardModel;
-import ba.unsa.etf.rpr.Model.EmployeeAccountModel;
-import ba.unsa.etf.rpr.Model.ProductModel;
+import ba.unsa.etf.rpr.Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +48,7 @@ public class HomeController {
         views.put("Items", "/fxml/itemDetails.fxml");
         views.put("Firms", "/fxml/firmDetails.fxml");
         views.put("Employee Accounts", "/fxml/employeeAccount.fxml");
+        views.put("Admin", "/fxml/adminPanel.fxml");
     }
 
     @FXML
@@ -76,8 +75,10 @@ public class HomeController {
         current.close();
 
         try {
-            // Setting login window
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/log_in.fxml"));
+            LogInModel logInModel = new LogInModel();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log_in.fxml"));
+            loader.setController(new LogInController(logInModel));
+            Parent root = loader.load();
 
             Scene scene = new Scene(root);
             Stage logInPrompt = new Stage();
@@ -85,7 +86,6 @@ public class HomeController {
             logInPrompt.show();
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -119,6 +119,9 @@ public class HomeController {
         } else if(name.equals("Employee Accounts")) {
             EmployeeAccountModel employeeAccountModel = new EmployeeAccountModel();
             loader.setController(new EmployeeDetailsController(employeeAccountModel));
+        } else if(name.equals("Admin")) {
+            AdminPanelModel adminPanelModel = new AdminPanelModel();
+            loader.setController(new AdminPanelController(adminPanelModel));
         }
         newRightPane = loader.load();
     }

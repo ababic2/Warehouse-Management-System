@@ -1,11 +1,11 @@
 package ba.unsa.etf.rpr.Model;
 
+import ba.unsa.etf.rpr.DAL.DTO.Product;
 import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
 import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
 import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.DAL.DTO.Firm;
-import ba.unsa.etf.rpr.DAL.DTO.Product;
 import javafx.collections.ObservableList;
 
 public class DashboardModel {

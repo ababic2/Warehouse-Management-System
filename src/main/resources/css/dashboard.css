@@ -9,6 +9,12 @@
     -fx-underline: true;
 }
 
+#border {
+    -fx-background-image: url("../img/geometric-background.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
 #labelEmployees {
     -fx-font-size: 20;
     -fx-font-family: FreeSerif;

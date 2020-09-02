@@ -1,8 +1,8 @@
 package ba.unsa.etf.rpr.Model;
 
+import ba.unsa.etf.rpr.HelpModel.Account;
 import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
-import ba.unsa.etf.rpr.HelpModel.Account;
 
 public class LogInModel {
     private Account account;

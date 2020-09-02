@@ -1,9 +1,9 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.DAL.DTO.Department;
-import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import ba.unsa.etf.rpr.Model.EmployeeAccountModel;
+import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;

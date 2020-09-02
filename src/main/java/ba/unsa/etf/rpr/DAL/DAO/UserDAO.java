@@ -1,10 +1,10 @@
 package ba.unsa.etf.rpr.DAL.DAO;
 
 import ba.unsa.etf.rpr.DAL.DTO.Department;
-import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.HelpModel.Account;
-import ba.unsa.etf.rpr.HelpModel.Reference;
 import ba.unsa.etf.rpr.Interface.DAOInterface;
+import ba.unsa.etf.rpr.DAL.DTO.Employee;
+import ba.unsa.etf.rpr.HelpModel.Reference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -21,7 +21,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <BorderPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <BorderPane fx:id="border" stylesheets="@../../css/dashboard.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <top>
             <GridPane fx:id="insideGrid" stylesheets="@../../css/firmDetails.css" BorderPane.alignment="BOTTOM_CENTER">
                <columnConstraints>
@@ -46,7 +46,7 @@
             </GridPane>
          </top>
          <center>
-            <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+            <GridPane fx:id="gridTheme" alignment="CENTER" stylesheets="@../../css/dashboard.css" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -73,7 +73,7 @@
                            </effect>
                         </Button>
 
-                        <Label fx:id="labelEmployees" text="${controller.employeesLabel}" alignment="CENTER" layoutX="102.0" layoutY="52.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" >
+                        <Label fx:id="labelEmployees" alignment="CENTER" layoutX="102.0" layoutY="52.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" text="${controller.employeesLabel}">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -91,12 +91,12 @@
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelFirms" text="${controller.firmLabel}" alignment="CENTER" layoutX="108.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" >
+                        <Label fx:id="labelFirms" alignment="CENTER" layoutX="108.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" text="${controller.firmLabel}">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button onAction="#btnFirmsClicked" layoutX="138.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../../css/dashboard.css" text="Firms">
+                        <Button layoutX="138.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnFirmsClicked" stylesheets="@../../css/dashboard.css" text="Firms">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -113,12 +113,12 @@
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelItems" text="${controller.itemsLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css">
+                        <Label fx:id="labelItems" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" text="${controller.itemsLabel}">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button onAction="#btnItemsClicked" layoutX="139.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../../css/dashboard.css" text="Items">
+                        <Button layoutX="139.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnItemsClicked" stylesheets="@../../css/dashboard.css" text="Items">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -135,12 +135,12 @@
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Label fx:id="labelLowStock" text="${controller.lowStockLabel}" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css">
+                        <Label fx:id="labelLowStock" alignment="CENTER" layoutX="100.0" layoutY="50.0" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../css/dashboard.css" text="${controller.lowStockLabel}">
                            <effect>
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button onAction="#btnLowStockClicked" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" stylesheets="@../../css/dashboard.css" text="Low stock items">
+                        <Button layoutX="96.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnLowStockClicked" stylesheets="@../../css/dashboard.css" text="Low stock items">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -153,17 +153,6 @@
                </padding>
             </GridPane>
          </center>
-         <bottom>
-            <GridPane BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-         </bottom>
          <padding>
             <Insets bottom="50.0" />
          </padding>

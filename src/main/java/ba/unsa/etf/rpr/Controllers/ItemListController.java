@@ -11,8 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static ba.unsa.etf.rpr.Controllers.DashboardController.btnLowStock;
-
 public class ItemListController implements Initializable {
     public TableView<Product> productsTableView;
 
@@ -20,7 +18,7 @@ public class ItemListController implements Initializable {
     public TableColumn<Product,String> nameColumn;
     public TableColumn<Product,Integer> priceColumn;
     public TableColumn<Product,Integer> stockColumn;
-    public TableColumn<Product,Category> categoryColumn;
+    public TableColumn<Product, Category> categoryColumn;
     private DashboardModel dashboardModel;
 
     public ItemListController(DashboardModel dashboardModel) {
@@ -30,7 +28,7 @@ public class ItemListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCells();
-        if(!btnLowStock) productsTableView.setItems(dashboardModel.getProducts());
+        if(!DashboardController.btnLowStock) productsTableView.setItems(dashboardModel.getProducts());
         else productsTableView.setItems(dashboardModel.getLowStockProducts());
     }
     private void setCells() {

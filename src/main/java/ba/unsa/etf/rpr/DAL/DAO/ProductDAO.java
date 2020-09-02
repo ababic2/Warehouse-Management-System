@@ -1,10 +1,10 @@
 package ba.unsa.etf.rpr.DAL.DAO;
 
 import ba.unsa.etf.rpr.DAL.DTO.Category;
-import ba.unsa.etf.rpr.DAL.DTO.Firm;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
 import ba.unsa.etf.rpr.HelpModel.Reference;
 import ba.unsa.etf.rpr.Interface.DAOInterface;
+import ba.unsa.etf.rpr.DAL.DTO.Firm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
