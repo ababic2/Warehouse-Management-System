@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 // --module-path /usr/share/javafx/lib --add-modules javafx.controls,javafx.fxml
 
@@ -19,6 +20,7 @@ public class Main  extends Application {
         loader.setController(new LogInController(logInModel));
         Parent root = loader.load();
         primaryStage.setTitle("Welcome");
+        primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

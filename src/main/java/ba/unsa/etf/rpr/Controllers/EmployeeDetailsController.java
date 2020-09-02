@@ -37,7 +37,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     public TextField searchField;
     public RadioButton radioEmployee;
     public RadioButton radioAdmin;
-    private ToggleGroup toggleGroup = new ToggleGroup();
+    public ToggleGroup toggle;
 
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
@@ -85,8 +85,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         setBinding();
         setFieldsBoxRadioDisableTo(true);
 
-        radioEmployee.setToggleGroup(toggleGroup);
-        radioAdmin.setToggleGroup(toggleGroup);
         setRadioButtons();
 
         setButtonsDisableTo();
@@ -229,10 +227,10 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
                 }
             });
 
-            toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+            toggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
                 public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
-                    if (toggleGroup.getSelectedToggle() != null) {
-                        if(toggleGroup.getSelectedToggle().equals(radioAdmin)) {
+                    if (toggle.getSelectedToggle() != null) {
+                        if(toggle.getSelectedToggle().equals(radioAdmin)) {
                             model.getEmployees().get(page).setAccessLevelString("admin");
                         } else {
                             model.getEmployees().get(page).setAccessLevelString("employee");

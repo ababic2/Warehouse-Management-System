@@ -21,7 +21,9 @@ public class AdminPanelController {
             categoryNameField.setDisable(false);
             categoryNameField.setVisible(true);
         } else {
-            model.addCategoryToBase(categoryNameField.getText());
+            if(!categoryNameField.getText().equals("")) {
+                model.addCategoryToBase(categoryNameField.getText());
+            }
             categoryNameField.setVisible(false);
             categoryNameField.setDisable(true);
             categoryNameField.setText("");
@@ -35,7 +37,9 @@ public class AdminPanelController {
             departmentNameField.setDisable(false);
             departmentNameField.setVisible(true);
         } else {
-            model.addDepartmentToBase(departmentNameField.getText());
+            if(!departmentNameField.getText().equals("")) {
+                model.addDepartmentToBase(departmentNameField.getText());
+            }
             departmentNameField.setVisible(false);
             departmentNameField.setDisable(true);
             departmentNameField.setText("");

@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,7 +31,10 @@ public class LogInController implements Initializable {
     public Label requiredLabel;
     public Label wrongUsernameField;
     public Label wrongPassField;
-
+    public GridPane usernameGrid;
+    public GridPane passwordGrid;
+    private Label usernameErrorLabel;
+    private Label passwordErrorLabel;
     private LogInModel logInModel;
     private boolean isMaskChoosen = false;
     private String accessLevel;
@@ -45,8 +49,8 @@ public class LogInController implements Initializable {
         loggerPassword.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String o, String n) {
-                wrongUsernameField.setVisible(false);
-                wrongPassField.setVisible(false);
+                usernameGrid.getChildren().remove(usernameErrorLabel);
+                passwordGrid.getChildren().remove(passwordErrorLabel);
                 requiredLabel.setVisible(false);
                 changeLabelBackground(n);
             }
@@ -87,11 +91,21 @@ public class LogInController implements Initializable {
     }
 
     private void sendMessageForWrongPassword() {
-        wrongPassField.setVisible(true);
+        try {
+            passwordErrorLabel= FXMLLoader.load(getClass().getResource("/fxml/dynamic/passwordErrorLabel.fxml"));
+            passwordGrid.add(passwordErrorLabel,0,2);
+        } catch (IOException e) {
+            System.out.println("Majko moja mila!!!");
+        }
     }
 
     private void sendMessageForWrongUsername() {
-        wrongUsernameField.setVisible(true);
+        try {
+            usernameErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/usernameErrorLabel.fxml"));
+            usernameGrid.add(usernameErrorLabel,0,2);
+        } catch (IOException e) {
+            System.out.println("Majko moja mila!!!");
+        }
     }
 
     private void changeLabelBackground(String n) {
@@ -131,12 +145,16 @@ public class LogInController implements Initializable {
     public void onLogInButtonClicked(ActionEvent actionEvent) {
         if(loggerUsername.getText().length() == 0 || loggerPassword.getText().length() == 0) {
             requiredLabel.setVisible(true);
-            wrongUsernameField.setVisible(false);
-            wrongPassField.setVisible(false);
+//            wrongUsernameField.setVisible(false);
+            usernameGrid.getChildren().remove(usernameErrorLabel);
+            passwordGrid.getChildren().remove(passwordErrorLabel);
+//            wrongPassField.setVisible(false);
         } else {
             requiredLabel.setVisible(false);
-            wrongUsernameField.setVisible(false);
-            wrongPassField.setVisible(false);
+//            wrongUsernameField.setVisible(false);
+            usernameGrid.getChildren().remove(usernameErrorLabel);
+//            wrongPassField.setVisible(false);
+            passwordGrid.getChildren().remove(passwordErrorLabel);
 
             if(isMaskChoosen) {
                 checkPassAndUsername(loggerUsername.getText(),passShowField.getText());
