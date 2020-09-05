@@ -1,6 +1,5 @@
 package ba.unsa.etf.rpr.Controllers;
 
-
 import ba.unsa.etf.rpr.HelpModel.CurrentUser;
 import ba.unsa.etf.rpr.Model.LogInModel;
 import javafx.beans.value.ChangeListener;
@@ -95,7 +94,6 @@ public class LogInController implements Initializable {
             passwordErrorLabel= FXMLLoader.load(getClass().getResource("/fxml/dynamic/passwordErrorLabel.fxml"));
             passwordGrid.add(passwordErrorLabel,0,2);
         } catch (IOException e) {
-            System.out.println("Majko moja mila!!!");
         }
     }
 
@@ -104,7 +102,6 @@ public class LogInController implements Initializable {
             usernameErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/usernameErrorLabel.fxml"));
             usernameGrid.add(usernameErrorLabel,0,2);
         } catch (IOException e) {
-            System.out.println("Majko moja mila!!!");
         }
     }
 
@@ -145,15 +142,11 @@ public class LogInController implements Initializable {
     public void onLogInButtonClicked(ActionEvent actionEvent) {
         if(loggerUsername.getText().length() == 0 || loggerPassword.getText().length() == 0) {
             requiredLabel.setVisible(true);
-//            wrongUsernameField.setVisible(false);
             usernameGrid.getChildren().remove(usernameErrorLabel);
             passwordGrid.getChildren().remove(passwordErrorLabel);
-//            wrongPassField.setVisible(false);
         } else {
             requiredLabel.setVisible(false);
-//            wrongUsernameField.setVisible(false);
             usernameGrid.getChildren().remove(usernameErrorLabel);
-//            wrongPassField.setVisible(false);
             passwordGrid.getChildren().remove(passwordErrorLabel);
 
             if(isMaskChoosen) {
