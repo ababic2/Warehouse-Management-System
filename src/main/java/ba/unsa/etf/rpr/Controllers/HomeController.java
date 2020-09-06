@@ -16,6 +16,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
@@ -27,6 +32,7 @@ public class HomeController {
 
     public Label currentAccess;
     public Label currLoggedIn;
+    public Label dateLabel;
 
     @FXML
     private Label loggedLabel;
@@ -38,11 +44,36 @@ public class HomeController {
     private HashMap<String, String> views = new HashMap<>();
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, ParseException {
         loadViews();
         currLoggedIn.setText(currentUser.getUsername());
         currentAccess.setText(currentUser.getAccessLevel());
+        setDate();
+        timeThread();
         ctrlRightPane("/fxml/dashboard/dashboard.fxml","Dashboard");
+    }
+
+    private void timeThread() {
+        Runnable clock = new Runnable() {
+            @Override
+            public void run() {
+                runClock();
+            }
+        };
+        Thread thread = new Thread(brojevi);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    private void setDate() throws IOException, ParseException {
+        URL url = new URL("https://www.worldtimeserver.com/");
+        HttpURLConnection httpCon =
+        (HttpURLConnection) url.openConnection();
+        long date = httpCon.getDate();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        String dateString = format.format( new Date(date) );
+        dateLabel.setText(dateString);
     }
 
     private void loadViews() {
