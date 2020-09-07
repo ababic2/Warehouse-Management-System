@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.Controllers;
 import ba.unsa.etf.rpr.Controllers.DashboardControllers.DashboardController;
 import ba.unsa.etf.rpr.Controllers.ItemDetailsControllers.ItemDetailsController;
 import ba.unsa.etf.rpr.Model.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -32,6 +35,7 @@ public class HomeController {
 
     public Label currentAccess;
     public Label currLoggedIn;
+    public Label timeLabel;
     public Label dateLabel;
 
     @FXML
@@ -42,6 +46,7 @@ public class HomeController {
     private static String username = "";
     private static String accessLevel = "";
     private HashMap<String, String> views = new HashMap<>();
+
 
     @FXML
     public void initialize() throws IOException, ParseException {
@@ -60,9 +65,27 @@ public class HomeController {
                 runClock();
             }
         };
-        Thread thread = new Thread(brojevi);
+        Thread thread = new Thread(clock);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    private void runClock() {
+        while (true) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    String time = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
+                    timeLabel.setText(time);
+                }
+            });
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setDate() throws IOException, ParseException {

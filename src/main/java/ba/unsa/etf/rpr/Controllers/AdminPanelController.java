@@ -1,8 +1,10 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Model.AdminPanelModel;
+import ba.unsa.etf.rpr.Reports.Report;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import net.sf.jasperreports.engine.JRException;
 
 public class AdminPanelController {
 
@@ -47,6 +49,30 @@ public class AdminPanelController {
         }
     }
 
-    public void btnRequestsClicked(ActionEvent actionEvent) {
+    public void btnAddEmployee(ActionEvent actionEvent) {
     }
+
+    public void btnItemsReportClicked(ActionEvent actionEvent) {
+        try {
+            new Report().showReport(model.getConn(), "/reports/itemsReport/itemsReport.jrxml");
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public void btnEmployeesReportClicked(ActionEvent actionEvent){
+        try {
+            new Report().showReport(model.getConn(), "/reports/employeesReport/employeesReport.jrxml");
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
+    }
+    public void btnFirmsReportClicked(ActionEvent actionEvent){
+        try {
+            new Report().showReport(model.getConn(), "/reports/firmsReport/firmsReport.jrxml");
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
+    }
+
 }

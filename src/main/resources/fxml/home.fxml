@@ -22,23 +22,22 @@
 <SplitPane fx:id="splitPane" dividerPositions="0.299581589958159" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">
    <items>
       <GridPane fx:id="leftPane" stylesheets="@../css/base.css" SplitPane.resizableWithParent="false">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="395.0" minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="395.0" minHeight="0.0" prefHeight="56.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
-        </rowConstraints>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
+         </rowConstraints>
          <children>
             <GridPane pickOnBounds="false" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
-              </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
                   <ImageView fitHeight="125.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
@@ -46,14 +45,14 @@
                      </image>
                   </ImageView>
                   <GridPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
                         <Label text="Warehouse">
                            <font>
@@ -74,7 +73,7 @@
                   </GridPane>
                </children>
             </GridPane>
-            <VBox prefHeight="406.0" prefWidth="357.0" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+            <VBox prefHeight="406.0" prefWidth="357.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <children>
                   <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" stylesheets="@../css/menuButtons.css" text="Dashboard" VBox.vgrow="ALWAYS">
                      <font>
@@ -218,7 +217,7 @@
                         </Label>
                      </children>
                      <padding>
-                        <Insets top="15.0" />
+                        <Insets top="10.0" />
                      </padding>
                   </HBox>
                   <HBox spacing="57.0">
@@ -249,20 +248,23 @@
                   </HBox>
                   <HBox spacing="100.0">
                      <children>
-                        <Label text="Date :  " textAlignment="JUSTIFY">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
+                        <Label fx:id="timeLabel" HBox.hgrow="ALWAYS">
                            <font>
-                              <Font name="FreeSerif Bold" size="17.0" />
+                              <Font name="FreeSerif Bold Italic" size="20.0" />
                            </font>
+                           <effect>
+                              <Glow />
+                           </effect>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </Label>
-                        <Label fx:id="dateLabel" text="haha">
+                        <Label fx:id="dateLabel" HBox.hgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                            <font>
-                              <Font name="FreeSerif Bold" size="17.0" />
+                              <Font name="FreeSerif Bold Italic" size="20.0" />
                            </font>
                            <effect>
                               <Glow />
@@ -274,9 +276,12 @@
                      </padding>
                   </HBox>
                </children>
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
             </VBox>
          </children>
       </GridPane>
       <Pane fx:id="rightPane" />
-  </items>
+   </items>
 </SplitPane>

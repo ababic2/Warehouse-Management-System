@@ -20,15 +20,15 @@
 }
 
 .button {
-    -fx-font-size: 20;
+    -fx-text-fill: black;
     -fx-font-family: FreeSerif;
-    -fx-border-radius: 30%;
-    -fx-background-radius: 30%;
+    -fx-text-alignment: center;
+    -fx-font-size: 20 px;
 }
 
 .toggle-button {
-    -fx-font-size: 20;
+    -fx-text-fill: black;
     -fx-font-family: FreeSerif;
-    -fx-border-radius: 30%;
-    -fx-background-radius: 30%;
+    -fx-text-alignment: center;
+    -fx-font-size: 20 px;
 }

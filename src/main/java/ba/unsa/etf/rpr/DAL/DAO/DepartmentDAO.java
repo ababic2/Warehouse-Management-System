@@ -29,6 +29,10 @@ public class DepartmentDAO implements DAOInterface {
         conn = connReference.get();
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
     public static DepartmentDAO getInstance() {
         if(instance == null) instance = new DepartmentDAO();
         return instance;

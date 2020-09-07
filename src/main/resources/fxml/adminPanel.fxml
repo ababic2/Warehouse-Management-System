@@ -11,7 +11,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
@@ -47,93 +50,139 @@
             </top>
          <center>
             <GridPane fx:id="buttonsGrid" stylesheets="@../css/adminPanel.css" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <Button fx:id="btnRequests" mnemonicParsing="false" onAction="#btnRequestsClicked" prefHeight="50.0" prefWidth="220.0" stylesheets="@../css/adminPanel.css" text="Requests For SignUp" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <VBox spacing="10.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <children>
+                        <Label text="Actions">
+                           <font>
+                              <Font name="FreeSerif Bold Italic" size="31.0" />
+                           </font>
+                           <effect>
+                              <Glow />
+                           </effect>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#btnAddEmployee" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="Add Employee">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <HBox>
+                           <children>
+                              <ToggleButton fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddCategoryClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="Add Category">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ToggleButton>
+                              <TextField fx:id="categoryNameField" disable="true" prefHeight="20.0" prefWidth="225.0" promptText="Category name" visible="false">
+                                 <font>
+                                    <Font name="FreeSerif" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <ToggleButton fx:id="btnAddDepartment" mnemonicParsing="false" onAction="#btnAddDepartmentClicked" prefHeight="50.0" prefWidth="200.0" text="Add Department">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ToggleButton>
+                              <TextField fx:id="departmentNameField" disable="true" prefHeight="20.0" prefWidth="225.0" promptText="Department name" visible="false">
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
                      <GridPane.margin>
-                        <Insets right="50.0" />
+                        <Insets />
                      </GridPane.margin>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="100.0" left="50.0" top="50.0" />
                      </padding>
-                  </Button>
-                  <GridPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  </VBox>
+                  <VBox spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="categoryNameField" alignment="CENTER" disable="true" prefWidth="616.0" promptText="Enter category name" visible="false" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                           <GridPane.margin>
-                              <Insets left="50.0" right="500.0" />
-                           </GridPane.margin>
-                        </TextField>
-                        <ToggleButton fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddCategoryClicked" prefHeight="50.0" prefWidth="180.0" stylesheets="@../css/adminPanel.css" text="Add Category" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <Label text="Get Reports " VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="FreeSerif Bold Italic" size="31.0" />
+                           </font>
+                           <effect>
+                              <Glow />
+                           </effect>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button fx:id="itemsReportButton" mnemonicParsing="false" onAction="#btnItemsReportClicked" prefHeight="50.0" prefWidth="200.0" text="Items Report">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnEmployeesReportClicked" prefHeight="50.0" prefWidth="200.0" text="Employees Report">
                            <effect>
                               <DropShadow />
                            </effect>
-                           <GridPane.margin>
-                              <Insets left="80.0" />
-                           </GridPane.margin>
-                        </ToggleButton>
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <TextField fx:id="departmentNameField" alignment="CENTER" disable="true" prefWidth="616.0" promptText="Enter department name" visible="false" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                           <GridPane.margin>
-                              <Insets left="250.0" right="250.0" />
-                           </GridPane.margin>
-                        </TextField>
-                        <ToggleButton fx:id="btnAddDepartment" mnemonicParsing="false" onAction="#btnAddDepartmentClicked" prefHeight="50.0" prefWidth="180.0" text="Add Department" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnFirmsReportClicked" prefHeight="50.0" prefWidth="200.0" text="Firms Report">
                            <effect>
                               <DropShadow />
                            </effect>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
-                        </ToggleButton>
+                        </Button>
                      </children>
-                  </GridPane>
+                     <padding>
+                        <Insets bottom="100.0" top="50.0" />
+                     </padding>
+                  </VBox>
                </children>
-               <BorderPane.margin>
-                  <Insets top="2.0" />
-               </BorderPane.margin>
             </GridPane>
          </center>
         </BorderPane>
