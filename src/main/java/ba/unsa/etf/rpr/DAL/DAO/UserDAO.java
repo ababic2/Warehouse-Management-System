@@ -35,7 +35,7 @@ public class UserDAO implements DAOInterface {
     }
 
     public static UserDAO getInstance() {
-        if(instance == null) instance = new UserDAO();
+        if (instance == null) instance = new UserDAO();
         return instance;
     }
 
@@ -51,20 +51,19 @@ public class UserDAO implements DAOInterface {
     public Account getPasswordForUsername(String username) {
         Account account;
         try {
-            usernameStatement.setString(1,username);
+            usernameStatement.setString(1, username);
             ResultSet rs = usernameStatement.executeQuery();
             //if(!rs.next()) return null;
-            if(rs.next()) {
+            if (rs.next()) {
                 account = new Account(username, rs.getString("password"), rs.getString("access_level"));
                 return account;
             } else {
-                firmStatement.setString(1,username);
+                firmStatement.setString(1, username);
                 ResultSet rs1 = firmStatement.executeQuery();
-                if(rs1.next()) {
+                if (rs1.next()) {
                     account = new Account(username, rs1.getString("password"), rs1.getString("access_level"));
                     return account;
-                }
-                else return null;
+                } else return null;
             }
 
         } catch (SQLException throwables) {
@@ -83,15 +82,15 @@ public class UserDAO implements DAOInterface {
 
     public void addToList(PreparedStatement statement) {
         try {
-            if(employees.size() > 0) {
+            if (employees.size() > 0) {
                 employees.clear();
             }
             ResultSet rs = statement.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Employee modelEmployee =
                         new Employee(rs.getInt(1), rs.getString(2), rs.getString(3),
-                                rs.getString(4),rs.getString(5), rs.getString(6),
-                                rs.getString(7), rs.getInt(8), rs.getString(9),null);
+                                rs.getString(4), rs.getString(5), rs.getString(6),
+                                rs.getString(7), rs.getInt(8), rs.getString(9), null);
                 modelEmployee.setDepartment(departmentDAO.getDepartment(rs.getInt(10)));
                 employees.add(modelEmployee);
             }
@@ -102,7 +101,7 @@ public class UserDAO implements DAOInterface {
     public void deleteUserWithId(int id) {
         try {
             PreparedStatement deleteStatement = conn.prepareStatement("delete from employees where employee_id = ?");
-            deleteStatement.setInt(1,id);
+            deleteStatement.setInt(1, id);
             deleteStatement.executeUpdate();
         } catch (SQLException exception) {
         }
@@ -116,7 +115,7 @@ public class UserDAO implements DAOInterface {
             updateEmployee.setString(1, firstName);
             updateEmployee.setString(2, mail);
             updateEmployee.setInt(3, salary);
-            updateEmployee.setInt(4,department.getDepartmentId());
+            updateEmployee.setInt(4, department.getDepartmentId());
             updateEmployee.setString(5, hireDate);
             updateEmployee.setString(6, accessLevel);
             updateEmployee.setInt(7, employeeId);
@@ -125,5 +124,38 @@ public class UserDAO implements DAOInterface {
 
         }
 
+    }
+
+
+    public void addEmployee(int employeeId, String firstName, String lastName, String username, String password,
+                            String accessLevelString, String mail,int salary, String hireDate, int departmentId) {
+        PreparedStatement addEmployeeStatement = null;
+        try {
+            addEmployeeStatement = conn.prepareStatement("insert into employees(employee_id, first_name, last_name, username, password, access_level, e_mail,salary,hire_date,department_id) values (?,?,?,?,?,?,?,?,?,?)");
+            addEmployeeStatement.setInt(1,employeeId);
+            addEmployeeStatement.setString(2,firstName);
+            addEmployeeStatement.setString(3,lastName);
+            addEmployeeStatement.setString(4,username);
+            addEmployeeStatement.setString(5,password);
+            addEmployeeStatement.setString(6,accessLevelString);
+            addEmployeeStatement.setString(7, mail);
+            addEmployeeStatement.setInt(8,salary);
+            addEmployeeStatement.setString(9,hireDate);
+            addEmployeeStatement.setInt(10,departmentId);
+            addEmployeeStatement.executeUpdate();
+        } catch (SQLException exception) {
+
+        }
+
+    }
+
+    public int getMaxID() {
+        try {
+            PreparedStatement maxIdStatement = conn.prepareStatement("select max(employee_id) from employees");
+            ResultSet rs = maxIdStatement.executeQuery();
+            return rs.getInt(1);
+        } catch (SQLException exception) {
+            return 0;
+        }
     }
 }

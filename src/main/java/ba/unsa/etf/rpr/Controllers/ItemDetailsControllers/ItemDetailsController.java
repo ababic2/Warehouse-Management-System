@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.Controllers.ItemDetailsControllers;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import ba.unsa.etf.rpr.Model.ProductModel;
+import ba.unsa.etf.rpr.Reports.ShipReport;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -17,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -140,12 +142,21 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void btnDeleteClicked(ActionEvent actionEvent) {
-            int id = Integer.parseInt(itemIdLabel.getText());
-            model.deleteProductWithId(id);
-            model.removeProductOnPage(page);
+        makeShipmentReport();
+        int id = Integer.parseInt(itemIdLabel.getText());
+        model.deleteProductWithId(id);
+        model.removeProductOnPage(page);
 
-            if (page == 0) goToNextPage();
+        if (page == 0) goToNextPage();
             else goToPreviousPage();
+    }
+
+    public void makeShipmentReport() {
+        try {
+            new ShipReport().showReport(model.getConn(), "/reports/itemsReport/itemShipReport.jrxml",model.getCurrentProduct().getProductId());
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
     }
 
     @Override

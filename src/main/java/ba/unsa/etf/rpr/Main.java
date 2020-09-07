@@ -14,7 +14,7 @@ import javafx.stage.StageStyle;
 public class Main  extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         LogInModel logInModel = new LogInModel();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log_in.fxml"));
         loader.setController(new LogInController(logInModel));

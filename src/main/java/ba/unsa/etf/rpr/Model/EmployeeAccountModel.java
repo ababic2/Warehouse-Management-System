@@ -59,4 +59,16 @@ public class EmployeeAccountModel {
                 currentEmployee.getValue().getDepartment(), currentEmployee.getValue().getHireDate(),
                 currentEmployee.getValue().getAccessLevelString());
     }
+
+
+    public void addEmployeeToBase(Employee employee) {
+        userDAO.addEmployee(employee.getEmployeeId(), employee.getFirstName(),
+                employee.getLastName(), employee.getUsername(), employee.getPassword(),
+                employee.getAccessLevelString(), employee.geteMail(), employee.getSalary(), employee.getHireDate(),
+                employee.getDepartment().getDepartmentId());
+    }
+
+    public int getMaxId() {
+        return userDAO.getMaxID();
+    }
 }

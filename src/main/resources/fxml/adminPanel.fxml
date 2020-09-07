@@ -72,7 +72,7 @@
                               <Insets bottom="30.0" />
                            </VBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#btnAddEmployee" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="Add Employee">
+                        <Button mnemonicParsing="false" onAction="#btnAddEmployeeClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="Add Employee">
                            <effect>
                               <DropShadow />
                            </effect>

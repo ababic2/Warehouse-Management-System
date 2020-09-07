@@ -211,4 +211,8 @@ public class ProductDAO implements DAOInterface {
         }
 
     }
+
+    public Connection getConn() {
+        return conn;
+    }
 }

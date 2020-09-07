@@ -10,6 +10,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
+
 public class ProductModel {
 
     private final ProductDAO productDAO = ProductDAO.getInstance();
@@ -96,5 +98,9 @@ public class ProductModel {
 
     public ObservableList<Category> getCategories() {
         return categories;
+    }
+
+    public Connection getConn() {
+        return productDAO.getConn();
     }
 }

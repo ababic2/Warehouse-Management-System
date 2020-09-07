@@ -40,6 +40,7 @@ public class DepartmentDAO implements DAOInterface {
 
     @Override
     public void addToList(PreparedStatement statement) {
+        departments.clear();
         try {
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {

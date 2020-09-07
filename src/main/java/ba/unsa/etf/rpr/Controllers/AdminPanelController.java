@@ -1,10 +1,17 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Model.AdminPanelModel;
+import ba.unsa.etf.rpr.Model.EmployeeAccountModel;
 import ba.unsa.etf.rpr.Reports.Report;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
+
+import java.io.IOException;
 
 public class AdminPanelController {
 
@@ -49,7 +56,20 @@ public class AdminPanelController {
         }
     }
 
-    public void btnAddEmployee(ActionEvent actionEvent) {
+    public void btnAddEmployeeClicked(ActionEvent actionEvent) {
+        EmployeeAccountModel logInModel = new EmployeeAccountModel();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add_fxml/addEmployee.fxml"));
+        loader.setController(new EmployeeAccountController(logInModel));
+        Parent root = null;
+        try {
+            root = loader.load();
+            Stage logInPrompt = new Stage();
+            Scene scene = new Scene(root);
+            logInPrompt.setScene(scene);
+            logInPrompt.show();
+        } catch (IOException e) {
+        }
+
     }
 
     public void btnItemsReportClicked(ActionEvent actionEvent) {
@@ -67,6 +87,7 @@ public class AdminPanelController {
             e1.printStackTrace();
         }
     }
+
     public void btnFirmsReportClicked(ActionEvent actionEvent){
         try {
             new Report().showReport(model.getConn(), "/reports/firmsReport/firmsReport.jrxml");
@@ -74,5 +95,4 @@ public class AdminPanelController {
             e1.printStackTrace();
         }
     }
-
 }
