@@ -158,4 +158,8 @@ public class UserDAO implements DAOInterface {
             return 0;
         }
     }
+
+    public Connection getConn() {
+        return conn;
+    }
 }

@@ -190,17 +190,6 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#btnSaveClicked" text="SAVE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-         <effect>
-            <DropShadow />
-         </effect>
-         <GridPane.margin>
-            <Insets bottom="5.0" top="5.0" />
-         </GridPane.margin>
-      </Button>
       <Label text="Access level:" GridPane.rowIndex="6">
          <font>
             <Font name="FreeSerif" size="20.0" />
@@ -236,6 +225,38 @@
                   <Font name="FreeSerif Italic" size="17.0" />
                </font>
             </RadioButton>
+         </children>
+      </HBox>
+      <HBox prefHeight="60.0" prefWidth="395.0" spacing="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <children>
+            <Button mnemonicParsing="false" onAction="#btnSaveClicked" text="SAVE">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <HBox.margin>
+                  <Insets left="20.0" top="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="FreeSerif" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCon" mnemonicParsing="false" onAction="#btnContractClicked" text="CONTRACT">
+               <HBox.margin>
+                  <Insets left="20.0" top="15.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <font>
+                  <Font name="FreeSerif" size="17.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
     </children>

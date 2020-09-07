@@ -8,6 +8,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
+
 public class EmployeeAccountModel {
 
     private final UserDAO userDAO = UserDAO.getInstance();
@@ -70,5 +72,9 @@ public class EmployeeAccountModel {
 
     public int getMaxId() {
         return userDAO.getMaxID();
+    }
+
+    public Connection getConn() {
+        return userDAO.getConn();
     }
 }

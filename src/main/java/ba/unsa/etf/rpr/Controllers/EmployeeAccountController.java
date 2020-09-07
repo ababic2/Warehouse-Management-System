@@ -3,10 +3,12 @@ package ba.unsa.etf.rpr.Controllers;
 import ba.unsa.etf.rpr.DAL.DTO.Department;
 import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.Model.EmployeeAccountModel;
+import ba.unsa.etf.rpr.Reports.EmploymentContract;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +28,7 @@ public class EmployeeAccountController implements Initializable {
 
     public RadioButton radioAdmin;
     public RadioButton radioEmployee;
+    public Button btnCon;
     public ToggleGroup group;
 
     private final EmployeeAccountModel model;
@@ -37,12 +40,14 @@ public class EmployeeAccountController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         departmentChoice.setItems(model.getDepartments());
+        btnCon.setDisable(true);
     }
+
+    private Employee employee;
 
     public void btnSaveClicked(ActionEvent actionEvent) {
         //no repeat of id
         int id = model.getMaxId();
-        Employee employee;
         id++;
         if (anyFieldIsNull()) {
             errorLabel.setVisible(true);
@@ -63,9 +68,20 @@ public class EmployeeAccountController implements Initializable {
                     hireDateField.getText(),
                     departmentChoice.getSelectionModel().getSelectedItem());
                     model.addEmployeeToBase(employee);
-                    Stage current = (Stage) errorLabel.getScene().getWindow();
-                    current.close();
+                    btnCon.setDisable(false);
             }
+    }
+
+    public void btnContractClicked(ActionEvent actionEvent) {
+        if(!anyFieldIsNull()) {
+            try {
+                new EmploymentContract().showReport(model.getConn(), "/reports/employeesReport/employeeContract.jrxml",employee.getEmployeeId());
+            } catch (JRException e1) {
+                e1.printStackTrace();
+            }
+        }
+        Stage current = (Stage) errorLabel.getScene().getWindow();
+        current.close();
     }
 
 
