@@ -151,7 +151,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="itemIdLabel" alignment="CENTER" contentDisplay="CENTER" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="itemIdLabel" alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="23.0" />
                      </font>
