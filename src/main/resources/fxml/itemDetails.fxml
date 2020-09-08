@@ -12,9 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -27,158 +25,153 @@
    <children>
       <BorderPane prefHeight="800.0" prefWidth="800.0">
          <left>
-            <VBox spacing="40.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="710.0" prefWidth="391.0" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="79.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="110.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="110.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="110.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="110.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="259.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <HBox spacing="10.0">
+                  <Label text="%itemId" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="FreeSerif" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="%name" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="FreeSerif" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="%type" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="FreeSerif" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="%price" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="FreeSerif" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Label text="%stock" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="FreeSerif" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
-                        <Label text="Item id:">
-                           <font>
-                              <Font name="FreeSerif" size="23.0" />
-                           </font>
+                        <Button fx:id="btnDecreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDecreaseStock" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
-                        </Label>
-                        <Label fx:id="itemIdLabel" alignment="CENTER" contentDisplay="CENTER" text="${controller.itemIDLabel}" HBox.hgrow="ALWAYS">
+                           <effect>
+                              <DropShadow />
+                           </effect>
                            <font>
-                              <Font size="23.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox spacing="20.0">
-                     <children>
-                        <Label text="Name :" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="FreeSerif" size="23.0" />
-                           </font>
+                           <tooltip>
+                              <Tooltip />
+                           </tooltip>
+                           <GridPane.margin>
+                              <Insets top="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btnIncreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnIncreaseStockClicked" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
-                        </Label>
-                        <TextField fx:id="itemNameField" disable="true" promptText="Item Name">
-                           <padding>
-                              <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
-                           </padding>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
-                        </TextField>
+                           <tooltip>
+                              <Tooltip text="Decrease Stock" />
+                           </tooltip>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets right="20.0" top="10.0" />
+                           </GridPane.margin>
+                        </Button>
                      </children>
-                  </HBox>
-                  <HBox spacing="30.0">
-                     <children>
-                        <Label text="Type :">
-                           <font>
-                              <Font name="FreeSerif" size="23.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <TextField fx:id="itemTypeLabel" disable="true" promptText="Item Type">
-                           <padding>
-                              <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox spacing="28.0">
-                     <children>
-                        <Label text="Price :">
-                           <font>
-                              <Font name="FreeSerif" size="23.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <TextField fx:id="itemPriceLabel" disable="true" promptText="Price">
-                           <padding>
-                              <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox spacing="21.0">
-                     <children>
-                        <Label text="On Stock :">
-                           <font>
-                              <Font name="FreeSerif" size="23.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="stockLabel" alignment="CENTER" contentDisplay="CENTER" text="${controller.stock}">
-                           <font>
-                              <Font size="23.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Button fx:id="btnDecreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDecreaseStock" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                                 <tooltip>
-                                    <Tooltip text="Increase stock" />
-                                 </tooltip>
-                              </Button>
-                              <Button fx:id="btnIncreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnIncreaseStockClicked" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                                 <tooltip>
-                                    <Tooltip text="Decrease Stock" />
-                                 </tooltip>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <GridPane.margin>
-                                    <Insets right="20.0" />
-                                 </GridPane.margin>
-                              </Button>
-                           </children>
-                        </GridPane>
-                     </children>
-                  </HBox>
+                  </GridPane>
+                  <TextField fx:id="itemPriceLabel" disable="true" promptText="Price" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <padding>
+                        <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="itemTypeLabel" disable="true" promptText="Item Type" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <padding>
+                        <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="itemNameField" disable="true" promptText="Item Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <padding>
+                        <Insets bottom="15.0" left="10.0" right="70.0" top="15.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="itemIdLabel" alignment="CENTER" contentDisplay="CENTER" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets bottom="8.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="stockLabel" alignment="CENTER" contentDisplay="CENTER" text="${controller.stock}" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                  </Label>
                </children>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
+            </GridPane>
          </left>
          <center>
             <GridPane BorderPane.alignment="CENTER">
@@ -223,7 +216,7 @@
                               </Button>
                            </children>
                         </GridPane>
-                        <TextField fx:id="searchField" promptText="search Items" stylesheets="@../css/itemDetails.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <TextField fx:id="searchField" promptText="%searchItems" stylesheets="@../css/itemDetails.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -231,7 +224,7 @@
                               <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
                            </padding>
                         </TextField>
-                        <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearchClicked" prefHeight="40.0" prefWidth="50.0" stylesheets="@../css/next_previous_search.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearchClicked" prefHeight="30.0" prefWidth="90.0" stylesheets="@../css/next_previous_search.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -242,7 +235,7 @@
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
                         </Button>
-                        <CheckBox fx:id="checkBox" mnemonicParsing="false" text="search by ID" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                        <CheckBox fx:id="checkBox" mnemonicParsing="false" text="%searchBy" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -269,10 +262,10 @@
                                     <DropShadow />
                                  </effect>
                                  <tooltip>
-                                    <Tooltip text="Can edit if you are logged in as admin" />
+                                    <Tooltip text="%editToolTip" />
                                  </tooltip>
                               </ToggleButton>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDeleteClicked" stylesheets="@../css/itemDetails.css" text="Delete" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDeleteClicked" stylesheets="@../css/itemDetails.css" text="%delete" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -280,7 +273,7 @@
                                     <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
                                  </padding>
                                  <tooltip>
-                                    <Tooltip text="Delete this firm" />
+                                    <Tooltip text="%deleteThisFirm" />
                                  </tooltip>
                               </Button>
                               <Button fx:id="btnRefresh" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnRefreshClicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@../css/itemDetails.css" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -288,12 +281,12 @@
                                     <DropShadow />
                                  </effect>
                               </Button>
-                              <Button fx:id="btnAdd" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAddClicked" stylesheets="@../css/itemDetails.css" text="Add" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <Button fx:id="btnAdd" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAddClicked" stylesheets="@../css/itemDetails.css" text="%add" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <effect>
                                     <DropShadow />
                                  </effect>
                                  <tooltip>
-                                    <Tooltip text="Add new product and then click Refresh" />
+                                    <Tooltip text="%addToolTip" />
                                  </tooltip>
                                  <padding>
                                     <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
@@ -324,7 +317,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="itemDetailLabel" stylesheets="@../css/itemDetails.css" text="Item Details" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <Label fx:id="itemDetailLabel" stylesheets="@../css/itemDetails.css" text="%itemDetails" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
                      </padding>

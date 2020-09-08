@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -197,82 +198,119 @@
                   <HBox spacing="50.0">
                      <children>
                         <Label fx:id="loggedLabel" text="Logged in as :" HBox.hgrow="ALWAYS">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
-                        </Label>
-                        <Label fx:id="currLoggedIn" alignment="CENTER" text="k" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
+                        </Label>
+                        <Label fx:id="currLoggedIn" alignment="CENTER" text="k" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
                            <effect>
                               <Glow />
                            </effect>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </Label>
                      </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
                   </HBox>
                   <HBox spacing="57.0">
                      <children>
                         <Label fx:id="accessLabel" text="Access level :" HBox.hgrow="ALWAYS">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </Label>
                         <Label fx:id="currentAccess" text="k" HBox.hgrow="ALWAYS">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
                            <effect>
                               <Glow />
                            </effect>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </Label>
                      </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
                   </HBox>
-                  <HBox spacing="100.0">
+                  <HBox spacing="3.0">
                      <children>
-                        <Label fx:id="timeLabel" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="FreeSerif Bold Italic" size="20.0" />
-                           </font>
+                        <ImageView fitHeight="41.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/home_img/translate.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" top="1.0" />
+                           </HBox.margin>
                            <effect>
-                              <Glow />
+                              <DropShadow />
                            </effect>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#btnEnClicked" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="en">
+                           <HBox.margin>
+                              <Insets left="10.0" top="7.0" />
+                           </HBox.margin>
                            <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
-                        </Label>
-                        <Label fx:id="dateLabel" HBox.hgrow="ALWAYS">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                           <font>
-                              <Font name="FreeSerif Bold Italic" size="20.0" />
-                           </font>
                            <effect>
-                              <Glow />
+                              <DropShadow />
                            </effect>
-                        </Label>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnBsClicked" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="bs">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets top="7.0" />
+                           </HBox.margin>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Button>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label fx:id="dateLabel" text="25.04.2020.">
+                                 <font>
+                                    <Font name="FreeSerif Bold Italic" size="20.0" />
+                                 </font>
+                                 <effect>
+                                    <Glow />
+                                 </effect>
+                              </Label>
+                              <Label fx:id="timeLabel" text="555555">
+                                 <font>
+                                    <Font name="FreeSerif Bold Italic" size="20.0" />
+                                 </font>
+                                 <effect>
+                                    <Glow />
+                                 </effect>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="30.0" />
+                           </HBox.margin>
+                        </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                      <padding>
-                        <Insets top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
                </children>

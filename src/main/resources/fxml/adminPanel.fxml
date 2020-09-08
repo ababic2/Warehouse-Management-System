@@ -34,7 +34,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="adminPanelLabel" stylesheets="@../css/adminPanel.css" text="Admin Panel" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <Label fx:id="adminPanelLabel" stylesheets="@../css/adminPanel.css" text="%adminPanel" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <padding>
                                 <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
                             </padding>
@@ -61,7 +61,7 @@
                <children>
                   <VBox spacing="10.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Label text="Actions">
+                        <Label text="%actions">
                            <font>
                               <Font name="FreeSerif Bold Italic" size="31.0" />
                            </font>
@@ -72,7 +72,7 @@
                               <Insets bottom="30.0" />
                            </VBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#btnAddEmployeeClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="Add Employee">
+                        <Button mnemonicParsing="false" onAction="#btnAddEmployeeClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="%addEmployee">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -85,7 +85,7 @@
                         </Button>
                         <HBox>
                            <children>
-                              <ToggleButton fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddCategoryClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="Add Category">
+                              <ToggleButton fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddCategoryClicked" prefHeight="50.0" prefWidth="200.0" stylesheets="@../css/adminPanel.css" text="%addCategory">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -108,7 +108,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <ToggleButton fx:id="btnAddDepartment" mnemonicParsing="false" onAction="#btnAddDepartmentClicked" prefHeight="50.0" prefWidth="200.0" text="Add Department">
+                              <ToggleButton fx:id="btnAddDepartment" mnemonicParsing="false" onAction="#btnAddDepartmentClicked" prefHeight="50.0" prefWidth="200.0" text="%addDepartment">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -136,7 +136,7 @@
                   </VBox>
                   <VBox spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Label text="Get Reports " VBox.vgrow="ALWAYS">
+                        <Label text="%getReports" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="FreeSerif Bold Italic" size="31.0" />
                            </font>
@@ -147,7 +147,7 @@
                               <Insets bottom="30.0" />
                            </VBox.margin>
                         </Label>
-                        <Button fx:id="itemsReportButton" mnemonicParsing="false" onAction="#btnItemsReportClicked" prefHeight="50.0" prefWidth="200.0" text="Items Report">
+                        <Button fx:id="itemsReportButton" mnemonicParsing="false" onAction="#btnItemsReportClicked" prefHeight="50.0" prefWidth="200.0" text="%itemsReport">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -158,7 +158,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#btnEmployeesReportClicked" prefHeight="50.0" prefWidth="200.0" text="Employees Report">
+                        <Button mnemonicParsing="false" onAction="#btnEmployeesReportClicked" prefHeight="50.0" prefWidth="200.0" text="%employeesReport">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -169,7 +169,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#btnFirmsReportClicked" prefHeight="50.0" prefWidth="200.0" text="Firms Report">
+                        <Button mnemonicParsing="false" onAction="#btnFirmsReportClicked" prefHeight="50.0" prefWidth="200.0" text="%firmsReport">
                            <effect>
                               <DropShadow />
                            </effect>

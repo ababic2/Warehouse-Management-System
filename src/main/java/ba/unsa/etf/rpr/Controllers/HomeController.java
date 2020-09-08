@@ -15,6 +15,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -25,6 +26,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
 
@@ -163,9 +165,54 @@ public class HomeController {
 
         } catch (IOException e) {}
     }
+    private Pair<String, String> current;
+    private boolean bs = false;
+
+    public void btnEnClicked(ActionEvent actionEvent) throws IOException {
+        bs = false;
+        ctrlRightPane(current.getKey(),current.getValue());
+    }
+
+    public void btnBsClicked(ActionEvent actionEvent) throws IOException {
+        bs = true;
+        ctrlRightPane(current.getKey(),current.getValue());
+    }
 
     private void setNewStage(String URL, String name) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(URL));
+        FXMLLoader loader = null;
+        ResourceBundle bundle = null;
+        if(bs == false) {
+            if(name.equals("Admin")) {
+                bundle = ResourceBundle.getBundle("adminTranslation");
+                loader = new FXMLLoader(getClass().getResource(URL), bundle);
+            } else if(name.equals("Dashboard")) {
+                bundle = ResourceBundle.getBundle("dashboardTranslation");
+                loader = new FXMLLoader(getClass().getResource(URL), bundle);
+            } else if(name.equals("Items")) {
+                bundle = ResourceBundle.getBundle("itemDetailsTranslation");
+                loader = new FXMLLoader(getClass().getResource(URL), bundle);
+            } else if(name.equals("Employee Accounts")) {
+                bundle = ResourceBundle.getBundle("employeeDetailsTranslation");
+                loader = new FXMLLoader(getClass().getResource(URL), bundle);
+            }
+            else {
+                loader = new FXMLLoader(getClass().getResource(URL));
+            }
+        } else {
+            if(name.equals("Dashboard")) {
+                bundle = ResourceBundle.getBundle("dashboardTranslation_bs");
+            } else if(name.equals("Items")) {
+                bundle = ResourceBundle.getBundle("itemDetailsTranslation_bs");
+            } else if(name.equals("Employee Accounts")) {
+                bundle = ResourceBundle.getBundle("employeeDetailsTranslation_bs");
+            } else if(name.equals("Admin")) {
+                bundle = ResourceBundle.getBundle("adminTranslation_bs");
+            } else if(name.equals("Firms")) {
+                bundle = ResourceBundle.getBundle("firmTranslation");
+            }
+            loader = new FXMLLoader(getClass().getResource(URL), bundle);
+        }
+        current = new Pair<>(URL, name);
         if(name.equals("Dashboard")) {
             DashboardModel dashBoardModel = new DashboardModel();
             loader.setController(new DashboardController(dashBoardModel));

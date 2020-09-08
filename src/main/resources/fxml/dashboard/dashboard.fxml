@@ -31,7 +31,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="dashboardLabel" stylesheets="@../../css/dashboard.css" text="Dashboard" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <Label fx:id="dashboardLabel" stylesheets="@../../css/dashboard.css" text="%dashboard" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
                      </padding>
@@ -67,7 +67,7 @@
                            </effect>
                         </ImageView>
 
-                        <Button fx:id="btnEmployees" layoutX="117.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnEmployeesClicked" stylesheets="@../../css/dashboard.css" text="Employees">
+                        <Button fx:id="btnEmployees" layoutX="90.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnEmployeesClicked" prefHeight="40.0" prefWidth="170.0" stylesheets="@../../css/dashboard.css" text="%employees">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -96,7 +96,7 @@
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button layoutX="138.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnFirmsClicked" stylesheets="@../../css/dashboard.css" text="Firms">
+                        <Button layoutX="90.0" layoutY="180.0" mnemonicParsing="false" onAction="#btnFirmsClicked" prefHeight="40.0" prefWidth="170.0" stylesheets="@../../css/dashboard.css" text="%firms">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -118,7 +118,7 @@
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button layoutX="139.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnItemsClicked" stylesheets="@../../css/dashboard.css" text="Items">
+                        <Button layoutX="90.0" layoutY="180.0" mnemonicParsing="false" onAction="#btnItemsClicked" prefHeight="40.0" prefWidth="170.0" stylesheets="@../../css/dashboard.css" text="%items">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -140,7 +140,7 @@
                               <DropShadow />
                            </effect>
                         </Label>
-                        <Button layoutX="96.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnLowStockClicked" stylesheets="@../../css/dashboard.css" text="Low stock items">
+                        <Button layoutX="90.0" layoutY="180.0" mnemonicParsing="false" onAction="#btnLowStockClicked" prefHeight="40.0" prefWidth="170.0" stylesheets="@../../css/dashboard.css" text="%lowstockitems">
                            <effect>
                               <DropShadow />
                            </effect>
