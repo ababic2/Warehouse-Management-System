@@ -25,7 +25,6 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     public TextField salaryField;
     public TextField dateField;
 
-    public Button btnAdd;
     public Button btnNext;
     public Button btnPrevious;
     public ToggleButton btnEdit;

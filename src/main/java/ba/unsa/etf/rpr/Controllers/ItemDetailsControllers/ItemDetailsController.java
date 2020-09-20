@@ -106,7 +106,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     }
 
     private void setInitialProduct() {
-        itemIDLabel.setValue(model.currentProductProperty().getValue().getProductId());
+        itemIDLabel.setValue(model.getCurrentProduct().getProductId());
         name.setValue(model.getCurrentProduct().getName());
         price.setValue(model.getCurrentProduct().getPrice());
         stock.setValue(model.getCurrentProduct().getStock());
@@ -148,7 +148,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         model.removeProductOnPage(page);
 
         if (page == 0) goToNextPage();
-            else goToPreviousPage();
+        else goToPreviousPage();
     }
 
     public void makeShipmentReport() {
@@ -236,25 +236,25 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         disable = !disable;
         editClick++;
 
-    if(editClick == 1) {
-        nameListener = (obs, oldValue, newValue) -> {
-            name.setValue((String) newValue);
-            model.getProducts().get(page).setName(name.getValue());
-        };
-        itemNameField.textProperty().addListener(nameListener);
+        if(editClick == 1) {
+            nameListener = (obs, oldValue, newValue) -> {
+                name.setValue((String) newValue);
+                model.getProducts().get(page).setName(name.getValue());
+            };
+            itemNameField.textProperty().addListener(nameListener);
 
-        priceListener = (obs, oldValue, newValue) -> {
-            price.setValue(Integer.parseInt((String) newValue));
-            model.getProducts().get(page).setPrice(price.getValue());
-        };
-        itemPriceLabel.textProperty().addListener(priceListener);
+            priceListener = (obs, oldValue, newValue) -> {
+                price.setValue(Integer.parseInt((String) newValue));
+                model.getProducts().get(page).setPrice(price.getValue());
+            };
+            itemPriceLabel.textProperty().addListener(priceListener);
 
-        stockListener = (obs, oldValue, newValue) -> {
-            stock.setValue(Integer.parseInt((String) newValue));
-            model.getProducts().get(page).setStock(stock.getValue());
-        };
-        stockLabel.textProperty().addListener(stockListener);
-    } else if (editClick == 2) {
+            stockListener = (obs, oldValue, newValue) -> {
+                stock.setValue(Integer.parseInt((String) newValue));
+                model.getProducts().get(page).setStock(stock.getValue());
+            };
+            stockLabel.textProperty().addListener(stockListener);
+        } else if (editClick == 2) {
             model.changeCurrent(page);
             model.updateProductInBase();
             itemNameField.textProperty().removeListener(nameListener);

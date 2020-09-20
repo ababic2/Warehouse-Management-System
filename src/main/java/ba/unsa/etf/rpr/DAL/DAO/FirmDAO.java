@@ -63,4 +63,29 @@ public class FirmDAO implements DAOInterface {
 
         }
     }
+
+    public void updateFirm(int firmId, String firmName, String owner, String firmEMail, String firmPhone, String firmAdress) {
+        try {
+            PreparedStatement updateFirm =
+                    conn.prepareStatement("update firms set firm_name = ?, owner = ?, firm_mail = ?, phone = ?, adress = ? where firm_id = ? ");
+            updateFirm.setString(1, firmName);
+            updateFirm.setString(2, owner);
+            updateFirm.setString(3, firmEMail);
+            updateFirm.setString(4, firmPhone);
+            updateFirm.setString(5, firmAdress);
+            updateFirm.setInt(6, firmId);
+            updateFirm.executeUpdate();
+        } catch (SQLException exception) {
+
+        }
+    }
+
+    public void deleteUserWithId(int id) {
+        try {
+            PreparedStatement deleteStatement = conn.prepareStatement("delete from firms where firm_id = ?");
+            deleteStatement.setInt(1, id);
+            deleteStatement.executeUpdate();
+        } catch (SQLException exception) {
+        }
+    }
 }

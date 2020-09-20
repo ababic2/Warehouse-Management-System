@@ -3,6 +3,8 @@ package ba.unsa.etf.rpr.DAL.DTO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.time.LocalDate;
+
 public class Product implements Comparable{
 
     private SimpleIntegerProperty productId = new SimpleIntegerProperty(0);
@@ -90,11 +92,7 @@ public class Product implements Comparable{
 
     @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", name=" + name +
-                ", price=" + price +
-                ",stock =" + stock;
+        return  name + " " + price +  " " + LocalDate.now().toString();
     }
 
     @Override

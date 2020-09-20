@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.DAL.DTO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Employee extends Object implements Comparable {
+public class Employee extends User implements Comparable{
 
     private SimpleIntegerProperty employeeId;
     private SimpleStringProperty firstName;
@@ -12,15 +12,11 @@ public class Employee extends Object implements Comparable {
     private SimpleIntegerProperty salary;
     private SimpleStringProperty hireDate;
 
-    private SimpleStringProperty username;
-    private SimpleStringProperty password;
-    private SimpleStringProperty accessLevelString;
-
     private Department department;
 
-    private enum AccessLevel{ADMIN, EMPLOYEE;};
+    //private enum AccessLevel{ADMIN, EMPLOYEE;};
 
-    private AccessLevel accessLevel;
+//    private AccessLevel accessLevel;
     public Employee() {
     }
 
@@ -34,15 +30,15 @@ public class Employee extends Object implements Comparable {
         this.eMail = new SimpleStringProperty(eMail);
         this.salary = new SimpleIntegerProperty(salary);
         this.hireDate = new SimpleStringProperty(hireDate);
-        this.username = new SimpleStringProperty(username);
-        this.password = new SimpleStringProperty(password);
+        setInConstructor(username, password, accessLevel);
         this.department = department;
-        if(accessLevel.toLowerCase().equals("admin")) {
-            this.accessLevel = AccessLevel.ADMIN;
-        } else {
-            this.accessLevel = AccessLevel.EMPLOYEE;
-        }
-        this.accessLevelString = new SimpleStringProperty(accessLevel);
+//        if(accessLevel.toLowerCase().equals("admin")) {
+//            this.accessLevel = AccessLevel.ADMIN;
+//        } else {
+//            this.accessLevel = AccessLevel.EMPLOYEE;
+//        }
+        setAccessLevelString(accessLevel);
+//        this.accessLevelString = new SimpleStringProperty(accessLevel);
     }
 
     public int getEmployeeId() {
@@ -117,30 +113,6 @@ public class Employee extends Object implements Comparable {
         this.hireDate.set(hireDate);
     }
 
-    public String getUsername() {
-        return username.get();
-    }
-
-    public SimpleStringProperty usernameProperty() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username.set(username);
-    }
-
-    public String getPassword() {
-        return password.get();
-    }
-
-    public SimpleStringProperty passwordProperty() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password.set(password);
-    }
-
     public Department getDepartment() {
         return department;
     }
@@ -149,25 +121,13 @@ public class Employee extends Object implements Comparable {
         this.department = department;
     }
 
-    public AccessLevel getAccessLevel() {
-        return accessLevel;
-    }
+//    public AccessLevel getAccessLevel() {
+//        return accessLevel;
+//    }
 
-    public void setAccessLevel(AccessLevel accessLevel) {
-        this.accessLevel = accessLevel;
-    }
-
-    public String getAccessLevelString() {
-        return accessLevelString.get();
-    }
-
-    public SimpleStringProperty accessLevelStringProperty() {
-        return accessLevelString;
-    }
-
-    public void setAccessLevelString(String accessLevelString) {
-        this.accessLevelString.set(accessLevelString);
-    }
+//    public void setAccessLevel(AccessLevel accessLevel) {
+//        this.accessLevel = accessLevel;
+//    }
 
     @Override
     public String toString() {
@@ -178,10 +138,10 @@ public class Employee extends Object implements Comparable {
                 ", eMail=" + eMail +
                 ", salary=" + salary +
                 ", hireDate=" + hireDate +
-                ", username=" + username +
-                ", password=" + password +
+                ", username=" + getUsername() +
+                ", password=" + getPassword() +
                 ", departmentName='" + department.getDepartmentName() + '\'' +
-                ", accessLevel=" + accessLevel +
+                ", accessLevel=" + getAccessLevel() +
                 '}';
     }
 

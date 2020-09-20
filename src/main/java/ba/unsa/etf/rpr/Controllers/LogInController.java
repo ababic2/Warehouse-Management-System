@@ -79,7 +79,9 @@ public class LogInController implements Initializable {
         Stage current = (Stage) loggerUsername.getScene().getWindow();
         current.close();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(url));
+            ResourceBundle bundle = ResourceBundle.getBundle("homeTranslate");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"), bundle);
+            Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage logInPrompt = new Stage();
             logInPrompt.setScene(scene);
@@ -156,13 +158,5 @@ public class LogInController implements Initializable {
             }
         }
 
-    }
-
-    public void onSignUpButtonClicked(ActionEvent actionEvent) {
-        if(accessLevel.equals("Firm")) {
-            openNewStage("/fxml/signUpFormForFirm");
-        } else if(accessLevel.equals("Employee") || accessLevel.equals("Admin")) {
-            openNewStage("");
-        }
     }
 }

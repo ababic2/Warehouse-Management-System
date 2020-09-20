@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -31,8 +30,9 @@ import java.util.ResourceBundle;
 import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
 
 public class HomeController {
-    public SplitPane splitPane;
+//    public SplitPane splitPane;
     public Pane rightPane;
+
     public GridPane leftPane;
 
     public Label currentAccess;
@@ -45,6 +45,7 @@ public class HomeController {
 
     private Button temp = null;
     private GridPane newRightPane = null;
+    private GridPane newLeftPane = null;
     private static String username = "";
     private static String accessLevel = "";
     private HashMap<String, String> views = new HashMap<>();
@@ -170,12 +171,34 @@ public class HomeController {
 
     public void btnEnClicked(ActionEvent actionEvent) throws IOException {
         bs = false;
+      //  translate();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
     public void btnBsClicked(ActionEvent actionEvent) throws IOException {
         bs = true;
+        System.out.println("BS");
+       // translate();
         ctrlRightPane(current.getKey(),current.getValue());
+    }
+
+    private void translate() throws IOException {
+        ResourceBundle bundle = null;
+        FXMLLoader loader = null;
+        System.out.println("HERE");
+        if(!bs) {
+            System.out.println("EN_JE");
+            bundle = ResourceBundle.getBundle("homeTranslate");
+            loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"), bundle);
+            newLeftPane = loader.load();
+        } else {
+            bundle = ResourceBundle.getBundle("homeTranslate_bs");
+            loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"), bundle);
+            newLeftPane = loader.load();
+            System.out.println("BSBUNDLE");
+        }
+        leftPane.getChildren().clear();
+        leftPane.getChildren().add(newLeftPane);
     }
 
     private void setNewStage(String URL, String name) throws IOException {

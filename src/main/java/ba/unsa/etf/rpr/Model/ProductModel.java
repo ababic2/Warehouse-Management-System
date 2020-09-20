@@ -2,10 +2,10 @@ package ba.unsa.etf.rpr.Model;
 
 import ba.unsa.etf.rpr.DAL.DAO.CategoryDAO;
 import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
-import ba.unsa.etf.rpr.DAL.DTO.Category;
-import ba.unsa.etf.rpr.DAL.DTO.Product;
 import ba.unsa.etf.rpr.DAL.DAO.ProductDAO;
+import ba.unsa.etf.rpr.DAL.DTO.Category;
 import ba.unsa.etf.rpr.DAL.DTO.Firm;
+import ba.unsa.etf.rpr.DAL.DTO.Product;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -21,7 +21,6 @@ public class ProductModel {
     private ObservableList<Product> products = productDAO.getInfoList();
     private ObservableList<Firm> firms = firmDAO.getInfoList();
     private ObservableList<Category> categories = categoryDAO.getInfoList();
-
     private final ObjectProperty<Product> currentProduct = new SimpleObjectProperty<>();
 
     public void refreshListOfProducts(){ productDAO.getInfoList();}

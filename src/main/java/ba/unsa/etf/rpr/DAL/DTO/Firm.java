@@ -2,17 +2,13 @@ package ba.unsa.etf.rpr.DAL.DTO;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class Firm {
+public class Firm extends User implements Comparable<Firm>{
     private int firmId;
     private SimpleStringProperty firmName;
     private SimpleStringProperty firmEMail;
     private SimpleStringProperty owner;
     private SimpleStringProperty firmPhone;
     private SimpleStringProperty firmAdress;
-
-    private SimpleStringProperty username;
-    private SimpleStringProperty password;
-    private SimpleStringProperty accessLevel;
 
     public Firm() {
     }
@@ -26,9 +22,7 @@ public class Firm {
         this.owner = new SimpleStringProperty(owner);
         this.firmPhone = new SimpleStringProperty(firmPhone);
         this.firmAdress = new SimpleStringProperty(firmAdress);
-        this.username = new SimpleStringProperty(username);
-        this.password = new SimpleStringProperty(password);
-        this.accessLevel = new SimpleStringProperty("Firm");
+        setInConstructor(username, password, "Firm");
     }
 
     public int getFirmId() {
@@ -99,44 +93,17 @@ public class Firm {
         this.firmAdress.set(firmAdress);
     }
 
-    public String getUsername() {
-        return username.get();
-    }
-
-    public SimpleStringProperty usernameProperty() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username.set(username);
-    }
-
-    public String getPassword() {
-        return password.get();
-    }
-
-    public SimpleStringProperty passwordProperty() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password.set(password);
-    }
-
-    public String getAccessLevel() {
-        return accessLevel.get();
-    }
-
-    public SimpleStringProperty accessLevelProperty() {
-        return accessLevel;
-    }
-
-    public void setAccessLevel(String accessLevel) {
-        this.accessLevel.set(accessLevel);
-    }
-
     @Override
     public String toString() {
         return getFirmId() + ", " + getFirmName();
+    }
+
+    @Override
+    public int compareTo(Firm o) {
+        Firm firm = (Firm) o;
+        if(this.getFirmName().equals(firm.getFirmName()) &&
+                this.getOwner().equals(firm.getOwner()) &&
+                this.getFirmId() == firm.getFirmId())return  0;
+        return -1;
     }
 }
