@@ -195,6 +195,10 @@ public class HomeController {
                 bundle = ResourceBundle.getBundle("employeeDetailsTranslation");
                 loader = new FXMLLoader(getClass().getResource(URL), bundle);
             }
+            else if(name.equals("Firms")) {
+                bundle = ResourceBundle.getBundle("firmTranslation");
+                loader = new FXMLLoader(getClass().getResource(URL), bundle);
+            }
             else {
                 loader = new FXMLLoader(getClass().getResource(URL));
             }
@@ -208,7 +212,7 @@ public class HomeController {
             } else if(name.equals("Admin")) {
                 bundle = ResourceBundle.getBundle("adminTranslation_bs");
             } else if(name.equals("Firms")) {
-                bundle = ResourceBundle.getBundle("firmTranslation");
+                bundle = ResourceBundle.getBundle("firmTranslation_bs");
             }
             loader = new FXMLLoader(getClass().getResource(URL), bundle);
         }
