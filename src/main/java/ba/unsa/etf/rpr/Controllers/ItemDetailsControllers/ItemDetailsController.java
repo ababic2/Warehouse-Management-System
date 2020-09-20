@@ -20,8 +20,12 @@ import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import net.sf.jasperreports.engine.JRException;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -144,11 +148,14 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     public void btnDeleteClicked(ActionEvent actionEvent) {
         makeShipmentReport();
         int id = Integer.parseInt(itemIdLabel.getText());
+        ArrayList<Product> product = (ArrayList<Product>) model.getProducts().stream().filter(o-> o.getProductId() == id).collect(Collectors.toList());
         model.deleteProductWithId(id);
         model.removeProductOnPage(page);
 
         if (page == 0) goToNextPage();
         else goToPreviousPage();
+
+        writeToFile(product.get(0));
     }
 
     public void makeShipmentReport() {
@@ -267,6 +274,32 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     @Override
     public void btnNextClicked(ActionEvent actionEvent) {
         goToNextPage();
+    }
+
+    private void writeToFile(Product product) {
+        try {
+            String data = product.toString();
+
+            File file = new File("Ship.txt");
+
+            //if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("New File Created Now");
+            }
+
+            //true = append file
+            FileWriter fileWritter = new FileWriter(file, true);
+            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            bufferWritter.write(data);
+            bufferWritter.close();
+            fileWritter.close();
+
+            System.out.println("Done");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

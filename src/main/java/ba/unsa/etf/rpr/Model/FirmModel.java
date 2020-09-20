@@ -1,14 +1,10 @@
 package ba.unsa.etf.rpr.Model;
 
 import ba.unsa.etf.rpr.DAL.DAO.FirmDAO;
-import ba.unsa.etf.rpr.DAL.DAO.UserDAO;
-import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.DAL.DTO.Firm;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
-
-import java.sql.Connection;
 
 public class FirmModel {
 
@@ -45,7 +41,7 @@ public class FirmModel {
 
     }
 
-    public void updateEmployee() {
+    public void updateFirm() {
         firmDAO.updateFirm(currentFirm.getValue().getFirmId(), currentFirm.getValue().getFirmName(),
                 currentFirm.getValue().getOwner(), currentFirm.getValue().getFirmEMail(),
                 currentFirm.getValue().getFirmPhone(), currentFirm.getValue().getFirmAdress());

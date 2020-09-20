@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import ba.unsa.etf.rpr.Model.FirmModel;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -42,6 +43,13 @@ public class FirmDetailsController implements Initializable, DetailsInterface {
 
     private FirmModel model;
 
+    public int editClick = 0;
+    private ChangeListener nameListener;
+    private ChangeListener ownerListener;
+    private ChangeListener mailListener;
+    private ChangeListener phoneListener;
+    private ChangeListener addressListener;
+
     public FirmDetailsController(FirmModel model) {
         this();
         this.model = model;
@@ -68,8 +76,16 @@ public class FirmDetailsController implements Initializable, DetailsInterface {
         btnPrevious.setDisable(true);
     }
 
-    private void setButtonsDisableTo() {
+    private void setButtonsDisableTo() {///lateeer
 
+    }
+
+    private void setFieldsDisableTo(boolean var) {
+        nameField.setDisable(var);
+        mailField.setDisable(var);
+        ownerField.setDisable(var);
+        phoneField.setDisable(var);
+        addressField.setDisable(var);
     }
 
     private void setBinding() {
@@ -92,6 +108,7 @@ public class FirmDetailsController implements Initializable, DetailsInterface {
 
     private void setInitialFirm() {
         id.setValue(model.getCurrentFirm().getFirmId());
+        owner.setValue(model.getCurrentFirm().getOwner());
         name.setValue(model.getCurrentFirm().getFirmName());
         mail.setValue(model.getCurrentFirm().getFirmEMail());
         phone.setValue(model.getCurrentFirm().getFirmPhone());
@@ -170,7 +187,51 @@ public class FirmDetailsController implements Initializable, DetailsInterface {
     }
 
     public void btnEditClicked(ActionEvent actionEvent) {
+        editClick++;
 
+        if (editClick == 1) {
+            setFieldsDisableTo(false);
+            nameListener = (obs, oldValue, newValue) -> {
+                name.setValue((String) newValue);
+                model.getFirms().get(page).setFirmName(name.getValue());
+            };
+            nameField.textProperty().addListener(nameListener);
+
+            mailListener = (obs, oldValue, newValue) -> {
+                mail.setValue((String) newValue);
+                model.getFirms().get(page).setFirmEMail(mail.getValue());
+            };
+            mailField.textProperty().addListener(mailListener);
+
+            ownerListener = (obs, oldValue, newValue) -> {
+                owner.setValue((String) newValue);
+                model.getFirms().get(page).setOwner(owner.getValue());
+            };
+            ownerField.textProperty().addListener(ownerListener);
+
+
+            phoneListener = (obs, oldValue, newValue) -> {
+                phone.setValue((String) newValue);
+                model.getFirms().get(page).setFirmPhone(phone.getValue());
+            };
+            phoneField.textProperty().addListener(phoneListener);
+
+            addressListener = (obs, oldValue, newValue) -> {
+                address.setValue((String) newValue);
+                model.getFirms().get(page).setFirmAdress(address.getValue());
+            };
+            phoneField.textProperty().addListener(phoneListener);
+
+        } else if (editClick == 2) {
+            setFieldsDisableTo(true);
+            model.changeCurrent(page);
+            model.updateFirm();
+            nameField.textProperty().removeListener(nameListener);
+            mailField.textProperty().removeListener(mailListener);
+            phoneField.textProperty().removeListener(phoneListener);
+            addressField.textProperty().removeListener(addressListener);
+            editClick = 0;
+        }
     }
 
     public void btnDeleteClicked(ActionEvent actionEvent) {
