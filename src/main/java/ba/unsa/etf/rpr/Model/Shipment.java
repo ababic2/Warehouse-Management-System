@@ -7,17 +7,17 @@ public class Shipment {
     private int price;
     private int quantity;
     private String orderDate = LocalDate.now().toString();
-    private String currentUser2 = "AMINA";//currentUser.getUsername();
+    private String employee = "AMINA";//currentUser.getUsername();
 
     public Shipment() {
     }
 
-    public Shipment(String name, int price, int quantity, String orderDate, String currentUser2) {
+    public Shipment(String name, int price, int quantity, String orderDate, String currentUser) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.orderDate = orderDate;
-        this.currentUser2 = currentUser2;
+        this.employee = currentUser;
     }
 
     public Shipment(String name, int price, int quantity, String orderDate) {
@@ -27,12 +27,12 @@ public class Shipment {
         this.orderDate = orderDate;
     }
 
-    public String getCurrentUser2() {
-        return currentUser2;
+    public String getEmployee() {
+        return employee;
     }
 
-    public void setCurrentUser2(String currentUser2) {
-        this.currentUser2 = currentUser2;
+    public void setEmployee(String employee) {
+        this.employee = employee;
     }
 
     public String getName() {

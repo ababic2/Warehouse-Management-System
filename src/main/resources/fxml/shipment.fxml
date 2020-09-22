@@ -31,7 +31,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="employeeListLabel" text="Shipment List" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <Label fx:id="employeeListLabel" text="%title" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <padding>
                                 <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
                             </padding>
@@ -54,10 +54,11 @@
             <center>
                 <TableView fx:id="shipmentTableView" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn fx:id="nameColumn" minWidth="-1.0" prefWidth="-1.0" text="Name" />
-                        <TableColumn fx:id="priceColumn" minWidth="-1.0" prefWidth="-1.0" text="Price" />
-                        <TableColumn fx:id="orderDateColumn" minWidth="-1.0" prefWidth="-1.0" text="Date Of Order" />
-                        <TableColumn fx:id="quantityColumn" minWidth="-1.0" prefWidth="-1.0" text="Quantity" />
+                        <TableColumn fx:id="nameColumn" minWidth="-1.0" prefWidth="-1.0" text="%name" />
+                        <TableColumn fx:id="priceColumn" minWidth="-1.0" prefWidth="-1.0" text="%price" />
+                        <TableColumn fx:id="orderDateColumn" minWidth="-1.0" prefWidth="-1.0" text="%date" />
+                        <TableColumn fx:id="quantityColumn" minWidth="-1.0" prefWidth="-1.0" text="%quantity" />
+                  <TableColumn fx:id="employeeColumn" minWidth="-1.0" prefWidth="-1.0" text="%employee" />
                     </columns>
                     <padding>
                         <Insets left="10.0" right="10.0" top="30.0" />

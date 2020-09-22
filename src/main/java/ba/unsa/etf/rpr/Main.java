@@ -20,7 +20,7 @@ public class Main extends Application {
         loader.setController(new LogInController(logInModel));
         Parent root = loader.load();
 //        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/shipment.fxml"));
-//        ShimpmentController ctrl = new ShimpmentController();
+//        ShipmentController ctrl = new ShipmentController();
 //        loader.setController(ctrl);
 //        Parent root = loader.load();
         primaryStage.setTitle("Welcome");

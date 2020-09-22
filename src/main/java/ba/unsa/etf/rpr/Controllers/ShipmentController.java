@@ -15,15 +15,16 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-public class ShimpmentController implements Initializable {
+public class ShipmentController implements Initializable {
     public TableView<Shipment>shipmentTableView;
     public TableColumn<Shipment, String> nameColumn;
     public TableColumn<Shipment, String> priceColumn;
     public TableColumn<Shipment, String> orderDateColumn;
     public TableColumn<Shipment, String> quantityColumn;
+    public TableColumn<Shipment, String> employeeColumn;
     private ObservableList<Shipment> shipments = FXCollections.observableArrayList();
 
-    public ShimpmentController() {
+    public ShipmentController() {
     }
 
     @Override
@@ -49,12 +50,28 @@ public class ShimpmentController implements Initializable {
 
             for(int i = 0; i < arrOfStr.size(); i++) {
                 String[] result = arrOfStr.get(i).split(" ");
-                //zamijeni indekse
-                Shipment shipment = new Shipment(result[0], Integer.parseInt(result[1]),Integer.parseInt(result[2]),result[3]);
+
+                String name = "";
+                int j = 0;
+                for(j = 0; j < result.length; j++) {
+                    if (nameFormat(result[j])) {
+                        if(j > 0) {
+                            name += " ";
+                        }
+                        name += result[j];
+                    } else {
+                        break;
+                    }
+                }
+                Shipment shipment = new Shipment(name, Integer.parseInt(result[j]),Integer.parseInt(result[j+2]),result[j+1],result[j+3]);
                 shipments.add(shipment);
             }
         }catch (FileNotFoundException e) {
         }
+    }
+
+    private boolean nameFormat(String s) {
+        return s.matches("^[A-Za-z]+$");
     }
 
 
@@ -63,5 +80,6 @@ public class ShimpmentController implements Initializable {
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     }
 }

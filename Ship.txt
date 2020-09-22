@@ -1,2 +1,5 @@
-ananas 3 5 2020-09-21
-snickers 4 4 2020-09-21
+Medeno srce 3 2020-09-22 4 sarah
+Brasno 3 2020-09-22 4 sarah
+Jufka 3 2020-09-22 4 sarah
+Juha 3 2020-09-22 1 sarah
+Juha 3 2020-09-22 1 terri

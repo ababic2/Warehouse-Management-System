@@ -98,15 +98,15 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     }
 
     private void setButtonsDisableTo() { /// bit će prepravkaaa
-
-        if(!currentUser.getAccessLevel().equals("EMPLOYEE")) {
-            btnIncreaseStock.setDisable(true);
-            btnDecreaseStock.setDisable(true);
-
-        } else {
-            btnIncreaseStock.setDisable(false);
-            btnDecreaseStock.setDisable(false);
-        }
+//
+//        if(!currentUser.getAccessLevel().equals("EMPLOYEE")) {
+//            btnIncreaseStock.setDisable(true);
+//            btnDecreaseStock.setDisable(true);
+//
+//        } else {
+//            btnIncreaseStock.setDisable(false);
+//            btnDecreaseStock.setDisable(false);K
+//        }
     }
 
     private void setInitialProduct() {
@@ -146,7 +146,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void btnDeleteClicked(ActionEvent actionEvent) {
-        makeShipmentReport();
+        //makeShipmentReport();
         int id = Integer.parseInt(itemIdLabel.getText());
         ArrayList<Product> product = (ArrayList<Product>) model.getProducts().stream().filter(o-> o.getProductId() == id).collect(Collectors.toList());
         model.deleteProductWithId(id);
@@ -278,7 +278,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     private void writeToFile(Product product, int num) {
         try {
-            String data = product.toString() + " " + num;
+            String data = product.toString() + " " + num + " " + currentUser.getUsername() + "\n";
 
             File file = new File("Ship.txt");
 
@@ -317,11 +317,14 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     public void btnDecreaseStock(ActionEvent actionEvent) {
         int id = Integer.parseInt(itemIdLabel.getText());
+        ArrayList<Product> product = (ArrayList<Product>) model.getProducts().stream().filter(o-> o.getProductId() == id).collect(Collectors.toList());
         int newStock = Integer.parseInt(stockLabel.getText());
         newStock--;
         model.changeStock(id, newStock);
         model.getCurrentProduct().setStock(newStock);
         stock.setValue(newStock);
+        writeToFile(product.get(0), 1);
+
     }
 
     public void btnRefreshClicked(ActionEvent actionEvent) {

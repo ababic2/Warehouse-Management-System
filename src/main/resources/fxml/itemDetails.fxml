@@ -97,7 +97,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                            </padding>
                         </Label>
-                        <Button fx:id="btnDecreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDecreaseStock" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="btnDecreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDecreaseStock" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" text="-" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -114,7 +114,7 @@
                               <Insets top="10.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="btnIncreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnIncreaseStockClicked" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="btnIncreaseStock" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnIncreaseStockClicked" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/next_previous_search.css" text="+" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -160,7 +160,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="itemIdLabel" text="${controller.itemIDLabel}" alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="itemIdLabel" alignment="CENTER" contentDisplay="CENTER" text="${controller.itemIDLabel}" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="23.0" />
                      </font>

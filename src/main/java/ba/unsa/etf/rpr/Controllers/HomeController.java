@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
 
 public class HomeController {
-//    public SplitPane splitPane;
+    //    public SplitPane splitPane;
     public Pane rightPane;
 
     public GridPane leftPane;
@@ -50,6 +50,8 @@ public class HomeController {
     private static String accessLevel = "";
     private HashMap<String, String> views = new HashMap<>();
 
+    private Pair<String, String> current;
+    public boolean bs = false;
 
     @FXML
     public void initialize() throws IOException, ParseException {
@@ -94,7 +96,7 @@ public class HomeController {
     private void setDate() throws IOException, ParseException {
         URL url = new URL("https://www.worldtimeserver.com/");
         HttpURLConnection httpCon =
-        (HttpURLConnection) url.openConnection();
+                (HttpURLConnection) url.openConnection();
         long date = httpCon.getDate();
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -128,8 +130,8 @@ public class HomeController {
             }
         }
     }
-
     //When log out is clicked then log in will appear
+
     private void logOut() {
         Stage current =  (Stage)loggedLabel.getScene().getWindow();
         current.close();
@@ -148,7 +150,6 @@ public class HomeController {
         } catch (IOException e) {
         }
     }
-
     @FXML
     private void ctrlRightPane(String URL, String name) throws IOException {
         try {
@@ -167,19 +168,17 @@ public class HomeController {
 
         } catch (IOException e) {}
     }
-    private Pair<String, String> current;
-    private boolean bs = false;
 
     public void btnEnClicked(ActionEvent actionEvent) throws IOException {
         bs = false;
-      //  translate();
+        //  translate();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
     public void btnBsClicked(ActionEvent actionEvent) throws IOException {
         bs = true;
         System.out.println("BS");
-       // translate();
+        // translate();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
@@ -205,65 +204,81 @@ public class HomeController {
     private void setNewStage(String URL, String name) throws IOException {
         FXMLLoader loader = null;
         ResourceBundle bundle = null;
-        if(bs == false) {
-            if(name.equals("Admin")) {
-                bundle = ResourceBundle.getBundle("adminTranslation");
-                loader = new FXMLLoader(getClass().getResource(URL), bundle);
-            } else if(name.equals("Dashboard")) {
-                bundle = ResourceBundle.getBundle("dashboardTranslation");
-                loader = new FXMLLoader(getClass().getResource(URL), bundle);
-            } else if(name.equals("Items")) {
-                bundle = ResourceBundle.getBundle("itemDetailsTranslation");
-                loader = new FXMLLoader(getClass().getResource(URL), bundle);
-            } else if(name.equals("Employee Accounts")) {
-                bundle = ResourceBundle.getBundle("employeeDetailsTranslation");
-                loader = new FXMLLoader(getClass().getResource(URL), bundle);
-            }
-            else if(name.equals("Firms")) {
-                bundle = ResourceBundle.getBundle("firmTranslation");
-                loader = new FXMLLoader(getClass().getResource(URL), bundle);
-            }else if(name.equals("Shipping")) {
-                loader = new FXMLLoader(getClass().getResource("/fxml/shipment.fxml"));
-            }
-            else {
-                loader = new FXMLLoader(getClass().getResource(URL));
+        if(!bs) {
+            switch (name) {
+                case "Admin":
+                    bundle = ResourceBundle.getBundle("adminTranslation");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+                    break;
+                case "Dashboard":
+                    bundle = ResourceBundle.getBundle("dashboardTranslation");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+                    break;
+                case "Items":
+                    bundle = ResourceBundle.getBundle("itemDetailsTranslation");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+                    break;
+                case "Employee Accounts":
+                    bundle = ResourceBundle.getBundle("employeeDetailsTranslation");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+                    break;
+                case "Firms":
+                    bundle = ResourceBundle.getBundle("firmTranslation");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+                    break;
+                default:
+                    bundle = ResourceBundle.getBundle("shipment");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+                    break;
             }
         } else {
-            if(name.equals("Dashboard")) {
-                bundle = ResourceBundle.getBundle("dashboardTranslation_bs");
-            } else if(name.equals("Items")) {
-                bundle = ResourceBundle.getBundle("itemDetailsTranslation_bs");
-            } else if(name.equals("Employee Accounts")) {
-                bundle = ResourceBundle.getBundle("employeeDetailsTranslation_bs");
-            } else if(name.equals("Admin")) {
-                bundle = ResourceBundle.getBundle("adminTranslation_bs");
-            } else if(name.equals("Firms")) {
-                bundle = ResourceBundle.getBundle("firmTranslation_bs");
-            } else if(name.equals("Shipping")) {
-                loader = new FXMLLoader(getClass().getResource("/fxml/shipment.fxml"));
-            } else {
-                loader = new FXMLLoader(getClass().getResource(URL), bundle);
+            switch (name) {
+                case "Dashboard":
+                    bundle = ResourceBundle.getBundle("dashboardTranslation_bs");
+                    break;
+                case "Items":
+                    bundle = ResourceBundle.getBundle("itemDetailsTranslation_bs");
+                    break;
+                case "Employee Accounts":
+                    bundle = ResourceBundle.getBundle("employeeDetailsTranslation_bs");
+                    break;
+                case "Admin":
+                    bundle = ResourceBundle.getBundle("adminTranslation_bs");
+                    break;
+                case "Firms":
+                    bundle = ResourceBundle.getBundle("firmTranslation_bs");
+                    break;
+                case "Shipping":
+                    bundle = ResourceBundle.getBundle("shipment_bs");
+                    break;
             }
+            loader = new FXMLLoader(getClass().getResource(URL), bundle);
         }
         current = new Pair<>(URL, name);
-        if(name.equals("Dashboard")) {
-            DashboardModel dashBoardModel = new DashboardModel();
-            loader.setController(new DashboardController(dashBoardModel));
-        } else if(name.equals("Items")) {
-            ProductModel productModel = new ProductModel();
-            loader.setController(new ItemDetailsController(productModel));
-        } else if(name.equals("Employee Accounts")) {
-            EmployeeAccountModel employeeAccountModel = new EmployeeAccountModel();
-            loader.setController(new EmployeeDetailsController(employeeAccountModel));
-        } else if(name.equals("Admin")) {
-            AdminPanelModel adminPanelModel = new AdminPanelModel();
-            loader.setController(new AdminPanelController(adminPanelModel));
-        } else if(name.equals("Firms")) {
-            FirmModel firmModel = new FirmModel();
-            loader.setController(new FirmDetailsController(firmModel));
-        } else if(name.equals("Shipping")) {
-            System.out.println("HERE");
-            loader.setController(new ShimpmentController());
+        switch (name) {
+            case "Dashboard":
+                DashboardModel dashBoardModel = new DashboardModel();
+                loader.setController(new DashboardController(dashBoardModel));
+                break;
+            case "Items":
+                ProductModel productModel = new ProductModel();
+                loader.setController(new ItemDetailsController(productModel));
+                break;
+            case "Employee Accounts":
+                EmployeeAccountModel employeeAccountModel = new EmployeeAccountModel();
+                loader.setController(new EmployeeDetailsController(employeeAccountModel));
+                break;
+            case "Admin":
+                AdminPanelModel adminPanelModel = new AdminPanelModel();
+                loader.setController(new AdminPanelController(adminPanelModel));
+                break;
+            case "Firms":
+                FirmModel firmModel = new FirmModel();
+                loader.setController(new FirmDetailsController(firmModel));
+                break;
+            default:
+                loader.setController(new ShipmentController());
+                break;
         }
         newRightPane = loader.load();
     }

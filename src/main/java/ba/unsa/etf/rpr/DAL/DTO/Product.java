@@ -93,7 +93,7 @@ public class Product implements Comparable{
 
     @Override
     public String toString() {
-        return  getName() + " " + getPrice() +  " " + LocalDate.now().toString() + "\n";
+        return  getName() + " " + getPrice() +  " " + LocalDate.now().toString();
     }
 
     @Override
