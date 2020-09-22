@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -39,6 +41,9 @@ public class HomeController {
     public Label currLoggedIn;
     public Label timeLabel;
     public Label dateLabel;
+    public MenuBar help;
+    public MenuItem about;
+    public MenuItem learn;
 
     @FXML
     private Label loggedLabel;
@@ -50,6 +55,7 @@ public class HomeController {
     private static String accessLevel = "";
     private HashMap<String, String> views = new HashMap<>();
 
+
     private Pair<String, String> current;
     public boolean bs = false;
 
@@ -60,7 +66,7 @@ public class HomeController {
         currentAccess.setText(currentUser.getAccessLevel());
         setDate();
         timeThread();
-        ctrlRightPane("/fxml/dashboard/dashboard.fxml","Dashboard");
+        ctrlRightPane("/fxml/dashboard/dashboard.fxml","_Dashboard");
     }
 
     private void timeThread() {
@@ -105,12 +111,12 @@ public class HomeController {
     }
 
     private void loadViews() {
-        views.put("Dashboard", "/fxml/dashboard/dashboard.fxml");
-        views.put("Items", "/fxml/itemDetails.fxml");
-        views.put("Firms", "/fxml/firmDetails.fxml");
-        views.put("Employee Accounts", "/fxml/employeeAccount.fxml");
-        views.put("Admin", "/fxml/adminPanel.fxml");
-        views.put("Shipping", "/fxml/shipment.fxml");
+        views.put("_Dashboard", "/fxml/dashboard/dashboard.fxml");
+        views.put("_Items", "/fxml/itemDetails.fxml");
+        views.put("_Firms", "/fxml/firmDetails.fxml");
+        views.put("_Employee Accounts", "/fxml/employeeAccount.fxml");
+        views.put("_Admin", "/fxml/adminPanel.fxml");
+        views.put("_Shipping", "/fxml/shipment.fxml");
     }
 
     @FXML
@@ -132,7 +138,20 @@ public class HomeController {
     }
     //When log out is clicked then log in will appear
 
-    private void logOut() {
+    public void aboutClicked(ActionEvent e) {
+        Parent root = null;
+        try {
+            Stage myStage = new Stage();
+            root = FXMLLoader.load(getClass().getResource("/fxml/about.fxml"));
+            myStage.setTitle("About");
+            myStage.setScene(new Scene(root, 300, 275));
+            myStage.show();
+        } catch (IOException k) {
+            k.printStackTrace();
+        }
+    }
+
+        private void logOut() {
         Stage current =  (Stage)loggedLabel.getScene().getWindow();
         current.close();
 
@@ -206,23 +225,23 @@ public class HomeController {
         ResourceBundle bundle = null;
         if(!bs) {
             switch (name) {
-                case "Admin":
+                case "_Admin":
                     bundle = ResourceBundle.getBundle("adminTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "Dashboard":
+                case "_Dashboard":
                     bundle = ResourceBundle.getBundle("dashboardTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "Items":
+                case "_Items":
                     bundle = ResourceBundle.getBundle("itemDetailsTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "Employee Accounts":
+                case "_Employee Accounts":
                     bundle = ResourceBundle.getBundle("employeeDetailsTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "Firms":
+                case "_Firms":
                     bundle = ResourceBundle.getBundle("firmTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
@@ -233,22 +252,22 @@ public class HomeController {
             }
         } else {
             switch (name) {
-                case "Dashboard":
+                case "_Dashboard":
                     bundle = ResourceBundle.getBundle("dashboardTranslation_bs");
                     break;
-                case "Items":
+                case "_Items":
                     bundle = ResourceBundle.getBundle("itemDetailsTranslation_bs");
                     break;
-                case "Employee Accounts":
+                case "_Employee Accounts":
                     bundle = ResourceBundle.getBundle("employeeDetailsTranslation_bs");
                     break;
-                case "Admin":
+                case "_Admin":
                     bundle = ResourceBundle.getBundle("adminTranslation_bs");
                     break;
-                case "Firms":
+                case "_Firms":
                     bundle = ResourceBundle.getBundle("firmTranslation_bs");
                     break;
-                case "Shipping":
+                case "_Shipping":
                     bundle = ResourceBundle.getBundle("shipment_bs");
                     break;
             }
@@ -256,23 +275,23 @@ public class HomeController {
         }
         current = new Pair<>(URL, name);
         switch (name) {
-            case "Dashboard":
+            case "_Dashboard":
                 DashboardModel dashBoardModel = new DashboardModel();
                 loader.setController(new DashboardController(dashBoardModel));
                 break;
-            case "Items":
+            case "_Items":
                 ProductModel productModel = new ProductModel();
                 loader.setController(new ItemDetailsController(productModel));
                 break;
-            case "Employee Accounts":
+            case "_Employee Accounts":
                 EmployeeAccountModel employeeAccountModel = new EmployeeAccountModel();
                 loader.setController(new EmployeeDetailsController(employeeAccountModel));
                 break;
-            case "Admin":
+            case "_Admin":
                 AdminPanelModel adminPanelModel = new AdminPanelModel();
                 loader.setController(new AdminPanelController(adminPanelModel));
                 break;
-            case "Firms":
+            case "_Firms":
                 FirmModel firmModel = new FirmModel();
                 loader.setController(new FirmDetailsController(firmModel));
                 break;
