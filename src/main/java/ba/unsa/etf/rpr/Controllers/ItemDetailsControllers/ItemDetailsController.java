@@ -155,7 +155,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         if (page == 0) goToNextPage();
         else goToPreviousPage();
 
-        writeToFile(product.get(0));
+        writeToFile(product.get(0), product.get(0).getStock());
     }
 
     public void makeShipmentReport() {
@@ -276,9 +276,9 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         goToNextPage();
     }
 
-    private void writeToFile(Product product) {
+    private void writeToFile(Product product, int num) {
         try {
-            String data = product.toString();
+            String data = product.toString() + " " + num;
 
             File file = new File("Ship.txt");
 

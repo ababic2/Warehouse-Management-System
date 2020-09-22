@@ -108,6 +108,7 @@ public class HomeController {
         views.put("Firms", "/fxml/firmDetails.fxml");
         views.put("Employee Accounts", "/fxml/employeeAccount.fxml");
         views.put("Admin", "/fxml/adminPanel.fxml");
+        views.put("Shipping", "/fxml/shipment.fxml");
     }
 
     @FXML
@@ -221,6 +222,8 @@ public class HomeController {
             else if(name.equals("Firms")) {
                 bundle = ResourceBundle.getBundle("firmTranslation");
                 loader = new FXMLLoader(getClass().getResource(URL), bundle);
+            }else if(name.equals("Shipping")) {
+                loader = new FXMLLoader(getClass().getResource("/fxml/shipment.fxml"));
             }
             else {
                 loader = new FXMLLoader(getClass().getResource(URL));
@@ -236,8 +239,11 @@ public class HomeController {
                 bundle = ResourceBundle.getBundle("adminTranslation_bs");
             } else if(name.equals("Firms")) {
                 bundle = ResourceBundle.getBundle("firmTranslation_bs");
+            } else if(name.equals("Shipping")) {
+                loader = new FXMLLoader(getClass().getResource("/fxml/shipment.fxml"));
+            } else {
+                loader = new FXMLLoader(getClass().getResource(URL), bundle);
             }
-            loader = new FXMLLoader(getClass().getResource(URL), bundle);
         }
         current = new Pair<>(URL, name);
         if(name.equals("Dashboard")) {
@@ -255,6 +261,9 @@ public class HomeController {
         } else if(name.equals("Firms")) {
             FirmModel firmModel = new FirmModel();
             loader.setController(new FirmDetailsController(firmModel));
+        } else if(name.equals("Shipping")) {
+            System.out.println("HERE");
+            loader.setController(new ShimpmentController());
         }
         newRightPane = loader.load();
     }

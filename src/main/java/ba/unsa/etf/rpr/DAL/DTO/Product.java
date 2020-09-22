@@ -14,6 +14,7 @@ public class Product implements Comparable{
     private Category category;
     private Firm firm;
 
+
     public Product() {
     }
 

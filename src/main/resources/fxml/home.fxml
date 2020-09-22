@@ -20,18 +20,18 @@
 
 <!--<SplitPane fx:id="splitPane" dividerPositions="0.30209205020920504" prefHeight="700.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">-->
 
-<SplitPane fx:id="splitPane" dividerPositions="0.299581589958159" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">
+<SplitPane fx:id="splitPane" cache="true" dividerPositions="0.33807531380753136" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">
    <items>
-      <GridPane fx:id="leftPane" stylesheets="@../css/base.css" SplitPane.resizableWithParent="false">
+      <GridPane fx:id="leftPane" maxWidth="600.0" minWidth="400.0" stylesheets="@../css/base.css">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+            <ColumnConstraints hgrow="SOMETIMES" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
             <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <GridPane pickOnBounds="false" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <GridPane pickOnBounds="false" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
@@ -40,12 +40,15 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ImageView fitHeight="125.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                  <ImageView fitHeight="125.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                      <image>
                         <Image url="@../img/home_img/wms_logo2.png" />
                      </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                   </ImageView>
-                  <GridPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                  <GridPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
                      </columnConstraints>
@@ -55,34 +58,40 @@
                         <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="Warehouse">
+                        <Label cache="true" cacheHint="SCALE_AND_ROTATE" maxWidth="1.7976931348623157E308" text="Warehouse" wrapText="true">
                            <font>
                               <Font name="FreeSerif" size="25.0" />
                            </font>
+                           <effect>
+                              <Glow />
+                           </effect>
                         </Label>
-                        <Label text="Management" GridPane.rowIndex="1">
+                        <Label text="Management" wrapText="true" GridPane.rowIndex="1">
                            <font>
                               <Font name="FreeSerif" size="25.0" />
                            </font>
+                           <effect>
+                              <Glow />
+                           </effect>
                         </Label>
-                        <Label text="System" GridPane.rowIndex="2">
+                        <Label text="System" wrapText="true" GridPane.rowIndex="2">
                            <font>
                               <Font name="FreeSerif" size="25.0" />
                            </font>
+                           <effect>
+                              <Glow />
+                           </effect>
                         </Label>
                      </children>
                   </GridPane>
                </children>
             </GridPane>
-            <VBox prefHeight="406.0" prefWidth="357.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <VBox GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Dashboard" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnDashboard" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Dashboard" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
-                     <padding>
-                        <Insets bottom="15.0" left="130.0" right="136.0" top="15.0" />
-                     </padding>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -96,8 +105,11 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <padding>
+                        <Insets bottom="15.0" top="15.0" />
+                     </padding>
                   </Button>
-                  <Button fx:id="btnItems" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Items" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnItems" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Items" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -111,20 +123,17 @@
                            </font>
                         </Tooltip>
                      </tooltip>
-                     <padding>
-                        <Insets bottom="15.0" left="130.0" top="15.0" />
-                     </padding>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <padding>
+                        <Insets bottom="15.0" right="40.0" top="15.0" />
+                     </padding>
                   </Button>
-                  <Button fx:id="btnFirms" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Firms" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnFirms" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Firms" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
-                     <padding>
-                        <Insets bottom="15.0" left="130.0" right="175.0" top="15.0" />
-                     </padding>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -135,14 +144,14 @@
                            </font>
                         </Tooltip>
                      </tooltip>
+                     <padding>
+                        <Insets bottom="15.0" right="40.0" top="15.0" />
+                     </padding>
                   </Button>
-                  <Button fx:id="btnShipping" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Shipping" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnShipping" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Shipping" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
-                     <padding>
-                        <Insets bottom="15.0" left="130.0" right="151.0" top="15.0" />
-                     </padding>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -153,14 +162,14 @@
                            </font>
                         </Tooltip>
                      </tooltip>
+                     <padding>
+                        <Insets bottom="15.0" right="20.0" top="15.0" />
+                     </padding>
                   </Button>
-                  <Button fx:id="btnAccounts" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Employee Accounts" VBox.vgrow="ALWAYS">
+                  <Button fx:id="btnAccounts" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Employee Accounts" wrapText="true" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
-                     <padding>
-                        <Insets bottom="15.0" left="130.0" right="62.0" top="15.0" />
-                     </padding>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -171,11 +180,11 @@
                            </font>
                         </Tooltip>
                      </tooltip>
-                  </Button>
-                  <Button fx:id="btnAdmin" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Admin" VBox.vgrow="ALWAYS">
                      <padding>
-                        <Insets bottom="15.0" left="130.0" right="166.0" top="15.0" />
+                        <Insets bottom="15.0" left="70.0" top="15.0" />
                      </padding>
+                  </Button>
+                  <Button fx:id="btnAdmin" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Admin" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
@@ -189,18 +198,24 @@
                            </font>
                         </Tooltip>
                      </tooltip>
-                  </Button>
-                  <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Log Out">
                      <padding>
-                        <Insets bottom="15.0" left="130.0" right="155.0" top="15.0" />
+                        <Insets bottom="15.0" right="35.0" top="15.0" />
                      </padding>
+                  </Button>
+                  <Button fx:id="btnLogOut" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="Log Out">
                      <font>
                         <Font name="FreeSerif" size="20.0" />
                      </font>
+                     <padding>
+                        <Insets bottom="15.0" right="20.0" top="15.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                  <HBox spacing="50.0">
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" spacing="50.0">
                      <children>
-                        <Label fx:id="loggedLabel" text="Logged in as :" HBox.hgrow="ALWAYS">
+                        <Label fx:id="loggedLabel" maxWidth="1.7976931348623157E308" text="Logged in as :" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
@@ -210,8 +225,11 @@
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
+                           <effect>
+                              <Glow />
+                           </effect>
                         </Label>
-                        <Label fx:id="currLoggedIn" alignment="CENTER" text="k" HBox.hgrow="ALWAYS">
+                        <Label fx:id="currLoggedIn" maxWidth="1.7976931348623157E308" text="k" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
@@ -224,9 +242,9 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox spacing="57.0">
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" spacing="57.0">
                      <children>
-                        <Label fx:id="accessLabel" text="Access level :" HBox.hgrow="ALWAYS">
+                        <Label fx:id="accessLabel" maxWidth="1.7976931348623157E308" text="Access level :" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
@@ -236,8 +254,11 @@
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
+                           <effect>
+                              <Glow />
+                           </effect>
                         </Label>
-                        <Label fx:id="currentAccess" text="k" HBox.hgrow="ALWAYS">
+                        <Label fx:id="currentAccess" maxWidth="1.7976931348623157E308" text="k" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="FreeSerif Bold" size="17.0" />
                            </font>
@@ -250,7 +271,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox spacing="3.0">
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" spacing="3.0">
                      <children>
                         <ImageView fitHeight="41.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -263,7 +284,7 @@
                               <DropShadow />
                            </effect>
                         </ImageView>
-                        <Button mnemonicParsing="false" onAction="#btnEnClicked" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="en">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnEnClicked" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="en">
                            <HBox.margin>
                               <Insets left="10.0" top="7.0" />
                            </HBox.margin>
@@ -274,7 +295,7 @@
                               <DropShadow />
                            </effect>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#btnBsClicked" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="bs">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnBsClicked" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="bs">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -285,9 +306,9 @@
                               <DropShadow />
                            </effect>
                         </Button>
-                        <VBox spacing="5.0">
+                        <VBox maxWidth="1.7976931348623157E308" spacing="5.0">
                            <children>
-                              <Label fx:id="dateLabel" text="25.04.2020.">
+                              <Label fx:id="dateLabel" maxWidth="1.7976931348623157E308" text="25.04.2020.">
                                  <font>
                                     <Font name="FreeSerif Bold Italic" size="20.0" />
                                  </font>
@@ -295,7 +316,7 @@
                                     <Glow />
                                  </effect>
                               </Label>
-                              <Label fx:id="timeLabel" text="555555">
+                              <Label fx:id="timeLabel" maxWidth="1.7976931348623157E308" text="555555">
                                  <font>
                                     <Font name="FreeSerif Bold Italic" size="20.0" />
                                  </font>
@@ -323,6 +344,6 @@
             </VBox>
          </children>
       </GridPane>
-      <Pane fx:id="rightPane" />
+      <Pane fx:id="rightPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
    </items>
 </SplitPane>

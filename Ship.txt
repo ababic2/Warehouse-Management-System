@@ -1,2 +1,2 @@
-ananas 3 2020-09-21
-snickers 4 2020-09-21
+ananas 3 5 2020-09-21
+snickers 4 4 2020-09-21
