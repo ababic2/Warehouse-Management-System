@@ -73,7 +73,7 @@ public class ProductModel {
 
     public void updateProductInBase() {
         productDAO.updateProduct(currentProduct.getValue().getProductId(), currentProduct.getValue().getName(),
-                currentProduct.getValue().getPrice(), currentProduct.getValue().getStock());
+                currentProduct.getValue().getPrice(), currentProduct.getValue().getStock(), currentProduct.getValue().getCategory().getCategoryId());
     }
 
     public void changeStock(int id, int newStock) {

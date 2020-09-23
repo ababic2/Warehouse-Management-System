@@ -1,9 +1,9 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.DAL.DTO.Department;
+import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import ba.unsa.etf.rpr.Model.EmployeeAccountModel;
-import ba.unsa.etf.rpr.DAL.DTO.Employee;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -220,13 +220,17 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
             };
             dateField.textProperty().addListener(dateListener);
 
-            departmentChoice.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<Department>>() {
-                public void changed(ObservableValue<? extends SingleSelectionModel<Department>> observableValue, SingleSelectionModel<Department> departmentSingleSelectionModel, SingleSelectionModel<Department> t1) {
+
+            departmentChoice.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Department>() {
+                @Override
+                public void changed(ObservableValue<? extends Department> observableValue, Department department, Department t1) {
+                    System.out.println("OKKK");
                     model.getEmployees().get(page).setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
                 }
             });
 
-            toggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+
+        toggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
                 public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
                     if (toggle.getSelectedToggle() != null) {
                         if(toggle.getSelectedToggle().equals(radioAdmin)) {

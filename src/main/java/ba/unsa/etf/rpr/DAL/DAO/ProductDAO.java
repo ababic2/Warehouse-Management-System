@@ -199,13 +199,14 @@ public class ProductDAO implements DAOInterface {
         }
     }
 
-    public void updateProduct(int id, String newName, int newPrice, int newStock) {
+    public void updateProduct(int id, String newName, int newPrice, int newStock, int categoryId) {
         try {
-            PreparedStatement ps = conn.prepareStatement("update products set product_name = ?, price = ?, stock = ? where product_id = ?");
+            PreparedStatement ps = conn.prepareStatement("update products set product_name = ?, price = ?, stock = ?, category_id = ? where product_id = ?");
             ps.setString(1, newName);
             ps.setInt(2, newPrice);
             ps.setInt(3, newStock);
-            ps.setInt(4, id);
+            ps.setInt(4,categoryId);
+            ps.setInt(5, id);
             ps.executeUpdate();
         } catch (SQLException exception) {
         }

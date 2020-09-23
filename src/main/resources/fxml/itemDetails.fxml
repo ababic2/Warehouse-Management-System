@@ -184,11 +184,7 @@
                         <Insets bottom="8.0" />
                      </GridPane.margin>
                   </Label>
-                  <ChoiceBox fx:id="typeChoiceBox" prefHeight="30.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ChoiceBox>
+                  <ChoiceBox fx:id="typeChoiceBox" prefHeight="30.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                </children>
             </GridPane>
          </left>

@@ -287,11 +287,10 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
             };
             itemPriceLabel.textProperty().addListener(priceListener);
 
-            typeChoiceBox.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<Category>>() {
+            typeChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Category>() {
                 @Override
-                public void changed(ObservableValue<? extends SingleSelectionModel<Category>> observableValue, SingleSelectionModel<Category> categorySingleSelectionModel, SingleSelectionModel<Category> t1) {
+                public void changed(ObservableValue<? extends Category> observableValue, Category category, Category t1) {
                     model.getProducts().get(page).setCategory(typeChoiceBox.getSelectionModel().getSelectedItem());
-
                 }
             });
 
