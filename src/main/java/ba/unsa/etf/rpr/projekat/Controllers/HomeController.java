@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.projekat.Controllers;
 
 import ba.unsa.etf.rpr.projekat.Controllers.DashboardControllers.DashboardController;
 import ba.unsa.etf.rpr.projekat.Controllers.ItemDetailsControllers.ItemDetailsController;
-import ba.unsa.etf.rpr.Model.*;
 import ba.unsa.etf.rpr.projekat.Model.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
