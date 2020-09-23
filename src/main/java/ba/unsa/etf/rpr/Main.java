@@ -19,10 +19,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log_in.fxml"));
         loader.setController(new LogInController(logInModel));
         Parent root = loader.load();
-//        ResourceBundle bundle =ResourceBundle.getBundle("itemDetailsTranslation");
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/itemDetails.fxml"),bundle);
-//        ProductModel productModel = new ProductModel();
-//        loader.setController(new ItemDetailsController(productModel));
+//        ResourceBundle bundle =ResourceBundle.getBundle("employeeDetailsTranslation");
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeeAccount.fxml"),bundle);
+//        EmployeeAccountModel productModel = new EmployeeAccountModel();
+//        loader.setController(new EmployeeDetailsController(productModel));
 //        Parent root = loader.load();
         primaryStage.setTitle("Welcome");
         primaryStage.initStyle(StageStyle.DECORATED);

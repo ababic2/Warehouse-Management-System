@@ -86,6 +86,10 @@ public interface DetailsInterface {
     }
 
     default boolean nameFormat(String s) {
-        return s.matches("^[A-Za-z]+$");
+        String[] result = s.split(" ");
+        for(int i = 0; i<result.length; i++) {
+            if(!result[i].matches("^[A-Za-z]+$")) return false;
+        }
+        return true;
     }
 }

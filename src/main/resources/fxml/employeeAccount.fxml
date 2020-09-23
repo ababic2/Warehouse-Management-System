@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
@@ -44,22 +45,42 @@
                   <RowConstraints prefHeight="112.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="salaryField" disable="true" promptText="Salary" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <padding>
-                        <Insets bottom="15.0" left="10.0" top="15.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="nameField" disable="true" promptText="First and Last Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" top="15.0" />
-                     </padding>
-                  </TextField>
+                  <GridPane fx:id="salaryGrid" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="salaryField" disable="true" promptText="Salary">
+                           <padding>
+                              <Insets bottom="15.0" left="10.0" top="15.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </GridPane>
+                  <GridPane fx:id="nameGrid" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="nameField" disable="true" promptText="First and Last Name">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" top="15.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </GridPane>
                   <Label text="%hireDate" textOverrun="CENTER_ELLIPSIS" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font name="FreeSerif" size="23.0" />
@@ -140,14 +161,6 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </ChoiceBox>
-                  <TextField fx:id="dateField" disable="true" promptText="Hire Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="15.0" left="10.0" top="15.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </TextField>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
                         <RadioButton fx:id="radioEmployee" mnemonicParsing="false" selected="true" text="%employeeRadio">
@@ -177,6 +190,7 @@
                         </RadioButton>
                      </children>
                   </HBox>
+                  <DatePicker fx:id="datePicker" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="60.0" top="50.0" />
@@ -295,7 +309,7 @@
                               <Tooltip text="%editToolTip" />
                            </tooltip>
                         </ToggleButton>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDeleteClicked" stylesheets="@../css/itemDetails.css" text="%delete" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="btnDelete" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDeleteClicked" stylesheets="@../css/itemDetails.css" text="%delete" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                            <effect>
                               <DropShadow />
                            </effect>

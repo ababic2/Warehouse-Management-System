@@ -32,7 +32,6 @@ import java.util.ResourceBundle;
 import static ba.unsa.etf.rpr.Controllers.LogInController.currentUser;
 
 public class HomeController {
-    //    public SplitPane splitPane;
     public Pane rightPane;
 
     public GridPane leftPane;
@@ -45,8 +44,15 @@ public class HomeController {
     public MenuItem about;
     public MenuItem learn;
 
-    @FXML
-    private Label loggedLabel;
+    public Button btnDashboard;
+    public Button btnItems;
+    public Button btnFirms;
+    public Button btnShipping;
+    public Button btnAccounts;
+    public Button btnAdmin;
+    public Button btnLogOut;
+    public Label accessLabel;
+    public Label loggedLabel, name1, name2, name3;
 
     private Button temp = null;
     private GridPane newRightPane = null;
@@ -203,34 +209,41 @@ public class HomeController {
 
     public void btnEnClicked(ActionEvent actionEvent) throws IOException {
         bs = false;
-        //  translate();
+        translateEn();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
     public void btnBsClicked(ActionEvent actionEvent) throws IOException {
         bs = true;
         System.out.println("BS");
-        // translate();
+        translateBs();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
-    private void translate() throws IOException {
-        ResourceBundle bundle = null;
-        FXMLLoader loader = null;
-        System.out.println("HERE");
-        if(!bs) {
-            System.out.println("EN_JE");
-            bundle = ResourceBundle.getBundle("homeTranslate");
-            loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"), bundle);
-            newLeftPane = loader.load();
-        } else {
-            bundle = ResourceBundle.getBundle("homeTranslate_bs");
-            loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"), bundle);
-            newLeftPane = loader.load();
-            System.out.println("BSBUNDLE");
-        }
-        leftPane.getChildren().clear();
-        leftPane.getChildren().add(newLeftPane);
+    private void translateBs() {
+        btnItems.setText("_Proizvodi");
+        btnAccounts.setText("_Zaposlenici");
+        btnLogOut.setText("_Odjava");
+        btnShipping.setText("Otpre_manje");
+        btnFirms.setText("_Firme");
+        loggedLabel.setText("Logovan kao: ");
+        accessLabel.setText("Nivo pristupa: ");
+        name1.setText("Sistem");
+        name2.setText("Upravjanja");
+        name3.setText("Skladištem");
+    }
+
+    private void translateEn() {
+        btnItems.setText("_Items");
+        btnAccounts.setText("_Employee Accounts");
+        btnLogOut.setText("_Log Out");
+        btnShipping.setText("_Shipping");
+        btnFirms.setText("_Firms");
+        loggedLabel.setText("Logged in as: ");
+        accessLabel.setText("Access Level: ");
+        name1.setText("Warehouse");
+        name2.setText("Management");
+        name3.setText("System");
     }
 
     private void setNewStage(String URL, String name) throws IOException {

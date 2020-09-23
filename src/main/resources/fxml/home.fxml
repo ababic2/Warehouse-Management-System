@@ -66,7 +66,7 @@
                         <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label cache="true" cacheHint="SCALE_AND_ROTATE" maxWidth="1.7976931348623157E308" text="Warehouse" wrapText="true">
+                        <Label fx:id="name1" cache="true" cacheHint="SCALE_AND_ROTATE" maxWidth="1.7976931348623157E308" text="Warehouse" wrapText="true">
                            <font>
                               <Font name="FreeSerif" size="25.0" />
                            </font>
@@ -74,7 +74,7 @@
                               <Glow />
                            </effect>
                         </Label>
-                        <Label text="Management" wrapText="true" GridPane.rowIndex="1">
+                        <Label fx:id="name2" text="Management" wrapText="true" GridPane.rowIndex="1">
                            <font>
                               <Font name="FreeSerif" size="25.0" />
                            </font>
@@ -82,7 +82,7 @@
                               <Glow />
                            </effect>
                         </Label>
-                        <Label text="System" wrapText="true" GridPane.rowIndex="2">
+                        <Label fx:id="name3" text="System" wrapText="true" GridPane.rowIndex="2">
                            <font>
                               <Font name="FreeSerif" size="25.0" />
                            </font>
@@ -148,7 +148,7 @@
                         <Insets />
                      </VBox.margin>
                      <padding>
-                        <Insets bottom="15.0" right="40.0" top="15.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </padding>
                   </Button>
                   <Button fx:id="btnFirms" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="_Firms" VBox.vgrow="ALWAYS">
@@ -166,7 +166,7 @@
                         </Tooltip>
                      </tooltip>
                      <padding>
-                        <Insets bottom="15.0" right="40.0" top="15.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </padding>
                   </Button>
                   <Button fx:id="btnShipping" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="_Shipping" VBox.vgrow="ALWAYS">
@@ -184,7 +184,7 @@
                         </Tooltip>
                      </tooltip>
                      <padding>
-                        <Insets bottom="15.0" right="20.0" top="15.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </padding>
                   </Button>
                   <Button fx:id="btnAccounts" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="_Employee Accounts" wrapText="true" VBox.vgrow="ALWAYS">
@@ -202,7 +202,7 @@
                         </Tooltip>
                      </tooltip>
                      <padding>
-                        <Insets bottom="15.0" left="70.0" top="15.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </padding>
                   </Button>
                   <Button fx:id="btnAdmin" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="_Admin" VBox.vgrow="ALWAYS">
@@ -220,7 +220,7 @@
                         </Tooltip>
                      </tooltip>
                      <padding>
-                        <Insets bottom="15.0" right="35.0" top="15.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </padding>
                   </Button>
                   <Button fx:id="btnLogOut" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#btnNavigator" prefWidth="400.0" stylesheets="@../css/menuButtons.css" text="_Log Out">
@@ -228,7 +228,7 @@
                         <Font name="FreeSerif" size="20.0" />
                      </font>
                      <padding>
-                        <Insets bottom="15.0" right="20.0" top="15.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </padding>
                      <cursor>
                         <Cursor fx:constant="HAND" />

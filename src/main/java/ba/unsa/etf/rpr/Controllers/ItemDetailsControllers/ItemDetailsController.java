@@ -55,7 +55,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private SimpleStringProperty name;
     private SimpleIntegerProperty price;
     private SimpleIntegerProperty stock;
-    private SimpleStringProperty type;
 
     private ProductModel model;
 
@@ -86,7 +85,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         name = new SimpleStringProperty("");
         price = new SimpleIntegerProperty(0);
         stock = new SimpleIntegerProperty(0);
-//        type = new SimpleStringProperty("");
     }
 
     @Override
@@ -120,7 +118,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         price.setValue(model.getCurrentProduct().getPrice());
         stock.setValue(model.getCurrentProduct().getStock());
         typeChoiceBox.setValue(model.getCategories().get(0));
-        //type.setValue(model.getCurrentProduct().getCategory().getCategoryName());
     }
 
     private void setBinding() {
@@ -130,23 +127,19 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
             if(oldValue != null) {
                 itemNameField.textProperty().unbindBidirectional(oldValue.nameProperty());
                 itemPriceLabel.textProperty().unbindBidirectional(oldValue.priceProperty());
-//                itemTypeLabel.textProperty().unbindBidirectional(oldValue.getCategory().categoryNameProperty());
             }
             itemNameField.textProperty().bindBidirectional(newValue.nameProperty());
             itemPriceLabel.textProperty().bindBidirectional(newValue.priceProperty(),converter);
-            //itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
         });
     }
 
     private void bindingFieldsWithProperties() {
         itemNameField.textProperty().bindBidirectional(name);
         itemPriceLabel.textProperty().bindBidirectional(price, converter);
-        //itemTypeLabel.textProperty().bindBidirectional(type);
     }
 
     private void setFieldsDisableTo(boolean var) {
         itemNameField.setDisable(var);
-//        itemTypeLabel.setDisable(var);
         itemPriceLabel.setDisable(var);
         typeChoiceBox.setDisable(var);
     }
@@ -262,14 +255,17 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
                     try {
                         nameErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/itemNameErrorLabel.fxml"));
                         itemNameGrid.add(nameErrorLabel, 0, 2);
+                        model.getProducts().get(page).setName(oldValue);
+
                     } catch (IOException e) {
                     }
                 } else {
                     name.setValue((String) newValue);
-                    itemNameGrid.getChildren().remove(nameErrorLabel);
                     model.getProducts().get(page).setName(name.getValue());
+//                    itemNameGrid.getChildren().remove(nameErrorLabel);
                 }
             };
+            itemNameGrid.getChildren().remove(nameErrorLabel);
             itemNameField.textProperty().addListener(nameListener);
 
             priceListener = (obs, oldValue, newValue) -> {
@@ -277,6 +273,8 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
                     try {
                         priceErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/onlyNumberErrorLabel.fxml"));
                         itemPriceGrid.add(priceErrorLabel,0,2);
+                        model.getProducts().get(page).setPrice(Integer.parseInt(oldValue));
+
                     } catch (IOException e) {
                     }
                 } else {
@@ -420,17 +418,5 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     public void setStock(int stock) {
         this.stock.set(stock);
-    }
-
-    public String getType() {
-        return type.get();
-    }
-
-    public SimpleStringProperty typeProperty() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type.set(type);
     }
 }

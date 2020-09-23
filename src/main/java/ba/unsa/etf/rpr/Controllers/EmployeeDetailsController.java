@@ -9,11 +9,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.util.converter.NumberStringConverter;
 
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -23,13 +28,15 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     public TextField nameField;
     public TextField mailField;
     public TextField salaryField;
-    public TextField dateField;
+//    public TextField dateField;
 
     public Button btnNext;
     public Button btnPrevious;
     public ToggleButton btnEdit;
 
     public Label idLabel;
+    private Label nameErrorLabel;
+    private Label salaryErrorLabel;
 
     public CheckBox checkBox;
     public ChoiceBox<Department> departmentChoice;
@@ -37,6 +44,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     public RadioButton radioEmployee;
     public RadioButton radioAdmin;
     public ToggleGroup toggle;
+    public GridPane nameGrid, salaryGrid;
 
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
@@ -44,6 +52,8 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
     private SimpleIntegerProperty salary;
     private SimpleStringProperty department;
     private SimpleStringProperty date;
+
+    public DatePicker datePicker;
 
     //used for SimpleIntegerProperty to SimpleStringProperty
     private NumberStringConverter converter = new NumberStringConverter();
@@ -69,13 +79,39 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         mail = new SimpleStringProperty("");
         salary = new SimpleIntegerProperty(0);
         department = new SimpleStringProperty("");
-        date = new SimpleStringProperty("");
+//        date = new SimpleStringProperty("");
+    }
+
+    private String pattern = "dd-MM-yyyy";
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+    public LocalDate fromString(String string) {
+        if (string != null && !string.isEmpty()) {
+            return LocalDate.parse(string, dateFormatter);
+        } else {
+            return null;
+        }
+    }
+
+    public String dateToString(LocalDate date) {
+        if (date != null) {
+            return dateFormatter.format(date);
+        } else {
+            return "";
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         departmentChoice.setItems(model.getDepartments());
+        datePicker.setValue(fromString(model.getEmployees().get(0).getHireDate()));
+//
+//        try {
+//            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(model.getCurrentEmployee().getHireDate());
+//            datePicker.setValue(new LocalDate.of());
+//        } catch (ParseException e) {
+//        }
 
         bindingFieldsWithProperties();
         model.changeCurrent(page);
@@ -109,12 +145,12 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
                 nameField.textProperty().unbindBidirectional(oldValue.firstNameProperty());
                 mailField.textProperty().unbindBidirectional(oldValue.eMailProperty());
                 salaryField.textProperty().unbindBidirectional(oldValue.salaryProperty());
-                dateField.textProperty().unbindBidirectional(oldValue.hireDateProperty());
+               // dateField.textProperty().unbindBidirectional(oldValue.hireDateProperty());
             }
             nameField.textProperty().bindBidirectional(newValue.firstNameProperty());
             mailField.textProperty().bindBidirectional(newValue.eMailProperty());
             salaryField.textProperty().bindBidirectional(newValue.salaryProperty(), converter);
-            dateField.textProperty().bindBidirectional(newValue.hireDateProperty());
+            //dateField.textProperty().bindBidirectional(newValue.hireDateProperty());
         });
     }
 
@@ -123,7 +159,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         name.setValue(model.getCurrentEmployee().getFirstName() +" " + model.getCurrentEmployee().getLastName());
         mail.setValue(model.getCurrentEmployee().geteMail());
         salary.setValue(model.getCurrentEmployee().getSalary());
-        date.setValue(model.getCurrentEmployee().getHireDate());
+       // date.setValue(model.getCurrentEmployee().getHireDate());
         departmentChoice.setValue(model.getDepartments().get(0));
         setRadioButtons();
     }
@@ -132,8 +168,9 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         nameField.setDisable(var);
         mailField.setDisable(var);
         salaryField.setDisable(var);
-        dateField.setDisable(var);
+//        dateField.setDisable(var);
         departmentChoice.setDisable(var);
+        datePicker.setDisable(var);
         radioAdmin.setDisable(var);
         radioEmployee.setDisable(var);
     }
@@ -142,7 +179,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         nameField.textProperty().bindBidirectional(name);
         mailField.textProperty().bindBidirectional(mail);
         salaryField.textProperty().bindBidirectional(salary, converter);
-        dateField.textProperty().bindBidirectional(date);
+//        dateField.textProperty().bindBidirectional(date);
     }
 
     public void btnPreviousClicked(ActionEvent actionEvent) {
@@ -155,6 +192,8 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         model.changeCurrent(page);
         int id = model.getEmployees().get(page).getDepartment().getDepartmentId();
         departmentChoice.setValue(model.getDepartments().stream().filter(s -> s.getDepartmentId() == (id)).collect(Collectors.toList()).get(0));
+        datePicker.setValue(fromString(model.getEmployees().get(page).getHireDate()));
+
         setRadioButtons();
     }
 
@@ -168,6 +207,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         model.changeCurrent(page);
         int id = model.getEmployees().get(page).getDepartment().getDepartmentId();
         departmentChoice.setValue(model.getDepartments().stream().filter(s -> s.getDepartmentId() == id).collect(Collectors.toList()).get(0));
+        datePicker.setValue(fromString(model.getCurrentEmployee().getHireDate()));
         setRadioButtons();
     }
 
@@ -183,7 +223,7 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
         int id = Integer.parseInt(idLabel.getText());
 
         model.deleteUserWithId(id);
-        model.getEmployees().remove(page); //check heree!!!!!!!!!!!!!!!!!!!!!!
+        model.getEmployees().remove(page);
 
         if (page == 0) goToNextPage();
         else goToPreviousPage();
@@ -196,35 +236,48 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
 
         if (editClick == 1) {
             nameListener = (obs, oldValue, newValue) -> {
-                name.setValue((String) newValue);
-                model.getEmployees().get(page).setFirstName(name.getValue());
+                if(!nameFormat((String) newValue)) {
+                    try {
+                        nameErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/itemNameErrorLabel.fxml"));
+                        nameGrid.add(nameErrorLabel, 0, 2);
+                        model.getEmployees().get(page).setFirstName((String) oldValue);
+                    } catch (IOException e) {
+                    }
+                } else {
+                    name.setValue((String) newValue);
+                    model.getEmployees().get(page).setFirstName(name.getValue());
+                }
             };
             nameField.textProperty().addListener(nameListener);
+
+            salaryListener = (obs, oldValue, newValue) -> {
+                if(!digitFormat(salaryField.getText())) {
+                    try {
+                        salaryErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/onlyNumberErrorLabel.fxml"));
+                        salaryGrid.add(salaryErrorLabel, 0, 2);
+                        model.getEmployees().get(page).setSalary(Integer.parseInt((String) oldValue));
+                    } catch (IOException e) {
+                    }
+                }else {
+                    salary.setValue(Integer.parseInt((String) newValue));
+                    salaryGrid.getChildren().remove(salaryErrorLabel);
+                    model.getEmployees().get(page).setSalary(salary.getValue());
+                }
+            };
+            salaryField.textProperty().addListener(salaryListener);
 
             mailListener = (obs, oldValue, newValue) -> {
                 mail.setValue((String) newValue);
                 model.getEmployees().get(page).seteMail(mail.getValue());
             };
             mailField.textProperty().addListener(mailListener);
-
-            salaryListener = (obs, oldValue, newValue) -> {
-                salary.setValue(Integer.parseInt((String) newValue));
-                model.getEmployees().get(page).setSalary(salary.getValue());
-            };
-            salaryField.textProperty().addListener(salaryListener);
-
-
-            dateListener = (obs, oldValue, newValue) -> {
-                date.setValue((String) newValue);
-                model.getEmployees().get(page).setHireDate(date.getValue());
-            };
-            dateField.textProperty().addListener(dateListener);
-
+            datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+                model.getEmployees().get(page).setHireDate(dateToString(datePicker.getValue()));
+            });
 
             departmentChoice.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Department>() {
                 @Override
                 public void changed(ObservableValue<? extends Department> observableValue, Department department, Department t1) {
-                    System.out.println("OKKK");
                     model.getEmployees().get(page).setDepartment(departmentChoice.getSelectionModel().getSelectedItem());
                 }
             });
@@ -243,13 +296,17 @@ public class EmployeeDetailsController implements Initializable, DetailsInterfac
                 }
             });
 
-        } else if (editClick == 2) {
+        }
+        else if (editClick == 2) {
+            nameGrid.getChildren().remove(nameErrorLabel);
+            salaryGrid.getChildren().remove(salaryErrorLabel);
+
             model.changeCurrent(page);
             model.updateEmployee();
+
             nameField.textProperty().removeListener(nameListener);
             mailField.textProperty().removeListener(mailListener);
             salaryField.textProperty().removeListener(salaryListener);
-            dateField.textProperty().removeListener(dateListener);
             editClick = 0;
         }
     }
