@@ -143,8 +143,21 @@ public class HomeController {
         try {
             Stage myStage = new Stage();
             root = FXMLLoader.load(getClass().getResource("/fxml/about.fxml"));
-            myStage.setTitle("About");
-            myStage.setScene(new Scene(root, 300, 275));
+            myStage.setScene(new Scene(root));
+            myStage.setResizable(false);
+            myStage.show();
+        } catch (IOException k) {
+            k.printStackTrace();
+        }
+    }
+
+    public void learnMoreClicked(ActionEvent e) {
+        Parent root = null;
+        try {
+            Stage myStage = new Stage();
+            root = FXMLLoader.load(getClass().getResource("/fxml/learnMore.fxml"));
+            myStage.setScene(new Scene(root));
+            myStage.setResizable(false);
             myStage.show();
         } catch (IOException k) {
             k.printStackTrace();

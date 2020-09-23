@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import net.sf.jasperreports.engine.JRException;
@@ -70,6 +71,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private ChangeListener<String> priceListener = null;
     private ChangeListener<String> stockListener = null;
 
+    public GridPane itemNameGrid, itemPriceGrid, stockGrid;
+    private Label nameErrorLabel;
+    private Label priceErrorLabel;
+    private Label stockErrorLabel;
+
     public ItemDetailsController(ProductModel m) {
         this();
         model = m;
@@ -85,7 +91,6 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        products.addAll(productDAO.getInfoList());
         bindingFieldsWithProperties();
         model.changeCurrent(page);
 
@@ -245,14 +250,32 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
         if(editClick == 1) {
             nameListener = (obs, oldValue, newValue) -> {
-                name.setValue((String) newValue);
-                model.getProducts().get(page).setName(name.getValue());
+                if(!nameFormat((String)newValue)) {
+                    try {
+                        nameErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/itemNameErrorLabel.fxml"));
+                        itemNameGrid.add(nameErrorLabel, 0, 2);
+                    } catch (IOException e) {
+                    }
+                } else {
+                    name.setValue((String) newValue);
+                    itemNameGrid.getChildren().remove(nameErrorLabel);
+                    model.getProducts().get(page).setName(name.getValue());
+                }
             };
             itemNameField.textProperty().addListener(nameListener);
 
             priceListener = (obs, oldValue, newValue) -> {
+                if(!digitFormat((String)newValue)) {
+                    try {
+                        priceErrorLabel = FXMLLoader.load(getClass().getResource("/fxml/dynamic/onlyNumberErrorLabel.fxml"));
+                        itemPriceGrid.add(priceErrorLabel,0,2);
+                    } catch (IOException e) {
+                    }
+                } else {
                 price.setValue(Integer.parseInt((String) newValue));
                 model.getProducts().get(page).setPrice(price.getValue());
+                itemPriceGrid.getChildren().remove(priceErrorLabel);
+                }
             };
             itemPriceLabel.textProperty().addListener(priceListener);
 
@@ -264,6 +287,10 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         } else if (editClick == 2) {
             model.changeCurrent(page);
             model.updateProductInBase();
+
+            itemNameGrid.getChildren().remove(nameErrorLabel);
+            itemPriceGrid.getChildren().remove(priceErrorLabel);
+
             itemNameField.textProperty().removeListener(nameListener);
             itemPriceLabel.textProperty().removeListener(priceListener);
             stockLabel.textProperty().removeListener(stockListener);

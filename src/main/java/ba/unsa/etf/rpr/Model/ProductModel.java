@@ -25,6 +25,11 @@ public class ProductModel {
 
     public void refreshListOfProducts(){ productDAO.getInfoList();}
 
+    public void refreshProducts(){
+        products.clear();
+        products.addAll(productDAO.getInfoList());
+    }
+
     public ObservableList<Firm> getFirms() { return firms; }
 
     public ObservableList<Product> getProducts() {
@@ -82,6 +87,7 @@ public class ProductModel {
     public void addProductToBase(Product product) {
         productDAO.addProduct(product);
     }
+
 
     public Product getAddedProduct() {
         return addedProduct;

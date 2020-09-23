@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <JFXTextArea editable="false" prefHeight="300.0" text="LEARN MORE&#10;&#10;ACCCESS LEVEL&#10;&#10;There are 3 levels.&#10;Admin is able to control account (adding, editing).&#10;Employees are able to edit their own info and changing stock condition of products.&#10;Firm is able to edit their own info.&#10;&#10;KEYBOARD SHORTCUTS&#10;&#10;App has keyboard shortcuts for most of its commands.&#10;Memorizing these hotkeys can help you stay more productive by keeping your hands on the keyboard.  &#10;Press ALT + &lt;letter&gt;.&#10;When you press ALT underscored letters will appear.&#10;Press underscored letter from element that you want to activate.&#10;&#10;CHANGE LANGUAGE&#10;&#10;This app has translation to two languages: bosnian and english(UK).&#10;For translation press appropriate button on bottom of home menu.&#10;&#10;REPORTS&#10;&#10;For application like this reports are important for work.&#10;&#10;App gives you ability to make report after deleting or reducing stock number of some product. Although product will be added to shipment list after these acitivitie, this report is important as a proof and confirmation that a product is not in warehouse anymore (that is ordered).&#10;&#10;Admin is able to add new employee. After he enters information about employee and defines username and password for employee, he will be able to make Contract which he will give to employee. Contract will contain access data and signatures.&#10;&#10;Also, admin is able to get reports for items, employees and firms that are in system.">
+            <font>
+                <Font name="FreeSerif" size="17.0" />
+            </font>
+            <padding>
+                <Insets bottom="15.0" left="15.0" top="10.0" />
+            </padding>
+            <effect>
+                <Glow />
+            </effect>
+        </JFXTextArea>
+    </children>
+</TextFlow>

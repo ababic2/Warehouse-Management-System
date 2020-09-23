@@ -80,4 +80,12 @@ public interface DetailsInterface {
             btnPrevious.setDisable(false);
         }
     }
+
+    default boolean digitFormat(String text) {
+        return text.matches("^[0-9]+$");
+    }
+
+    default boolean nameFormat(String s) {
+        return s.matches("^[A-Za-z]+$");
+    }
 }

@@ -97,7 +97,7 @@
                       <Menu text="_Help">
                         <items>
                           <MenuItem fx:id="about" mnemonicParsing="false" onAction="#aboutClicked" text="About" />
-                              <MenuItem fx:id="learn" mnemonicParsing="false" text="Learn more" />
+                              <MenuItem fx:id="learn" mnemonicParsing="false" onAction="#learnMoreClicked" text="Learn more" />
                         </items>
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="H" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
