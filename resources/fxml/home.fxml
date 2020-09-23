@@ -19,7 +19,7 @@
 
 <!--<SplitPane fx:id="splitPane" dividerPositions="0.30209205020920504" prefHeight="700.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">-->
 
-<SplitPane fx:id="splitPane" dividerPositions="0.299581589958159" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">
+<SplitPane fx:id="splitPane" dividerPositions="0.299581589958159" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.Controllers.HomeController">
    <items>
       <GridPane fx:id="leftPane" stylesheets="@../css/base.css" SplitPane.resizableWithParent="false">
         <columnConstraints>

@@ -24,7 +24,7 @@
 
 <!--<SplitPane fx:id="splitPane" dividerPositions="0.30209205020920504" prefHeight="700.0" prefWidth="1197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">-->
 
-<SplitPane fx:id="splitPane" cache="true" dividerPositions="0.33807531380753136" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.HomeController">
+<SplitPane fx:id="splitPane" cache="true" dividerPositions="0.33807531380753136" prefWidth="1197.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.Controllers.HomeController">
    <items>
       <GridPane fx:id="leftPane" maxWidth="600.0" minWidth="400.0" stylesheets="@../css/base.css">
          <columnConstraints>
