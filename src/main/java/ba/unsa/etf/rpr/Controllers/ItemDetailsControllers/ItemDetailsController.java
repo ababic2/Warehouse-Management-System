@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.Controllers.ItemDetailsControllers;
 
+import ba.unsa.etf.rpr.DAL.DTO.Category;
 import ba.unsa.etf.rpr.DAL.DTO.Product;
 import ba.unsa.etf.rpr.Interface.DetailsInterface;
 import ba.unsa.etf.rpr.Model.ProductModel;
@@ -7,15 +8,13 @@ import ba.unsa.etf.rpr.Reports.ShipReport;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
@@ -71,10 +70,11 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private ChangeListener<String> priceListener = null;
     private ChangeListener<String> stockListener = null;
 
-    public GridPane itemNameGrid, itemPriceGrid, stockGrid;
+    public ChoiceBox<Category> typeChoiceBox;
+
+    public GridPane itemNameGrid, itemPriceGrid;
     private Label nameErrorLabel;
     private Label priceErrorLabel;
-    private Label stockErrorLabel;
 
     public ItemDetailsController(ProductModel m) {
         this();
@@ -86,14 +86,14 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         name = new SimpleStringProperty("");
         price = new SimpleIntegerProperty(0);
         stock = new SimpleIntegerProperty(0);
-        type = new SimpleStringProperty("");
+//        type = new SimpleStringProperty("");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bindingFieldsWithProperties();
         model.changeCurrent(page);
-
+        typeChoiceBox.setItems(model.getCategories());
         setInitialProduct();
         setBinding();
         setFieldsDisableTo(true);
@@ -119,7 +119,8 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
         name.setValue(model.getCurrentProduct().getName());
         price.setValue(model.getCurrentProduct().getPrice());
         stock.setValue(model.getCurrentProduct().getStock());
-        type.setValue(model.getCurrentProduct().getCategory().getCategoryName());
+        typeChoiceBox.setValue(model.getCategories().get(0));
+        //type.setValue(model.getCurrentProduct().getCategory().getCategoryName());
     }
 
     private void setBinding() {
@@ -129,24 +130,25 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
             if(oldValue != null) {
                 itemNameField.textProperty().unbindBidirectional(oldValue.nameProperty());
                 itemPriceLabel.textProperty().unbindBidirectional(oldValue.priceProperty());
-                itemTypeLabel.textProperty().unbindBidirectional(oldValue.getCategory().categoryNameProperty());
+//                itemTypeLabel.textProperty().unbindBidirectional(oldValue.getCategory().categoryNameProperty());
             }
             itemNameField.textProperty().bindBidirectional(newValue.nameProperty());
             itemPriceLabel.textProperty().bindBidirectional(newValue.priceProperty(),converter);
-            itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
+            //itemTypeLabel.textProperty().bindBidirectional(newValue.getCategory().categoryNameProperty());
         });
     }
 
     private void bindingFieldsWithProperties() {
         itemNameField.textProperty().bindBidirectional(name);
         itemPriceLabel.textProperty().bindBidirectional(price, converter);
-        itemTypeLabel.textProperty().bindBidirectional(type);
+        //itemTypeLabel.textProperty().bindBidirectional(type);
     }
 
     private void setFieldsDisableTo(boolean var) {
         itemNameField.setDisable(var);
-        itemTypeLabel.setDisable(var);
+//        itemTypeLabel.setDisable(var);
         itemPriceLabel.setDisable(var);
+        typeChoiceBox.setDisable(var);
     }
 
     @Override
@@ -232,12 +234,18 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
     private void goToPreviousPage() {
         page--;
         DetailsInterface.setButtonsNextPrev(model.getSizeOfList(), btnNext, btnPrevious, page);
+
+        int id = model.getProducts().get(page).getCategory().getCategoryId();
+        typeChoiceBox.setValue(model.getCategories().stream().filter(s -> s.getCategoryId() == (id)).collect(Collectors.toList()).get(0));
+
         model.changeCurrent(page);
     }
 
     private void goToNextPage() {
         page++;
         DetailsInterface.setButtonsNextPrev(model.getSizeOfList(), btnNext, btnPrevious, page);
+        int id = model.getProducts().get(page).getCategory().getCategoryId();
+        typeChoiceBox.setValue(model.getCategories().stream().filter(s -> s.getCategoryId() == (id)).collect(Collectors.toList()).get(0));
         model.changeCurrent(page);
     }
 
@@ -278,6 +286,14 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
                 }
             };
             itemPriceLabel.textProperty().addListener(priceListener);
+
+            typeChoiceBox.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<Category>>() {
+                @Override
+                public void changed(ObservableValue<? extends SingleSelectionModel<Category>> observableValue, SingleSelectionModel<Category> categorySingleSelectionModel, SingleSelectionModel<Category> t1) {
+                    model.getProducts().get(page).setCategory(typeChoiceBox.getSelectionModel().getSelectedItem());
+
+                }
+            });
 
             stockListener = (obs, oldValue, newValue) -> {
                 stock.setValue(Integer.parseInt((String) newValue));

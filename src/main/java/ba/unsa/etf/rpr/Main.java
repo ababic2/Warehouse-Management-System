@@ -19,9 +19,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log_in.fxml"));
         loader.setController(new LogInController(logInModel));
         Parent root = loader.load();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/shipment.fxml"));
-//        ShipmentController ctrl = new ShipmentController();
-//        loader.setController(ctrl);
+//        ResourceBundle bundle =ResourceBundle.getBundle("itemDetailsTranslation");
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/itemDetails.fxml"),bundle);
+//        ProductModel productModel = new ProductModel();
+//        loader.setController(new ItemDetailsController(productModel));
 //        Parent root = loader.load();
         primaryStage.setTitle("Welcome");
         primaryStage.initStyle(StageStyle.DECORATED);
