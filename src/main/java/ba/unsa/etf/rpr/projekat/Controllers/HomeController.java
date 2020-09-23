@@ -132,7 +132,7 @@ public class HomeController {
         Button btn = (Button)event.getSource();
 
         String btnText = btn.getText();
-        if(btnText.equals("Log Out")) logOut();
+        if(btnText.equals("_Log Out")) logOut();
         else {
 
             try {
@@ -271,33 +271,44 @@ public class HomeController {
                     bundle = ResourceBundle.getBundle("firmTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                default:
+                case "_Shipping":
                     bundle = ResourceBundle.getBundle("shipment");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
+
             }
         } else {
             switch (name) {
                 case "_Dashboard":
                     bundle = ResourceBundle.getBundle("dashboardTranslation_bs");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+
                     break;
                 case "_Items":
                     bundle = ResourceBundle.getBundle("itemDetailsTranslation_bs");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+
                     break;
                 case "_Employee Accounts":
                     bundle = ResourceBundle.getBundle("employeeDetailsTranslation_bs");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+
                     break;
                 case "_Admin":
                     bundle = ResourceBundle.getBundle("adminTranslation_bs");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+
                     break;
                 case "_Firms":
                     bundle = ResourceBundle.getBundle("firmTranslation_bs");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
+
                     break;
                 case "_Shipping":
                     bundle = ResourceBundle.getBundle("shipment_bs");
+                    loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
             }
-            loader = new FXMLLoader(getClass().getResource(URL), bundle);
         }
         current = new Pair<>(URL, name);
         switch (name) {
@@ -321,7 +332,7 @@ public class HomeController {
                 FirmModel firmModel = new FirmModel();
                 loader.setController(new FirmDetailsController(firmModel));
                 break;
-            default:
+            case "_Shipping":
                 loader.setController(new ShipmentController());
                 break;
         }
