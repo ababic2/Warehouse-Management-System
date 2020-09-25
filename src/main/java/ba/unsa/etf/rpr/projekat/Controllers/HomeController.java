@@ -72,7 +72,7 @@ public class HomeController {
         currentAccess.setText(currentUser.getAccessLevel());
         setDate();
         timeThread();
-        ctrlRightPane("/fxml/dashboard/dashboard.fxml","_Dashboard");
+        ctrlRightPane("/fxml/dashboard/dashboard.fxml","btnDashboard");
     }
 
     private void timeThread() {
@@ -117,12 +117,12 @@ public class HomeController {
     }
 
     private void loadViews() {
-        views.put("_Dashboard", "/fxml/dashboard/dashboard.fxml");
-        views.put("_Items", "/fxml/itemDetails.fxml");
-        views.put("_Firms", "/fxml/firmDetails.fxml");
-        views.put("_Employee Accounts", "/fxml/employeeAccount.fxml");
-        views.put("_Admin", "/fxml/adminPanel.fxml");
-        views.put("_Shipping", "/fxml/shipment.fxml");
+        views.put("btnDashboard", "/fxml/dashboard/dashboard.fxml");
+        views.put("btnItems", "/fxml/itemDetails.fxml");
+        views.put("btnFirms", "/fxml/firmDetails.fxml");
+        views.put("btnAccounts", "/fxml/employeeAccount.fxml");
+        views.put("btnAdmin", "/fxml/adminPanel.fxml");
+        views.put("btnShipping", "/fxml/shipment.fxml");
     }
 
     @FXML
@@ -131,8 +131,8 @@ public class HomeController {
 
         Button btn = (Button)event.getSource();
 
-        String btnText = btn.getText();
-        if(btnText.equals("_Log Out")) logOut();
+        String btnText = btn.getId();
+        if(btnText.equals("btnLogOut")) logOut();
         else {
 
             try {
@@ -209,14 +209,14 @@ public class HomeController {
 
     public void btnEnClicked(ActionEvent actionEvent) throws IOException {
         bs = false;
-        translateEn();
+        //translateEn();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
     public void btnBsClicked(ActionEvent actionEvent) throws IOException {
         bs = true;
         System.out.println("BS");
-        translateBs();
+        //translateBs();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
@@ -251,27 +251,27 @@ public class HomeController {
         ResourceBundle bundle = null;
         if(!bs) {
             switch (name) {
-                case "_Admin":
+                case "btnAdmin":
                     bundle = ResourceBundle.getBundle("adminTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "_Dashboard":
+                case "btnDashboard":
                     bundle = ResourceBundle.getBundle("dashboardTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "_Items":
+                case "btnItems":
                     bundle = ResourceBundle.getBundle("itemDetailsTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "_Employee Accounts":
+                case "btnAccounts":
                     bundle = ResourceBundle.getBundle("employeeDetailsTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "_Firms":
+                case "btnFirms":
                     bundle = ResourceBundle.getBundle("firmTranslation");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
-                case "_Shipping":
+                case "btnShipping":
                     bundle = ResourceBundle.getBundle("shipment");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
@@ -279,32 +279,32 @@ public class HomeController {
             }
         } else {
             switch (name) {
-                case "_Dashboard":
+                case "btnDashboard":
                     bundle = ResourceBundle.getBundle("dashboardTranslation_bs");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
 
                     break;
-                case "_Items":
+                case "btnItems":
                     bundle = ResourceBundle.getBundle("itemDetailsTranslation_bs");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
 
                     break;
-                case "_Employee Accounts":
+                case "btnAccounts":
                     bundle = ResourceBundle.getBundle("employeeDetailsTranslation_bs");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
 
                     break;
-                case "_Admin":
+                case "btnAdmin":
                     bundle = ResourceBundle.getBundle("adminTranslation_bs");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
 
                     break;
-                case "_Firms":
+                case "btnFirms":
                     bundle = ResourceBundle.getBundle("firmTranslation_bs");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
 
                     break;
-                case "_Shipping":
+                case "btnShipping":
                     bundle = ResourceBundle.getBundle("shipment_bs");
                     loader = new FXMLLoader(getClass().getResource(URL), bundle);
                     break;
@@ -312,27 +312,27 @@ public class HomeController {
         }
         current = new Pair<>(URL, name);
         switch (name) {
-            case "_Dashboard":
+            case "btnDashboard":
                 DashboardModel dashBoardModel = new DashboardModel();
                 loader.setController(new DashboardController(dashBoardModel));
                 break;
-            case "_Items":
+            case "btnItems":
                 ProductModel productModel = new ProductModel();
                 loader.setController(new ItemDetailsController(productModel));
                 break;
-            case "_Employee Accounts":
+            case "btnAccounts":
                 EmployeeAccountModel employeeAccountModel = new EmployeeAccountModel();
                 loader.setController(new EmployeeDetailsController(employeeAccountModel));
                 break;
-            case "_Admin":
+            case "btnAdmin":
                 AdminPanelModel adminPanelModel = new AdminPanelModel();
                 loader.setController(new AdminPanelController(adminPanelModel));
                 break;
-            case "_Firms":
+            case "btnFirms":
                 FirmModel firmModel = new FirmModel();
                 loader.setController(new FirmDetailsController(firmModel));
                 break;
-            case "_Shipping":
+            case "btnShipping":
                 loader.setController(new ShipmentController());
                 break;
         }

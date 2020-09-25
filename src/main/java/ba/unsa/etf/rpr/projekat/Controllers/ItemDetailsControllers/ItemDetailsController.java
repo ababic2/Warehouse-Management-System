@@ -146,7 +146,7 @@ public class ItemDetailsController implements Initializable, DetailsInterface {
 
     @Override
     public void btnDeleteClicked(ActionEvent actionEvent) {
-        //makeShipmentReport();
+        makeShipmentReport();
         int id = Integer.parseInt(itemIdLabel.getText());
         ArrayList<Product> product = (ArrayList<Product>) model.getProducts().stream().filter(o-> o.getProductId() == id).collect(Collectors.toList());
         model.deleteProductWithId(id);
