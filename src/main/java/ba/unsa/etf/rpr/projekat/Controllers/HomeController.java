@@ -209,14 +209,14 @@ public class HomeController {
 
     public void btnEnClicked(ActionEvent actionEvent) throws IOException {
         bs = false;
-        //translateEn();
+        translateEn();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 
     public void btnBsClicked(ActionEvent actionEvent) throws IOException {
         bs = true;
         System.out.println("BS");
-        //translateBs();
+        translateBs();
         ctrlRightPane(current.getKey(),current.getValue());
     }
 

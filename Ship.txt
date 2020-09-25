@@ -8,3 +8,4 @@ Lp 2 2020-09-23 2 sarah
 Juha 3 2020-09-23 4 sarah
 Sinalco 4 2020-09-23 3 sarah
 Lokomotiva 12 2020-09-23 12 sarah
+Sertuo 12 2020-09-25 12 river
