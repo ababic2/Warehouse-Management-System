@@ -13,7 +13,7 @@ MVC pattern was followed during implementation
 ### Database 
 - Used SQLite database.
 - There are four tables.
-![alt text](https://drive.google.com/file/d/1h85TAYiXWM7FesxmbWo7Xh2QYwpo4jIH/view?usp=sharing)
+<img width="964" src="https://drive.google.com/file/d/1h85TAYiXWM7FesxmbWo7Xh2QYwpo4jIH/view?usp=sharing">
 - All activities with database(queries) are in DAO classes.
 ### Reports
 - Reports are implemented using the Jaspersoft Studio
