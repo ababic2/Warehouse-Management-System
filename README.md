@@ -3,6 +3,7 @@ OPIS APLIKACIJE
 ## YouTube Presentation
 Presentation with the main functions of the user interface.
 LINK HERE
+
 ##Implementation
 * followed MVC pattern
 * used SQLite database
