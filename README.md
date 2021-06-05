@@ -15,8 +15,10 @@ MVC pattern was followed during implementation
 
 - Used SQLite database.
 - There are four tables.
+- 
 ![Image of ERD]
 (https://github.com/ababic2/Warehouse-Management-System/blob/master/imagesOfApp/ERD.png)
+
 - All activities with database(queries) are in DAO classes.
 - 
 ### Reports
