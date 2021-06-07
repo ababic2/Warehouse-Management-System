@@ -3,7 +3,7 @@
 This is simple and pretty much limited  application that allows easy organization, product tracking and reporting.
 The user of the application can have one of three access levels which separates the user's jobs.
 * Companies that use the application can only monitor the status of their products, and modify their profile.
-* Employees are those who are responsible for the condition of the product.
+* Employees are those who are responsible for the condition of the product
 * The administrator is the one who is in charge of managing the accounts and organizing the warehouse. The ability to add a new employee, firm, category or department has only the admin and also he can get an insight into the list of application users and current products in the system.
 
 ![ScreenShot](/imagesOfApp/dashboard2.png)
